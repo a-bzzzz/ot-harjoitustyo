@@ -1,0 +1,104 @@
+aebjork@lx0-fuxi193:~/Documents/Kurssit/Ohte/1-week/ot_viikko1/tiedostoja$ git log --stat | cat
+commit 052d8d7fc7161f0d35cb1f4cdf36210f8409919f
+Author: Asta Björk <asta.bjork@helsinki.fi>
+Date:   Sat Oct 31 23:47:06 2020 +0200
+
+    poistetaan file1.txt ja uudelleennimetään file2.txt -> file22.txt
+
+ tiedostoja/file2.txt                 | 0
+ tiedostoja/{file1.txt => file22.txt} | 0
+ 2 files changed, 0 insertions(+), 0 deletions(-)
+
+commit 1fff2a736a5379c38b0c87e162c499d11a77dd74
+Author: Asta Björk <asta.bjork@helsinki.fi>
+Date:   Sat Oct 31 23:38:17 2020 +0200
+
+    lisätään tiedostoja-kansio ja sen kolme tiedostoa
+
+ tiedostoja/file1.txt | 0
+ tiedostoja/file2.txt | 0
+ tiedostoja/file3.txt | 0
+ 3 files changed, 0 insertions(+), 0 deletions(-)
+
+commit 3bcc5ea855eef5872fa97f5395db16aaff3a9bdb
+Author: Asta Björk <asta.bjork@helsinki.fi>
+Date:   Sat Oct 31 23:22:06 2020 +0200
+
+    muutoksia tiedostoihin eka.txt ja kolmas.txt
+
+ eka.txt    | 3 ---
+ kolmas.txt | 4 ++++
+ 2 files changed, 4 insertions(+), 3 deletions(-)
+
+commit c3891a000767f9683fa5278260ec71c4da79b80e
+Author: Asta Björk <asta.bjork@helsinki.fi>
+Date:   Sat Oct 31 23:16:39 2020 +0200
+
+    tiedoston uudelleennimeäminen: tiedosto.txt -> eka.txt
+
+ tiedosto.txt => eka.txt | 0
+ 1 file changed, 0 insertions(+), 0 deletions(-)
+
+commit 17a7a8a949b87ab55a0ed963baf1ce77b94f9274
+Author: Asta Björk <asta.bjork@helsinki.fi>
+Date:   Sat Oct 31 23:14:22 2020 +0200
+
+    tiedosto saa lisää laadukkaampaa tekstiä
+
+ tiedosto.txt | 14 ++++++++++++++
+ 1 file changed, 14 insertions(+)
+
+commit d80e23058c639c253a8de506189b83f8436142f6
+Author: Asta Björk <asta.bjork@helsinki.fi>
+Date:   Sat Oct 31 01:04:53 2020 +0200
+
+    lisätty stuff-kansio sekä sinne asiallista-tekstitiedosto teksteineen
+
+ stuff/asiallista.txt | 4 ++++
+ 1 file changed, 4 insertions(+)
+
+commit 42ae9cba32c800b7559bcf99b1a2f4ce512092dd
+Author: Asta Björk <asta.bjork@helsinki.fi>
+Date:   Sat Oct 31 01:01:08 2020 +0200
+
+    muokattu toista ja kolmatta tekstitiedostoa
+
+ kolmas.txt | 4 ++++
+ toinen.txt | 3 +++
+ 2 files changed, 7 insertions(+)
+
+commit 65d9f79f69df4c01c83996983d75341c28c26043
+Author: Asta Björk <asta.bjork@helsinki.fi>
+Date:   Sat Oct 31 00:56:59 2020 +0200
+
+    kolmas.txt lisätty
+
+ kolmas.txt | 0
+ 1 file changed, 0 insertions(+), 0 deletions(-)
+
+commit 75fd39b7a7e1240812fdf3c03c827237f8214671
+Author: Asta Björk <asta.bjork@helsinki.fi>
+Date:   Sat Oct 31 00:52:07 2020 +0200
+
+    muutos ja lisäys
+
+ toinen.txt | 0
+ 1 file changed, 0 insertions(+), 0 deletions(-)
+
+commit 6f2ef44ea2c8f4097477da0cbcab584f448653d1
+Author: Asta Björk <asta.bjork@helsinki.fi>
+Date:   Sat Oct 31 00:51:01 2020 +0200
+
+    muutos ja lisäys
+
+ tiedosto.txt | 2 ++
+ 1 file changed, 2 insertions(+)
+
+commit 1d087996952972fd50335aa02e929862a0b9b98e
+Author: Asta Björk <asta.bjork@helsinki.fi>
+Date:   Sat Oct 31 00:44:53 2020 +0200
+
+    tiedosto.txt luotu
+
+ tiedosto.txt | 0
+ 1 file changed, 0 insertions(+), 0 deletions(-)

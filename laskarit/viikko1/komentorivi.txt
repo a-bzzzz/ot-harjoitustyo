@@ -1,0 +1,180 @@
+aebjork@melkki:~$ tree kurssit
+kurssit
+├── ohte
+│   ├── exam-archive-new
+│   │   ├── docker-compose.yml
+│   │   ├── Dockerfile
+│   │   ├── files
+│   │   ├── knexfile.js
+│   │   ├── migrations
+│   │   │   ├── 20190201005524_on_update_timestamp.js
+│   │   │   ├── 20190201005525_courses-and-exams.js
+│   │   │   └── 20200114001229_add-removed-at-column.js
+│   │   ├── package.json
+│   │   ├── package-lock.json
+│   │   ├── README.md
+│   │   ├── scripts
+│   │   │   ├── seed-db-from-files.js
+│   │   │   └── seed-s3-from-db.js
+│   │   ├── src
+│   │   │   ├── api.ts
+│   │   │   ├── common.ts
+│   │   │   ├── config
+│   │   │   │   └── index.ts
+│   │   │   ├── controller.ts
+│   │   │   ├── db
+│   │   │   │   └── index.ts
+│   │   │   ├── download.ts
+│   │   │   ├── index.ts
+│   │   │   ├── service
+│   │   │   │   ├── archive.ts
+│   │   │   │   ├── common.ts
+│   │   │   │   ├── dbDeserializer.ts
+│   │   │   │   └── tkoUserService.ts
+│   │   │   ├── types
+│   │   │   │   └── types.d.ts
+│   │   │   └── views
+│   │   │       ├── 404.jsx
+│   │   │       ├── common
+│   │   │       │   ├── Controls.jsx
+│   │   │       │   └── Layout.jsx
+│   │   │       ├── course.jsx
+│   │   │       ├── error-user-service.jsx
+│   │   │       └── index.jsx
+│   │   ├── static
+│   │   │   ├── augments.js
+│   │   │   ├── img
+│   │   │   │   ├── delete.png
+│   │   │   │   ├── filetypes
+│   │   │   │   │   ├── image.png
+│   │   │   │   │   ├── pdf.png
+│   │   │   │   │   ├── txt.png
+│   │   │   │   │   └── unknown.png
+│   │   │   │   ├── folder_blue.png
+│   │   │   │   ├── logo-100.png
+│   │   │   │   └── up.png
+│   │   │   ├── main.css
+│   │   │   └── vendor
+│   │   │       └── normalize.css
+│   │   ├── tf
+│   │   │   └── main.tf
+│   │   └── tsconfig.json
+│   └── harj
+│       ├── kouluprojektit
+│       │   └── lapio.txt
+│       ├── ostoslista.txt
+│       ├── tarina.txt
+│       └── uusi.txt
+├── ot2020
+│   └── viikko1
+│       └── Unicafe
+│           ├── pom.xml
+│           └── src
+│               ├── main
+│               │   └── java
+│               │       └── com
+│               │           └── mycompany
+│               │               └── unicafe
+│               │                   ├── Kassapaate.java
+│               │                   ├── Maksukortti.java
+│               │                   └── Paaohjelma.java
+│               └── test
+│                   └── java
+│                       └── com
+│                           └── mycompany
+│                               └── unicafe
+│                                   └── MaksukorttiTest.java
+└── tkt-lapio
+    ├── cv-website
+    │   ├── assets
+    │   │   └── empty.html
+    │   ├── cv_styles.css
+    │   └── index.html
+    ├── exam
+    │   ├── folder1
+    │   │   ├── folder2
+    │   │   │   ├── file1.txt
+    │   │   │   ├── file2.txt
+    │   │   │   └── start
+    │   │   │       └── start.txt
+    │   │   ├── folder3
+    │   │   │   └── file3.txt
+    │   │   └── goal
+    │   │       └── goal.txt
+    │   ├── README.md
+    │   ├── run_me.sh
+    │   └── Unix-like-wiki.html
+    ├── lapio
+    │   ├── lapio_vko2.txt
+    │   └── tyhja_tiedosto.txt
+    ├── Lapio-website
+    │   ├── assets
+    │   │   └── Seitsemän_veljestä.png
+    │   ├── index.html
+    │   ├── kivi.html
+    │   ├── position.html
+    │   ├── seitseman_veljesta.html
+    │   ├── style.css
+    │   ├── styles.css
+    │   └── sv_styles.css
+    ├── tehtava
+    │   ├── kouluprojektit
+    │   │   ├── lapio.txt
+    │   │   └── uusitiedosto.txt
+    │   ├── ostoslista.txt
+    │   └── tarina.txt
+    ├── tekis-auth-button
+    │   ├── buttons.png
+    │   ├── LICENSE
+    │   ├── package.json
+    │   ├── README.md
+    │   ├── src
+    │   │   ├── css
+    │   │   ├── img
+    │   │   │   ├── tkoaly_black.svg
+    │   │   │   └── tkoaly.svg
+    │   │   ├── index.html
+    │   │   ├── LICENSE.txt
+    │   │   ├── reset.css
+    │   │   ├── scss
+    │   │   │   ├── _animated.scss
+    │   │   │   ├── authButton.scss
+    │   │   │   ├── _bordered-pulled.scss
+    │   │   │   ├── brands.scss
+    │   │   │   ├── _core.scss
+    │   │   │   ├── _fixed-width.scss
+    │   │   │   ├── fontawesome.scss
+    │   │   │   ├── _icons.scss
+    │   │   │   ├── _larger.scss
+    │   │   │   ├── _list.scss
+    │   │   │   ├── _mixins.scss
+    │   │   │   ├── regular.scss
+    │   │   │   ├── _rotated-flipped.scss
+    │   │   │   ├── _screen-reader.scss
+    │   │   │   ├── _shims.scss
+    │   │   │   ├── solid.scss
+    │   │   │   ├── _stacked.scss
+    │   │   │   ├── v4-shims.scss
+    │   │   │   └── _variables.scss
+    │   │   └── webfonts
+    │   │       ├── fa-brands-400.eot
+    │   │       ├── fa-brands-400.svg
+    │   │       ├── fa-brands-400.ttf
+    │   │       ├── fa-brands-400.woff
+    │   │       ├── fa-brands-400.woff2
+    │   │       ├── fa-regular-400.eot
+    │   │       ├── fa-regular-400.svg
+    │   │       ├── fa-regular-400.ttf
+    │   │       ├── fa-regular-400.woff
+    │   │       ├── fa-regular-400.woff2
+    │   │       ├── fa-solid-900.eot
+    │   │       ├── fa-solid-900.svg
+    │   │       ├── fa-solid-900.ttf
+    │   │       ├── fa-solid-900.woff
+    │   │       └── fa-solid-900.woff2
+    │   └── yarn.lock
+    └── test-web-page
+        ├── index.html
+        └── styles.css
+
+54 directories, 122 files
