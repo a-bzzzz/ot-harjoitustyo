@@ -1,4 +1,4 @@
-aebjork@lx0-fuxi193:~/Documents/Kurssit/Ohte/1-week/ot_viikko1/tiedostoja$ git log --stat | cat
+work_folder$ git log --stat | cat
 commit 052d8d7fc7161f0d35cb1f4cdf36210f8409919f
 Author: Asta Björk <asta.bjork@helsinki.fi>
 Date:   Sat Oct 31 23:47:06 2020 +0200
