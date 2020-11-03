@@ -1,4 +1,4 @@
-package com.mycompany.unicafe;
+package com.mycompany;
 
 public class Paaohjelma {
 
