@@ -8,6 +8,7 @@ Sovelluksen avulla loppukäyttäjä voi lisätä, ylläpitää, hakea ja listata
 
 ### Dokumentaatio
 
-[Vaatimusmäärittely]()
+[Vaatimusmäärittely](https://github.com/a-bzzzz/ot-harjoitustyo/blob/master/dokumentaatio/vaatimusmaarittely.md)
+
 [Työaikakirjanpito](https://github.com/a-bzzzz/ot-harjoitustyo/blob/master/dokumentaatio/tyoaikakirjanpito.ods)
 
