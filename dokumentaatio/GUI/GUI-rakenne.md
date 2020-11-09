@@ -48,6 +48,7 @@ peruuttamisen/lopettamisen vahvistava ikkuna
 A-aloitussivu
 
 -> login
+
 -> tunnukset
 
 
@@ -129,19 +130,19 @@ A.2-login
 
 A.3-salasana
 
-- sähköpostipyyntö salasanasta
+* sähköpostipyyntö salasanasta
 
 -> A-aloitussivu
 
 
 2.1-resepti lisätty
 
-- ikkunan sulkeminen
+* ikkunan sulkeminen
 
 
 2.2-resepti päivitetty
 
-- ikkunan sulkeminen
+* ikkunan sulkeminen
 
 
 3.1-poistetaanko?
@@ -150,11 +151,11 @@ A.3-salasana
 
 -> 3.2-resepti poistettu
 
-- ikkunan sulkeminen
+* ikkunan sulkeminen
 
 
 3.2-resepti poistettu
 
-- ikkunan sulkeminen
+* ikkunan sulkeminen
 
 
