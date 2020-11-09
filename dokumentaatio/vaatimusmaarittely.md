@@ -47,7 +47,7 @@ Katso erillisistä käyttöliittymädokumenteista:
 * [GUI-kaavio](https://github.com/a-bzzzz/ot-harjoitustyo/blob/master/dokumentaatio/GUI/GUI-kaavio.pdf)
     
     
-#Jatkokehitysideoita"
+#Jatkokehitysideoita#
 
 * ylläpitäjän toiminnallisuudet (ks. edellä kohdasta “Toiminnallisuudet”)
 * info-painikkeesta lisätietoja ko. Ikkunan käytöstä, opastekenttä/-ikkuna
