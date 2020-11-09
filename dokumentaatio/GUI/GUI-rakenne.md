@@ -48,7 +48,6 @@ peruuttamisen/lopettamisen vahvistava ikkuna
 A-aloitussivu
 
 -> login
-
 -> tunnukset
 
 
