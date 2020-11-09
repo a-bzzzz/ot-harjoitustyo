@@ -11,7 +11,8 @@ Sovelluksen avulla loppukäyttäjä voi lisätä, ylläpitää, hakea ja listata
 #Käyttäjäroolit#
 
 1. Loppukäyttäjä
-1. Ylläpitäjä (jatkossa)   
+1. Ylläpitäjä (jatkossa)
+
 
 #Toiminnallisuudet#
 
