@@ -1,20 +1,20 @@
-###VAATIMUSMÄÄRITTELY###
+# VAATIMUSMÄÄRITTELY
 
-##Salaiset reseptit##
+## Salaiset reseptit
 
 
-#Yleiskuvaus#
+### Yleiskuvaus
 
 Sovelluksen avulla loppukäyttäjä voi lisätä, ylläpitää, hakea ja listata ja poistaa ruokaohjeita eli ruokareseptejään käyttäjätunnuksilla suojatussa ympäristössä. Aluksi loppukäyttäjä voi luoda itselleen käyttäjätunnukset järjestelmään.
 
 
-#Käyttäjäroolit#
+### Käyttäjäroolit
 
 1. Loppukäyttäjä
 1. Ylläpitäjä (jatkossa)
 
 
-#Toiminnallisuudet#
+### Toiminnallisuudet
 
 Perusversio: Tavalliset loppukäyttäjät voivat sovelluksella
 * luoda käyttäjätunnuksen 
@@ -34,13 +34,13 @@ Jatkokehitys: Ylläpitäjät voivat sovelluksessa edellä mainitun lisäksi
 * ottaa raportteja järjestelmään tehdyistä muutoksista ja/tai muusta käyttäjästatistiikasta
     
     
-#Toimintaympäristön rajoitteet#
+### Toimintaympäristön rajoitteet
 
 * ohjelmiston tulee toimia Linux- ja OSX-käyttöjärjestelmillä varustetuissa koneissa
 * käyttäjien ja reseptien tiedot talletetaan paikallisen koneen levylle
     
    
-#Käyttöliittymäkuvaus#
+### Käyttöliittymäkuvaus
 
 Katso erillisistä käyttöliittymädokumenteista:
 * [GUI-ikkunat](https://github.com/a-bzzzz/ot-harjoitustyo/blob/master/dokumentaatio/GUI/GUI-ikkunat.pdf)
@@ -48,7 +48,7 @@ Katso erillisistä käyttöliittymädokumenteista:
 * [GUI-kaavio](https://github.com/a-bzzzz/ot-harjoitustyo/blob/master/dokumentaatio/GUI/GUI-kaavio.pdf)
     
     
-#Jatkokehitysideoita#
+### Jatkokehitysideoita
 
 * ylläpitäjän toiminnallisuudet (ks. edellä kohdasta “Toiminnallisuudet”)
 * info-painikkeesta lisätietoja ko. Ikkunan käytöstä, opastekenttä/-ikkuna
