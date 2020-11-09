@@ -1,7 +1,8 @@
-# **README for my 1st software engineering exercise work**
+# **SALAISET RESEPTIT**
 
-## Helsinki University, Computer Science, Bachelor's Programme
-### Software engineering course, autumn 2020
+## Ohjelmistotekniikka, harjoitustyö
+### syksy 2020
+
 
 --------------------------------------------------------------
 
