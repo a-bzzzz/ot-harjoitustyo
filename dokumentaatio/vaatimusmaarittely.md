@@ -51,6 +51,7 @@ Katso erillisistä käyttöliittymädokumenteista:
 ### Jatkokehitysideoita
 
 * ylläpitäjän toiminnallisuudet (ks. edellä kohdasta “Toiminnallisuudet”)
+* loppukäyttäjä voi lähettää ylläpitäjälle tukipyynnön, jos unohtaa salasanansa
 * info-painikkeesta lisätietoja ko. Ikkunan käytöstä, opastekenttä/-ikkuna
 * lisää, parempia virheilmoituskenttiä/-ikkunoita, myös toiminnon peruuttamisia varten
 * reseptin hakutekijöihin erikoisruokavaliot / vältettävät raaka-aineet
