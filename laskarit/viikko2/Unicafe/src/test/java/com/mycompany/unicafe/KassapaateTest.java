@@ -81,6 +81,7 @@ public class KassapaateTest {
         assertFalse(kassa.syoEdullisesti(kortti));
         assertThat(4, is(equalTo(kassa.edullisiaLounaitaMyyty())));
         assertThat(40, is(equalTo(kortti.saldo())));
+        assertThat("saldo: 0.40", is(equalTo(kortti.toString())));
         assertThat(100000, is(equalTo(kassa.kassassaRahaa())));
     }
     
@@ -92,6 +93,7 @@ public class KassapaateTest {
         assertFalse(kassa.syoMaukkaasti(kortti));
         assertThat(2, is(equalTo(kassa.maukkaitaLounaitaMyyty())));
         assertThat(200, is(equalTo(kortti.saldo())));
+        assertThat("saldo: 2.00", is(equalTo(kortti.toString())));
         assertThat(100000, is(equalTo(kassa.kassassaRahaa())));
     }
     
