@@ -12,3 +12,5 @@ Sovelluksen avulla loppukäyttäjä voi lisätä, ylläpitää, hakea ja listata
 
 [Työaikakirjanpito](https://github.com/a-bzzzz/ot-harjoitustyo/blob/master/dokumentaatio/tyoaikakirjanpito.ods)
 
+[Testausdokumentaatio](https://github.com/a-bzzzz/ot-harjoitustyo/tree/master/testaus)
+
