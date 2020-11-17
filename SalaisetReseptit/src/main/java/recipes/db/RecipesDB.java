@@ -29,12 +29,14 @@ public class RecipesDB {
 
     public RecipesDB(String dbase) {
         this.dbase = dbase;
-        //this.path = "jdbc:sqlite:" + this.dbase + ".db";
+        this.path = "jdbc:sqlite:" + this.dbase + ".db";
     }
+    
     
     public String getDBPath() {
         return this.path;
     }
+    
 
     public void createRecipeDB() {
 
@@ -110,7 +112,7 @@ public class RecipesDB {
         // System.out.println("Searcing user from database..");
         User user = null;
         try {
-            db = DriverManager.getConnection(path);
+            db = DriverManager.getConnection(this.path);
             st = db.createStatement();
             user = this.getUser(user_name);
             db.close();
@@ -133,6 +135,58 @@ public class RecipesDB {
                 r.getString("username"),
                 r.getString("password"));
         return user;
+    }
+    
+    public void createTestDB() {
+
+        try {
+            // Creates table: TestUsers
+            //this.path = "jdbc:sqlite:" + this.dbase + ".db";
+            db = DriverManager.getConnection("jdbc:sqlite:recipesTestDatabase.db");
+            st = db.createStatement();
+            st.execute("BEGIN TRANSACTION");
+            st.execute("PRAGMA foreign_keys = ON");
+            // Users: username, password, firstname, lastname, email
+            st.execute("CREATE TABLE TestUsers(username TEXT PRIMARY KEY NOT NULL UNIQUE, "
+                    + "password TEXT NOT NULL, "
+                    + "firstname TEXT NOT NULL, "
+                    + "lastname TEXT NOT NULL, "
+                    + "email TEXT NOT NULL)");
+            st.execute("COMMIT");
+            // System.out.println("Database " + this.dbase + ".db has been created."); 
+            db.close();
+        } catch (SQLException s) {
+            System.out.println("Database error: " + s.getMessage());
+        }
+
+    }
+    
+    
+        public void addTestUser(String uname, String pword, String fname, String lname, String email) throws SQLException {
+
+        try {
+            db = DriverManager.getConnection("jdbc:sqlite:recipesTestDatabase.db");
+            st = db.createStatement();
+
+            st.execute("BEGIN TRANSACTION");
+
+            p = db.prepareStatement("INSERT INTO TestUsers(username,password,firstname,lastname,email) VALUES (?,?,?,?,?)",
+                    Statement.RETURN_GENERATED_KEYS);
+            p.setString(1, uname);
+            p.setString(2, pword);
+            p.setString(3, fname);
+            p.setString(4, lname);
+            p.setString(5, email);
+
+            p.executeUpdate();
+            r = p.getGeneratedKeys();
+            r.next();
+            st.execute("COMMIT");
+
+            db.close();
+        } catch (SQLException s) {
+            System.out.println("Tietokantavirhe: " + s.getMessage());
+        }
     }
 
 }
