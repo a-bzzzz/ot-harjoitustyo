@@ -31,18 +31,16 @@ public class RecipesDB {
         this.dbase = dbase;
         this.path = "jdbc:sqlite:" + this.dbase + ".db";
     }
-    
-    
+
     public String getDBPath() {
         return this.path;
     }
-    
 
     public void createRecipeDB() {
 
         try {
             // Creates tables: Users, Recipes, Stuff, Guidance
-            this.path = "jdbc:sqlite:" + this.dbase + ".db";
+            //this.path = "jdbc:sqlite:" + this.dbase + ".db";
             db = DriverManager.getConnection(this.path);
             st = db.createStatement();
             st.execute("BEGIN TRANSACTION");
@@ -69,10 +67,10 @@ public class RecipesDB {
                     + "row INTEGER NOT NULL UNIQUE, "
                     + "line TEXT)");
             st.execute("COMMIT");
-            // System.out.println("Database " + this.dbase + ".db has been created."); 
+            System.out.println("Database " + this.dbase + ".db has been created.");
             db.close();
         } catch (SQLException s) {
-            System.out.println("Database error: " + s.getMessage());
+            System.out.println("Database error in createRecipeDB: " + s.getMessage());
         }
 
     }
@@ -104,11 +102,11 @@ public class RecipesDB {
 //            }
             db.close();
         } catch (SQLException s) {
-            System.out.println("Tietokantavirhe: " + s.getMessage());
+            System.out.println("Database error in addUser: " + s.getMessage());
         }
     }
 
-    public User searchUser(String user_name) throws SQLException {
+    public User searchUser(int mode, String user_name) throws SQLException {
         // System.out.println("Searcing user from database..");
         User user = null;
         try {
@@ -117,7 +115,9 @@ public class RecipesDB {
             user = this.getUser(user_name);
             db.close();
         } catch (SQLException s) {
-            System.out.println("Database error: " + s.getMessage());
+            if (mode == 1) {
+                System.out.println("Database error in searchUser: " + s.getMessage());
+            }
         }
         return user;
     }
@@ -136,57 +136,56 @@ public class RecipesDB {
                 r.getString("password"));
         return user;
     }
-    
-    public void createTestDB() {
 
-        try {
-            // Creates table: TestUsers
-            //this.path = "jdbc:sqlite:" + this.dbase + ".db";
-            db = DriverManager.getConnection("jdbc:sqlite:recipesTestDatabase.db");
-            st = db.createStatement();
-            st.execute("BEGIN TRANSACTION");
-            st.execute("PRAGMA foreign_keys = ON");
-            // Users: username, password, firstname, lastname, email
-            st.execute("CREATE TABLE TestUsers(username TEXT PRIMARY KEY NOT NULL UNIQUE, "
-                    + "password TEXT NOT NULL, "
-                    + "firstname TEXT NOT NULL, "
-                    + "lastname TEXT NOT NULL, "
-                    + "email TEXT NOT NULL)");
-            st.execute("COMMIT");
-            // System.out.println("Database " + this.dbase + ".db has been created."); 
-            db.close();
-        } catch (SQLException s) {
-            System.out.println("Database error: " + s.getMessage());
-        }
-
-    }
-    
-    
-        public void addTestUser(String uname, String pword, String fname, String lname, String email) throws SQLException {
-
-        try {
-            db = DriverManager.getConnection("jdbc:sqlite:recipesTestDatabase.db");
-            st = db.createStatement();
-
-            st.execute("BEGIN TRANSACTION");
-
-            p = db.prepareStatement("INSERT INTO TestUsers(username,password,firstname,lastname,email) VALUES (?,?,?,?,?)",
-                    Statement.RETURN_GENERATED_KEYS);
-            p.setString(1, uname);
-            p.setString(2, pword);
-            p.setString(3, fname);
-            p.setString(4, lname);
-            p.setString(5, email);
-
-            p.executeUpdate();
-            r = p.getGeneratedKeys();
-            r.next();
-            st.execute("COMMIT");
-
-            db.close();
-        } catch (SQLException s) {
-            System.out.println("Tietokantavirhe: " + s.getMessage());
-        }
-    }
+//    public void createTestDB() {
+//
+//        try {
+//            // Creates table: TestUsers
+//            //this.path = "jdbc:sqlite:" + this.dbase + ".db";
+//            db = DriverManager.getConnection("jdbc:sqlite:recipesTestDatabase.db");
+//            st = db.createStatement();
+//            st.execute("BEGIN TRANSACTION");
+//            st.execute("PRAGMA foreign_keys = ON");
+//            // Users: username, password, firstname, lastname, email
+//            st.execute("CREATE TABLE TestUsers(username TEXT PRIMARY KEY NOT NULL UNIQUE, "
+//                    + "password TEXT NOT NULL, "
+//                    + "firstname TEXT NOT NULL, "
+//                    + "lastname TEXT NOT NULL, "
+//                    + "email TEXT NOT NULL)");
+//            st.execute("COMMIT");
+//            // System.out.println("Database " + this.dbase + ".db has been created."); 
+//            db.close();
+//        } catch (SQLException s) {
+//            System.out.println("Database error: " + s.getMessage());
+//        }
+//
+//    }
+//
+//    public void addTestUser(String uname, String pword, String fname, String lname, String email) throws SQLException {
+//
+//        try {
+//            db = DriverManager.getConnection("jdbc:sqlite:recipesTestDatabase.db");
+//            st = db.createStatement();
+//
+//            st.execute("BEGIN TRANSACTION");
+//
+//            p = db.prepareStatement("INSERT INTO TestUsers(username,password,firstname,lastname,email) VALUES (?,?,?,?,?)",
+//                    Statement.RETURN_GENERATED_KEYS);
+//            p.setString(1, uname);
+//            p.setString(2, pword);
+//            p.setString(3, fname);
+//            p.setString(4, lname);
+//            p.setString(5, email);
+//
+//            p.executeUpdate();
+//            r = p.getGeneratedKeys();
+//            r.next();
+//            st.execute("COMMIT");
+//
+//            db.close();
+//        } catch (SQLException s) {
+//            System.out.println("Tietokantavirhe: " + s.getMessage());
+//        }
+//    }
 
 }

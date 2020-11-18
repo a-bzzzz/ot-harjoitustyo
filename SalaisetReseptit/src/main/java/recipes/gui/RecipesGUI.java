@@ -52,13 +52,20 @@ public class RecipesGUI extends Application {
         this.database = "recipesDatabase";
         this.dbase = new RecipesDB(database);
         this.check = new Validation(dbase);
-        String dbtest = this.dbase.getDBPath();
-        if (dbtest == null) {
+        String dbpath = this.dbase.getDBPath();
+        System.out.println("Database path is: " + dbpath);
+        User testDBExisting = this.dbase.searchUser(0, "admin");
+        if (testDBExisting == null) {
             // adding new database, if not already existing
             this.dbase.createRecipeDB();
             // adding admin user to the database
             this.dbase.addUser("admin", "secret", "a", "b", "test@email.fi");
         }
+    }
+    
+    
+    public RecipesDB getDB() {
+        return this.dbase;
     }
 
 

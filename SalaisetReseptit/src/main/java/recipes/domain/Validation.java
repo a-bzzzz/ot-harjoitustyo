@@ -21,7 +21,7 @@ public class Validation {
     }
     
     public User validate(String username, String password) throws SQLException {        
-        User loginUser = dbase.searchUser(username);
+        User loginUser = dbase.searchUser(1, username);
         if (loginUser == null) {
             throw new SQLException("KÄYTTÄJÄÄ EI TUNNISTETTU! Yritä uudelleen tai rekisteröidy.");
         } 
