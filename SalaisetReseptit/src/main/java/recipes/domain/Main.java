@@ -6,6 +6,7 @@
 package recipes.domain;
 
 //import javafx.application.Application;
+import java.sql.SQLException;
 import recipes.gui.RecipesGUI;
 
 /**
@@ -14,9 +15,9 @@ import recipes.gui.RecipesGUI;
  */
 public class Main {
     
-    public static void main(String[] args) {
+    public static void main(String[] args) throws SQLException {
         
-        RecipesGUI.main(args);
+         RecipesGUI.main(args);
     
     }
     

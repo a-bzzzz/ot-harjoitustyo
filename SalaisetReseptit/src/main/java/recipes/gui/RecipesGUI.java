@@ -20,6 +20,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import recipes.db.RecipesDB;
+import recipes.db.UsersDB;
 import recipes.domain.User;
 import recipes.domain.Validation;
 
@@ -29,8 +30,9 @@ import recipes.domain.Validation;
  */
 public class RecipesGUI extends Application {
 
-    private String database;
-    private RecipesDB dbase;
+    private String userDatabase;
+    // private RecipesDB dbase;
+    private UsersDB udbase;
     private Validation check; 
 
     private Scene homeScene;
@@ -49,24 +51,29 @@ public class RecipesGUI extends Application {
     
     @Override
     public void init() throws Exception {
-        this.database = "recipesDatabase";
-        this.dbase = new RecipesDB(database);
-        this.check = new Validation(dbase);
-        String dbpath = this.dbase.getDBPath();
-        System.out.println("Database path is: " + dbpath);
-        User testDBExisting = this.dbase.searchUser(0, "admin");
+        this.userDatabase = "UsersDatabase";
+        //this.dbase = new RecipesDB(database);
+        this.udbase = new UsersDB(this.userDatabase);
+        this.check = new Validation(udbase);
+        String udbpath = this.udbase.getDBPath();
+        System.out.println("Database path is: " + udbpath);
+        User testDBExisting = this.udbase.searchUser("admin");
         if (testDBExisting == null) {
             // adding new database, if not already existing
-            this.dbase.createRecipeDB();
+            // this.dbase.createRecipeDB();
+            this.udbase.createUsersDB();
             // adding admin user to the database
-            this.dbase.addUser("admin", "secret", "a", "b", "test@email.fi");
+            this.udbase.addUser("admin", "secret", "a", "b", "admin@email.fi");
         }
     }
     
-    
-    public RecipesDB getDB() {
-        return this.dbase;
+    public UsersDB getDB() {
+        return this.udbase;
     }
+    
+//    public RecipesDB getDB() {
+//        return this.dbase;
+//    }
 
 
     @Override
@@ -178,7 +185,7 @@ public class RecipesGUI extends Application {
                     stage.setScene(beginScene);
                 } 
             } catch (SQLException s) {
-                info.setText("Virhe: " + s.getMessage());;
+                info.setText("Kirjautumisvirhe: " + s.getMessage());
             }
 
         });

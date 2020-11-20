@@ -7,71 +7,61 @@
 import java.sql.SQLException;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.core.Is.is;
-import org.junit.After;
-import org.junit.AfterClass;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
-import recipes.db.RecipesDB;
 import recipes.domain.User;
 import recipes.domain.Validation;
-import recipes.gui.RecipesGUI;
+import test.db.FakeUsersDB;
 
 /**
  *
  * @author aebjork
  */
 public class ValidationTest {
-   
-    RecipesDB testDB;
-    Validation check;
-    RecipesGUI testGUI;
 
-//    @BeforeClass
-//    public static void setUpClass(RecipesDB database) {
-//    }
-//    
-//    @AfterClass
-//    public static void tearDownClass() {
-//    }
+    FakeUsersDB testUBase;
+    Validation check;
+
     @Before
     public void setUp() throws SQLException, Exception {
 
-        testGUI = new RecipesGUI();
-        testGUI.init();
-        testDB = testGUI.getDB();
-        check = new Validation(testDB);
+        String tub = "TestUsersDatabase";
+        testUBase = new FakeUsersDB(tub);
+        check = new Validation(testUBase);
+
+        User testDBExisting = this.testUBase.searchUser("testPerson");
+        if (testDBExisting == null) {
+            this.testUBase.createUsersDB();
+            this.testUBase.addUser("testPerson", "testPword", "ta", "tb", "test@email.fi");
+        }
 
     }
 
-//    @After
-//    public void tearDown() {
-//    }
     @Test
     public void checksUserCorrectlyWhenUserIsCreatedAndLoginRight() throws SQLException {
-        assertTrue(check.validate("admin", "secret") != null);
+        assertTrue(check.validate("testPerson", "testPword") != null);
+        assertThat("test@email.fi", is(equalTo(check.validate("testPerson", "testPword").getEmail())));
     }
 
-//    @Test
-//    public void checksUserCorrectlyWhenUsernameWrong() throws SQLException {
-//        assertTrue(check.validate("testAnother", "secret") == null);
-//        // assertThat("KÄYTTÄJÄÄ EI TUNNISTETTU! Yritä uudelleen tai rekisteröidy.", is(equalTo(check.validate("testAnother", "testPassword") )));
-//    }
-//    
-//    @Test
-//    public void checksUserCorrectlyWhenUserIsCreatedAndPasswordWrong()throws SQLException {
-//        assertFalse(check.validate("testPerson", "siili") != null);
-//    }
-//
-//    @Test
-//    public void checksPasswordCorrectlyWhenUserIsNOTCreated() throws SQLException {
-//        assertFalse(check.validate("testAnother", "anotherPassword") != null);
-//    }
-//    
-//    @Test
-//    public void checksPasswordCorrectlyWhenUserIsNOTCreatedButPasswordIsRegistered() throws SQLException {
-//        assertFalse(check.validate("testAnother", "testPassword") != null);
-//    }
+    @Test
+    public void checksUserCorrectlyWhenUsernameWrong() throws SQLException {
+        assertTrue(check.validate("testAnother", "testPword") == null);
+    }   
+
+    @Test
+    public void checksUserCorrectlyWhenUserIsCreatedAndPasswordWrong() throws SQLException {
+        assertTrue(check.validate("testPerson", "tiili") == null);
+    }
+
+    @Test
+    public void checksPasswordCorrectlyWhenUserIsNOTCreated() throws SQLException {
+        assertFalse(check.validate("testAnother", "anotherPassword") != null);
+    }
+
+    @Test
+    public void checksPasswordCorrectlyWhenUserIsNOTCreatedButPasswordIsRegistered() throws SQLException {
+        assertFalse(check.validate("testAnother", "testPassword") != null);
+    }
 
 }
