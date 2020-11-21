@@ -108,7 +108,7 @@ public class FakeUsersDB implements UsersInterface {
             return null;
         }
     }
-    
+
     private User getUser(String user_name) throws SQLException {
         st.execute("BEGIN TRANSACTION");
         p = db.prepareStatement("SELECT * FROM TestUsers WHERE username=?");

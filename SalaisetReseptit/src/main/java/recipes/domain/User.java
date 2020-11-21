@@ -10,7 +10,7 @@ package recipes.domain;
  * @author aebjork
  */
 public class User {
-    
+
     private String firstname;
     private String lastname;
     private String email;
@@ -47,13 +47,9 @@ public class User {
 
     @Override
     public String toString() {
-        return "\n" + firstname + " " + lastname +
-        "\n" + email + "\n" + username +
-        "\n" + password;
+        return "\n" + firstname + " " + lastname
+                + "\n" + email + "\n" + username
+                + "\n" + password;
     }
-    
-    
-    
-    
-    
+
 }
