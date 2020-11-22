@@ -88,8 +88,7 @@ public class User {
 //        }
 //        return true;
         return this.username.equals(other.username);
-    }
-    
+    }   
     
 
 }

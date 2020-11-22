@@ -19,42 +19,66 @@ import recipes.domain.User;
  * @author aebjork
  */
 public class UserTest {
-    
+
     User testUser;
-      
+
     @Before
     public void setUp() {
         this.testUser = new User("ta", "tb", "test@email.fi", "testPerson", "testPword");
     }
 
-     @Test
-     public void toStringWorks() {
+    @Test
+    public void toStringWorks() {
         assertThat("\nta tb\ntest@email.fi\ntestPerson\ntestPword", is(equalTo(testUser.toString())));
-     }
-     
-     @Test
-     public void getFirstnameWorks() {
+    }
+
+    @Test
+    public void getFirstnameWorks() {
         assertThat("ta", is(equalTo(testUser.getFirstname())));
-     }
-     
-     @Test
-     public void getLastnameWorks() {
+    }
+
+    @Test
+    public void getLastnameWorks() {
         assertThat("tb", is(equalTo(testUser.getLastname())));
-     }
-     
-     @Test
-     public void getEmailWorks() {
+    }
+
+    @Test
+    public void getEmailWorks() {
         assertThat("test@email.fi", is(equalTo(testUser.getEmail())));
-     }
-     
-     @Test
-     public void getUsernameWorks() {
+    }
+
+    @Test
+    public void getUsernameWorks() {
         assertThat("testPerson", is(equalTo(testUser.getUsername())));
-     }
-     
-     @Test
-     public void getPassword() {
-        assertThat("testPword", is(equalTo(testUser.getPassword())));
-     }     
-     
+    }
+    
+    @Test
+    public void equalsWorksWhenSame() {
+        assertTrue(this.testUser.equals(this.testUser));
+    }
+
+    @Test
+    public void equalsWorksWhenSameFields() {
+        User same = new User("ta", "tb", "test@email.fi", "testPerson", "testPword");
+        assertTrue(this.testUser.equals(same));
+    }
+    
+    @Test
+    public void equalsWorksWhenOnlySameUsername() {
+        User same = new User("other_ta", "other_tb", "other_test@email.fi", "testPerson", "other_testPword");
+        assertTrue(this.testUser.equals(same));
+    }
+    
+    @Test
+    public void equalsWorksWhenOnlyUsernameDiffers() {
+        User same = new User("ta", "tb", "test@email.fi", "other_testPerson", "testPword");
+        assertFalse(this.testUser.equals(same));
+    }
+    
+    @Test
+    public void equalsWorksWhenAllDiffers() {
+        User same = new User("other_ta", "other_tb", "other_test@email.fi", "other_testPerson", "other_testPword");
+        assertFalse(this.testUser.equals(same));
+    }
+
 }

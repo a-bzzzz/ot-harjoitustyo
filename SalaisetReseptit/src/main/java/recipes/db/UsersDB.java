@@ -94,7 +94,7 @@ public class UsersDB implements UsersInterface {
             r = p.getGeneratedKeys();
             r.next();
             st.execute("COMMIT");
-            System.out.println("Lisätty käyttäjä: \n" + newUser.toString());
+            // System.out.println("Lisätty käyttäjä: \n" + newUser.toString());
 //            } else {
 //                // throw new SQLException("User details have already been added to database.");
 //                throw new SQLException("Username is already in use.");

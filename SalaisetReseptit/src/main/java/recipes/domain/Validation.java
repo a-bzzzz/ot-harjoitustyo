@@ -30,7 +30,8 @@ public class Validation {
                 System.out.println("KÄYTTÄJÄÄ EI TUNNISTETTU! Yritä uudelleen tai rekisteröidy.");
             }
         }
-        if (!loginUser.getPassword().equals(password)) {
+        if (loginUser == null || !loginUser.getPassword().equals(password)) {
+            loginUser = null;
             if (this.udbase.getDBPath().equals("jdbc:sqlite:UsersDatabase.db")) {
                 throw new SQLException("VÄÄRÄ SALASANA! Yritä uudelleen tai rekisteröidy.");
             } else {
