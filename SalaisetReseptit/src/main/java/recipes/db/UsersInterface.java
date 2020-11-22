@@ -16,9 +16,9 @@ public interface UsersInterface {
     
     String getDBPath();
     
-    void createUsersDB();
+    boolean createUsersDB();
     
-    void addUser(String uname, String pword, String fname, String lname, String email) throws SQLException;
+    boolean addUser(User user) throws SQLException;
     
     User searchUser(String username) throws SQLException;
     

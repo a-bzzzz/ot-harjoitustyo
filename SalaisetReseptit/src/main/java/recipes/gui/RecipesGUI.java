@@ -6,6 +6,8 @@
 package recipes.gui;
 
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -50,32 +52,35 @@ public class RecipesGUI extends Application {
     private final int SMALLWIDTH = 300;
     private final int SMALLHEIGHT = 500;
     private String user_name = "XXX";
+    private boolean dbCreated = false;
+    private User admin = new User("a", "b", "admin@email.fi", "admin", "secret");
+    private boolean adminUserCreated;
 
     @Override
-    public void init() throws Exception {
+    public void init() {
         this.userDatabase = "UsersDatabase";
         //this.dbase = new RecipesDB(database);
         this.udbase = new UsersDB(this.userDatabase);
         this.check = new Validation(udbase);
+        this.dbCreated = false;
+        
         String udbpath = this.udbase.getDBPath();
         System.out.println("Database path is: " + udbpath);
-        User testDBExisting = this.udbase.searchUser("admin");
-        if (testDBExisting == null) {
-            // adding new database, if not already existing
+        User dbExisting = this.udbase.searchUser("admin");
+        if (dbExisting == null) {
+            // adding new databases, if not already existing
             // this.dbase.createRecipeDB();
-            this.udbase.createUsersDB();
+            this.dbCreated = this.udbase.createUsersDB();
+            System.out.println("Tietokanta " + this.userDatabase + " on luotu: " + dbCreated);
             // adding admin user to the database
-            this.udbase.addUser("admin", "secret", "a", "b", "admin@email.fi");
+            adminUserCreated = this.udbase.addUser(admin);
+            // System.out.println("Admin-käyttäjä " + this.admin.toString() + " on luotu.");
+        } else {
+            this.dbCreated = true;
         }
+        
     }
 
-    public UsersDB getDB() {
-        return this.udbase;
-    }
-
-//    public RecipesDB getDB() {
-//        return this.dbase;
-//    }
     @Override
     public void start(Stage stage) throws Exception {
 
@@ -109,7 +114,7 @@ public class RecipesGUI extends Application {
         menu.setAlignment(Pos.TOP_LEFT);
 
         HBox titlebar = new HBox();
-        title.minHeight(50.0);
+        //title.minHeight(50.0);
         titlebar.getChildren().add(title);
         titlebar.setPadding(new Insets(10, 10, 10, 10));
         titlebar.setSpacing(10);
@@ -134,8 +139,8 @@ public class RecipesGUI extends Application {
         Pane popup = new Pane();
         popup.setPrefSize(this.SMALLWIDTH, this.SMALLHEIGHT);
 
-        Label regtitle = new Label("Rekisteröityminen");
-        title.minHeight(50.0);
+        Label regtitle = new Label("REKISTERÖITYMINEN");
+        //title.minHeight(50.0);
         Label line1 = new Label("____________________");
         Label miniblanco = new Label("                    ");
         Label fname = new Label("Etunimi:");
@@ -156,35 +161,34 @@ public class RecipesGUI extends Application {
         PasswordField newPword = new PasswordField();
         Button register = new Button("REKISTERÖIDY");
         Button back = new Button("TAKAISIN");
-        
-        HBox poptitle = new HBox();
-        poptitle.getChildren().add(regtitle);
-        poptitle.setPadding(new Insets(10, 10, 10, 10));
+
+        VBox poptitle = new VBox();
+        poptitle.getChildren().addAll(regtitle, line1);
+        poptitle.setPadding(new Insets(20, 20, 20, 20));
         poptitle.setSpacing(20);
-        poptitle.setAlignment(Pos.BASELINE_CENTER);
+        //poptitle.setAlignment(Pos.BASELINE_CENTER);
+        poptitle.setAlignment(Pos.TOP_CENTER);
 
         GridPane setpop = new GridPane();
         setpop.setPrefSize(this.SMALLWIDTH, this.SMALLHEIGHT);
         setpop.setAlignment(Pos.CENTER);
-        setpop.setPadding(new Insets(20, 20, 20, 20));
-        setpop.add(poptitle, 0, 0);
-        setpop.add(line1, 0, 1);
-        setpop.add(miniblanco, 0, 2);
-        setpop.add(fname, 0, 3);
-        setpop.add(fnameField, 0, 4);
-        setpop.add(lname, 0, 5);
-        setpop.add(lnameField, 0, 6);
-        setpop.add(email, 0, 7);
-        setpop.add(emailField, 0, 8);
-        setpop.add(uname, 0, 9);
-        setpop.add(unameField, 0, 10);
-        setpop.add(pword, 0, 11);
-        setpop.add(newPword, 0, 12);
-        setpop.add(register, 0, 13);
-        setpop.add(line2, 0, 14);
-        setpop.add(back, 0, 15);
+        setpop.setPadding(new Insets(10, 10, 10, 10));
+        setpop.add(miniblanco, 1, 2);
+        setpop.add(fname, 1, 3);
+        setpop.add(fnameField, 1, 4);
+        setpop.add(lname, 1, 5);
+        setpop.add(lnameField, 1, 6);
+        setpop.add(email, 1, 7);
+        setpop.add(emailField, 1, 8);
+        setpop.add(uname, 1, 9);
+        setpop.add(unameField, 1, 10);
+        setpop.add(pword, 1, 11);
+        setpop.add(newPword, 1, 12);
+        setpop.add(register, 1, 13);
+        setpop.add(line2, 1, 14);
+        setpop.add(back, 1, 15);
 
-        popup.getChildren().add(setpop);
+        popup.getChildren().addAll(poptitle, setpop);
         this.newUserScene = new Scene(popup);
         stage.setTitle("Registration");
 
@@ -228,16 +232,19 @@ public class RecipesGUI extends Application {
 
         loginButton.setOnAction((event) -> {
 
-            String inputUsername = userField.getText();
-            String inputPassword = passField.getText();
+            String inputUsername = userField.getText().strip();
+            String inputPassword = passField.getText().strip();
+            info.setText("Käyttäjätunnus: " + inputUsername + "   Salasana: " + inputPassword); // POISTETTAVA
 
             try {
-                User loginUser = check.validate(inputUsername, inputPassword);
+                User loginUser = this.check.validate(inputUsername, inputPassword);
                 if (loginUser != null) {
                     this.user_name = loginUser.getFirstname();
                     hello.setText("Terve, " + this.user_name + ", herkullista päivää!");
                     this.beginScene = new Scene(setBegin, this.WIDTH, this.HEIGHT);
                     stage.setScene(beginScene);
+                } else {
+                    info.setText("Kirjautusmisvirhe");
                 }
             } catch (SQLException s) {
                 info.setText("Kirjautumisvirhe: " + s.getMessage());
@@ -245,7 +252,7 @@ public class RecipesGUI extends Application {
 
         });
 
-        registerButton.setOnAction((event) -> {            
+        registerButton.setOnAction((event) -> {
             stage.close();
             stage.setScene(this.newUserScene);
             stage.show();
@@ -257,8 +264,38 @@ public class RecipesGUI extends Application {
             stage.show();
         });
 
+        register.setOnAction((event) -> {
+
+            String inFname = fnameField.getText().strip();
+            String inLname = lnameField.getText().strip();
+            String inEmail = emailField.getText().strip();
+            String inUname = unameField.getText().strip();
+            String inPword = newPword.getText().strip();
+
+            boolean valid = false;
+            User newUser = new User(inFname, inLname, inEmail, inUname, inPword);
+            valid = this.check.newValidate(newUser);
+//            try {
+            if (valid && this.udbase.searchUser(inUname) == null) {
+                this.udbase.addUser(newUser);
+                stage.close();
+                hello.setText("Terve, " + inUname + ", herkullista päivää!");
+                this.beginScene = new Scene(setBegin, this.WIDTH, this.HEIGHT);
+                stage.setScene(this.beginScene);
+                stage.show();
+            } else {
+                info.setText("Rekisteröitymisvirhe: Täytä kaikki kentät!");
+            }
+            // stage.close();
+//            stage.setScene(this.newUserScene);
+//            stage.show();
+//            } catch (SQLException s) {
+//                // info.setText("Rekisteröitymisvirhe: " + s.getMessage());
+//                info.setText("Rekisteröitymisvirhe: Username is already in use");
+//            }
+        });
+
         // ----------------------------------
-        
         // homeScene - setting up the primary scene, the first window for the user
         screen.getChildren().add(setting);
         this.homeScene = new Scene(screen);

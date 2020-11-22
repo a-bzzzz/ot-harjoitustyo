@@ -22,23 +22,35 @@ public class Validation {
 
     public User validate(String username, String password) throws SQLException {
         User loginUser = udbase.searchUser(username);
+        // System.out.println("kirjautuva käyttäjä on: " + loginUser); 
         if (loginUser == null) {
             if (this.udbase.getDBPath().equals("jdbc:sqlite:UsersDatabase.db")) {
                 throw new SQLException("KÄYTTÄJÄÄ EI TUNNISTETTU! Yritä uudelleen tai rekisteröidy.");
             } else {
                 System.out.println("KÄYTTÄJÄÄ EI TUNNISTETTU! Yritä uudelleen tai rekisteröidy.");
             }
-        } else {
-            if (!loginUser.getPassword().equals(password)) {
-                loginUser = null;
-                if (this.udbase.getDBPath().equals("jdbc:sqlite:UsersDatabase.db")) {
-                    throw new SQLException("VÄÄRÄ SALASANA! Yritä uudelleen tai rekisteröidy.");
-                } else {
-                    System.out.println("VÄÄRÄ SALASANA! Yritä uudelleen tai rekisteröidy.");
-                }
+        }
+        if (!loginUser.getPassword().equals(password)) {
+            if (this.udbase.getDBPath().equals("jdbc:sqlite:UsersDatabase.db")) {
+                throw new SQLException("VÄÄRÄ SALASANA! Yritä uudelleen tai rekisteröidy.");
+            } else {
+                System.out.println("VÄÄRÄ SALASANA! Yritä uudelleen tai rekisteröidy.");
             }
         }
         return loginUser;
     }
 
+    public boolean newValidate(User newUser) {
+        String fname = newUser.getFirstname();
+        String lname = newUser.getLastname();
+        String email = newUser.getEmail();
+        String uname = newUser.getUsername();
+        String pword = newUser.getPassword();
+
+        if (fname.isEmpty() || lname.isEmpty() || email.isEmpty() || uname.isEmpty() || pword.isEmpty()) {
+            return false;
+        } else {
+            return true;
+        }
+    }
 }

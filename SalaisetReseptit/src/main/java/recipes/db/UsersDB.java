@@ -38,7 +38,7 @@ public class UsersDB implements UsersInterface {
     }
 
     @Override
-    public void createUsersDB() {
+    public boolean createUsersDB() {
 
         try {
             // Creates table Users
@@ -54,23 +54,32 @@ public class UsersDB implements UsersInterface {
                     + "lastname TEXT NOT NULL, "
                     + "email TEXT NOT NULL)");
             st.execute("COMMIT");
-            System.out.println("Database " + this.ubase + ".db has been created.");
+            // System.out.println("Database " + this.ubase + ".db has been created.");
             db.close();
+            return true;
         } catch (SQLException s) {
             System.out.println("Database error in createUsersDB: " + s.getMessage());
+            return false;
         }
 
     }
 
     @Override
-    public void addUser(String uname, String pword, String fname, String lname, String email) throws SQLException {
+    // public void addUser(String uname, String pword, String fname, String lname, String email) throws SQLException {
+    public boolean addUser(User newUser) {
+
+        String uname = newUser.getUsername();
+        String pword = newUser.getPassword();
+        String fname = newUser.getFirstname();
+        String lname = newUser.getLastname();
+        String email = newUser.getEmail();
 
         try {
             db = DriverManager.getConnection(path);
             st = db.createStatement();
 
 //            User user = this.getUser(uname);
-//            if (user == null) {
+//            if (user.getUsername() != uname) {
             st.execute("BEGIN TRANSACTION");
 
             p = db.prepareStatement("INSERT INTO Users(username,password,firstname,lastname,email) VALUES (?,?,?,?,?)",
@@ -85,27 +94,31 @@ public class UsersDB implements UsersInterface {
             r = p.getGeneratedKeys();
             r.next();
             st.execute("COMMIT");
+            System.out.println("Lisätty käyttäjä: \n" + newUser.toString());
 //            } else {
-//                throw new SQLException("User details have already been added to database.");
+//                // throw new SQLException("User details have already been added to database.");
+//                throw new SQLException("Username is already in use.");
 //            }
             db.close();
+            return true;
         } catch (SQLException s) {
             System.out.println("Database error in addUser: " + s.getMessage());
+            return false;
         }
     }
 
     @Override
-    public User searchUser(String user_name) throws SQLException {
-        //User user = null;
+    public User searchUser(String user_name) {
+        User user = null;
         try {
             db = DriverManager.getConnection(this.path);
-            st = db.createStatement();
-            User user = this.getUser(user_name);
+            st = db.createStatement();            
+            user = this.getUser(user_name);   
             db.close();
-            return user;
         } catch (SQLException s) {
-            return null;
+            user = null;
         }
+        return user;
     }
 
     private User getUser(String user_name) throws SQLException {
@@ -119,6 +132,7 @@ public class UsersDB implements UsersInterface {
                 r.getString("email"),
                 r.getString("username"),
                 r.getString("password"));
+        // System.out.println("Etsittävä käyttäjä on: " + user.toString()); 
         return user;
     }
 

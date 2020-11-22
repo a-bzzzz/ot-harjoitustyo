@@ -39,7 +39,7 @@ public class FakeUsersDB implements UsersInterface {
     }
 
     @Override
-    public void createUsersDB() {
+    public boolean createUsersDB() {
 
         try {
             // Creates table TestUsers
@@ -57,14 +57,23 @@ public class FakeUsersDB implements UsersInterface {
             st.execute("COMMIT");
             System.out.println("Database " + this.testUbase + ".db has been created.");
             db.close();
+            return true;
         } catch (SQLException s) {
             System.out.println("Database error in createUsersDB for testing: " + s.getMessage());
+            return false;
         }
 
     }
 
     @Override
-    public void addUser(String uname, String pword, String fname, String lname, String email) throws SQLException {
+    // public void addUser(String uname, String pword, String fname, String lname, String email) throws SQLException {
+    public boolean addUser(User testUser) throws SQLException {
+        
+        String uname = testUser.getUsername();
+        String pword = testUser.getPassword();
+        String fname = testUser.getFirstname();
+        String lname = testUser.getLastname();
+        String email = testUser.getEmail();
 
         try {
             db = DriverManager.getConnection(path);
@@ -90,23 +99,26 @@ public class FakeUsersDB implements UsersInterface {
 //                throw new SQLException("User details have already been added to database.");
 //            }
             db.close();
+            return true;
         } catch (SQLException s) {
             System.out.println("Database error in addUser for testing: " + s.getMessage());
+            return false;
         }
 
     }
 
     @Override
     public User searchUser(String user_name) throws SQLException {
+        User user = null;
         try {
             db = DriverManager.getConnection(this.path);
-            st = db.createStatement();
-            User user = this.getUser(user_name);
+            st = db.createStatement();            
+            user = this.getUser(user_name);   
             db.close();
-            return user;
         } catch (SQLException s) {
-            return null;
+            user = null;
         }
+        return user;
     }
 
     private User getUser(String user_name) throws SQLException {

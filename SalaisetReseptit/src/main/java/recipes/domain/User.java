@@ -5,6 +5,8 @@
  */
 package recipes.domain;
 
+import java.util.Objects;
+
 /**
  *
  * @author aebjork
@@ -47,9 +49,47 @@ public class User {
 
     @Override
     public String toString() {
-        return "\n" + firstname + " " + lastname
-                + "\n" + email + "\n" + username
-                + "\n" + password;
+        if (this == null) {
+            return "";
+        } else {
+            return "\n" + firstname + " " + lastname
+                    + "\n" + email + "\n" + username
+                    + "\n" + password;
+        }
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (!(obj instanceof User)) {
+            return false;
+        }
+
+        User other = (User) obj;
+//        if (!Objects.equals(this.firstname, other.firstname)) {
+//            return false;
+//        }
+//        if (!Objects.equals(this.lastname, other.lastname)) {
+//            return false;
+//        }
+//        if (!Objects.equals(this.email, other.email)) {
+//            return false;
+//        }
+//        if (!Objects.equals(this.username, other.username)) {
+//            return false;
+//        }
+//        if (!Objects.equals(this.password, other.password)) {
+//            return false;
+//        }
+//        return true;
+        return this.username.equals(other.username);
+    }
+    
+    
 
 }
