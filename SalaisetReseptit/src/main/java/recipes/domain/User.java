@@ -49,15 +49,12 @@ public class User {
 
     @Override
     public String toString() {
-        if (this == null) {
-            return "";
-        } else {
-            return "\n" + firstname + " " + lastname
-                    + "\n" + email + "\n" + username
-                    + "\n" + password;
-        }
+        return "\n" + firstname + " " + lastname
+                + "\n" + email + "\n" + username
+                + "\n" + password;
     }
 
+    /*
     @Override
     public boolean equals(Object obj) {
         if (this == obj) {
@@ -88,7 +85,7 @@ public class User {
 //        }
 //        return true;
         return this.username.equals(other.username);
-    }   
-    
+    }
+    */
 
 }

@@ -28,7 +28,7 @@ public class UserTest {
     }
 
     @Test
-    public void toStringWorks() {
+    public void toStringWorksWhenRightUser() {
         assertThat("\nta tb\ntest@email.fi\ntestPerson\ntestPword", is(equalTo(testUser.toString())));
     }
 
@@ -51,7 +51,8 @@ public class UserTest {
     public void getUsernameWorks() {
         assertThat("testPerson", is(equalTo(testUser.getUsername())));
     }
-    
+
+/*    
     @Test
     public void equalsWorksWhenSame() {
         assertTrue(this.testUser.equals(this.testUser));
@@ -80,5 +81,6 @@ public class UserTest {
         User same = new User("other_ta", "other_tb", "other_test@email.fi", "other_testPerson", "other_testPword");
         assertFalse(this.testUser.equals(same));
     }
+*/
 
 }
