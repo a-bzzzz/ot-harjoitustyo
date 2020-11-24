@@ -18,16 +18,16 @@ Sovelluksen avulla loppukäyttäjä voi lisätä, ylläpitää, hakea ja listata
 
 Perusversio: Tavalliset loppukäyttäjät voivat sovelluksella
 * luoda käyttäjätunnuksen 
-* kirjautua järjestelmään omilla käyttäjätunnuksillaan (järjestelmä ilmoittaa, jos käyttäjällä ei ole vielä tunnuksia eli oikeuksia järjetelmään pääsyyn)
+* kirjautua järjestelmään omilla käyttäjätunnuksillaan (järjestelmä ilmoittaa, jos käyttäjällä ei ole vielä tunnuksia eli oikeuksia järjetelmään pääsyyn) -> tehty (alustavasti)
 * luoda reseptin tai reseptejä
 * hakea reseptiä tietyillä hakukriteereillä tai tietyn reseptikategorian kautta
 * listata tietyn kategorian reseptinimiä ja/tai reseptien perustietoja
 * muokata luomiaan reseptejä
 * poistaa haetun reseptin
-* kirjautua ulos järjestelmästä
+* kirjautua ulos järjestelmästä -> tehty (alustavasti)
 
 Jatkokehitys: Ylläpitäjät voivat sovelluksessa edellä mainitun lisäksi
-* kirjautua järjestelmään admin-tunnuksilla
+* kirjautua järjestelmään admin-tunnuksilla -> tehty (alustavasti)
 * muokata ja listata käyttäjätietoja (loppukäyttäjien käyttäjätunnuksia)
 * poistaa käyttäjätietoja (loppukäyttäjien tunnuksia)
 * listata reseptejä ja niiden perustietoja hieman monipuolisemmin
