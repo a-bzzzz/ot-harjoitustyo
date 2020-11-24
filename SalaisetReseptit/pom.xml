@@ -50,7 +50,10 @@
             <version>0.8.3</version>
             <configuration>
                 <excludes>
-                    <exclude>ui/*</exclude>
+                    <exclude>recipes/gui/*</exclude>
+                    <exclude>recipes/db/*</exclude>
+                    <exclude>recipes/domain/Main</exclude>
+                    <exclude>recipes/domain/Recipe</exclude>
                 </excludes>
     
             </configuration>

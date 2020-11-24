@@ -22,6 +22,7 @@ public class ValidationTest {
 
     FakeUsersDB testUBase;
     Validation check;
+    User testUser;
 
     @Before
     public void setUp() throws SQLException, Exception {
@@ -29,12 +30,12 @@ public class ValidationTest {
         String tub = "TestUsersDatabase";
         testUBase = new FakeUsersDB(tub);
         check = new Validation(testUBase);
+        testUser = new User("ta", "tb", "test@email.fi", "testPerson", "testPword");
 
         User testDBExisting = this.testUBase.searchUser("testPerson");
         if (testDBExisting == null) {
             this.testUBase.createUsersDB();
-            //this.testUBase.addUser(new User("testPerson", "testPword", "ta", "tb", "test@email.fi"));
-            this.testUBase.addUser(new User("ta", "tb", "test@email.fi", "testPerson", "testPword"));
+            this.testUBase.addUser(testUser);
         }
 
     }
@@ -63,6 +64,21 @@ public class ValidationTest {
     @Test
     public void checksPasswordCorrectlyWhenUserIsNOTCreatedButPasswordIsRegistered() throws SQLException {
         assertFalse(check.validate("testAnother", "testPassword") != null);
+    }
+    
+    @Test
+    public void checksNewUserRightWhenNoBlanks() throws SQLException {
+        assertTrue(check.newValidate(testUser));
+    }
+    
+    @Test
+    public void checksNewUserRightWhenAllBlanks() throws SQLException {
+        assertFalse(check.newValidate(new User("","","","","")));
+    }
+    
+    @Test
+    public void checksNewUserRightWhenOneFieldIsBlank() throws SQLException {
+        assertFalse(check.newValidate(new User("ta", "tb", "", "testPerson", "testPword")));
     }
 
 }
