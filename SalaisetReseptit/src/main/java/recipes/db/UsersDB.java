@@ -65,23 +65,17 @@ public class UsersDB implements UsersInterface {
     }
 
     @Override
-    // public void addUser(String uname, String pword, String fname, String lname, String email) throws SQLException {
     public boolean addUser(User newUser) {
-
         String uname = newUser.getUsername();
         String pword = newUser.getPassword();
         String fname = newUser.getFirstname();
         String lname = newUser.getLastname();
         String email = newUser.getEmail();
-
+        boolean success = false;
         try {
-            db = DriverManager.getConnection(path);
+            db = DriverManager.getConnection(this.path);
             st = db.createStatement();
-
-//            User user = this.getUser(uname);
-//            if (user.getUsername() != uname) {
             st.execute("BEGIN TRANSACTION");
-
             p = db.prepareStatement("INSERT INTO Users(username,password,firstname,lastname,email) VALUES (?,?,?,?,?)",
                     Statement.RETURN_GENERATED_KEYS);
             p.setString(1, uname);
@@ -89,31 +83,27 @@ public class UsersDB implements UsersInterface {
             p.setString(3, fname);
             p.setString(4, lname);
             p.setString(5, email);
-
             p.executeUpdate();
             r = p.getGeneratedKeys();
             r.next();
             st.execute("COMMIT");
             // System.out.println("Lisätty käyttäjä: \n" + newUser.toString());
-//            } else {
-//                // throw new SQLException("User details have already been added to database.");
-//                throw new SQLException("Username is already in use.");
-//            }
+            success = true;
             db.close();
-            return true;
         } catch (SQLException s) {
+            success = false;
             System.out.println("Database error in addUser: " + s.getMessage());
-            return false;
         }
+        return success;
     }
 
     @Override
-    public User searchUser(String user_name) {
+    public User searchUser(String userName) {
         User user = null;
         try {
             db = DriverManager.getConnection(this.path);
-            st = db.createStatement();            
-            user = this.getUser(user_name);   
+            st = db.createStatement();
+            user = this.getUser(userName);
             db.close();
         } catch (SQLException s) {
             user = null;
@@ -121,10 +111,10 @@ public class UsersDB implements UsersInterface {
         return user;
     }
 
-    private User getUser(String user_name) throws SQLException {
+    private User getUser(String userName) throws SQLException {
         st.execute("BEGIN TRANSACTION");
         p = db.prepareStatement("SELECT * FROM Users WHERE username=?");
-        p.setString(1, user_name);
+        p.setString(1, userName);
 
         r = p.executeQuery();
         User user = new User(r.getString("firstname"),

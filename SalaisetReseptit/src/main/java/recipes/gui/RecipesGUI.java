@@ -63,7 +63,7 @@ public class RecipesGUI extends Application {
         this.udbase = new UsersDB(this.userDatabase);
         this.check = new Validation(udbase);
         this.dbCreated = false;
-        
+
         String udbpath = this.udbase.getDBPath();
         System.out.println("Database path is: " + udbpath);
         User dbExisting = this.udbase.searchUser("admin");
@@ -78,7 +78,7 @@ public class RecipesGUI extends Application {
         } else {
             this.dbCreated = true;
         }
-        
+
     }
 
     @Override
@@ -150,10 +150,13 @@ public class RecipesGUI extends Application {
         Label pword = new Label("Salasana:");
         Label line2 = new Label("____________________");
         Label line3 = new Label("____________________");
+        Label line4 = new Label("____________________");
+        Label info_pop = new Label("            ");
         TextField fnameField = new TextField("            ");
         TextField lnameField = new TextField("            ");
         TextField emailField = new TextField("            ");
         TextField unameField = new TextField("            ");
+
 //        TextField fnameField = new TextField("");
 //        TextField lnameField = new TextField("");
 //        TextField emailField = new TextField("");
@@ -161,6 +164,7 @@ public class RecipesGUI extends Application {
         PasswordField newPword = new PasswordField();
         Button register = new Button("REKISTERÖIDY");
         Button back = new Button("TAKAISIN");
+        Button end3 = new Button("LOPETA");
 
         VBox poptitle = new VBox();
         poptitle.getChildren().addAll(regtitle, line1);
@@ -168,6 +172,12 @@ public class RecipesGUI extends Application {
         poptitle.setSpacing(20);
         //poptitle.setAlignment(Pos.BASELINE_CENTER);
         poptitle.setAlignment(Pos.TOP_CENTER);
+
+        HBox popinfo = new HBox();
+        popinfo.getChildren().add(info_pop);
+        popinfo.setPadding(new Insets(10, 10, 10, 10));
+        popinfo.setSpacing(10);
+        popinfo.setAlignment(Pos.BOTTOM_CENTER);
 
         GridPane setpop = new GridPane();
         setpop.setPrefSize(this.SMALLWIDTH, this.SMALLHEIGHT);
@@ -187,8 +197,11 @@ public class RecipesGUI extends Application {
         setpop.add(register, 1, 13);
         setpop.add(line2, 1, 14);
         setpop.add(back, 1, 15);
+        setpop.add(line3, 1, 16);
+        setpop.add(end3, 1, 17);
+        setpop.add(line4, 1, 18);
 
-        popup.getChildren().addAll(poptitle, setpop);
+        popup.getChildren().addAll(poptitle, setpop, popinfo);
         this.newUserScene = new Scene(popup);
         stage.setTitle("Registration");
 
@@ -230,11 +243,15 @@ public class RecipesGUI extends Application {
             stage.close();
         });
 
+        end3.setOnAction((event) -> {
+            stage.close();
+        });
+
         loginButton.setOnAction((event) -> {
 
             String inputUsername = userField.getText().strip();
             String inputPassword = passField.getText().strip();
-            info.setText("Käyttäjätunnus: " + inputUsername + "   Salasana: " + inputPassword); // POISTETTAVA
+            // info.setText("Käyttäjätunnus: " + inputUsername + "   Salasana: " + inputPassword); 
 
             try {
                 User loginUser = this.check.validate(inputUsername, inputPassword);
@@ -271,20 +288,34 @@ public class RecipesGUI extends Application {
             String inEmail = emailField.getText().strip();
             String inUname = unameField.getText().strip();
             String inPword = newPword.getText().strip();
+            info_pop.setText("");
 
             boolean valid = false;
             User newUser = new User(inFname, inLname, inEmail, inUname, inPword);
             valid = this.check.newValidate(newUser);
+            System.out.println("Täytetyt kentät ovat oikein: " + valid);
+            if (valid) {
+                User etsitty = this.udbase.searchUser(inUname);
+                System.out.println("Tarkistetaan löytyykö jo lisättävä käyttäjä " + etsitty);
+                if (etsitty == null) {
+                    System.out.println("Lisättävää ei löytynyt vielä rekisteristä.");
+                }
+            }
 //            try {
             if (valid && this.udbase.searchUser(inUname) == null) {
-                this.udbase.addUser(newUser);
-                stage.close();
-                hello.setText("Terve, " + inUname + ", herkullista päivää!");
-                this.beginScene = new Scene(setBegin, this.WIDTH, this.HEIGHT);
-                stage.setScene(this.beginScene);
-                stage.show();
+                boolean addingSucceeded = this.udbase.addUser(newUser);
+                System.out.println("Lisäys onnistui: " + addingSucceeded);
+                if (addingSucceeded) {
+                    hello.setText("Terve, " + inUname + ", herkullista päivää!");
+                    stage.close();
+                    this.beginScene = new Scene(setBegin, this.WIDTH, this.HEIGHT);
+                    stage.setScene(this.beginScene);
+                    stage.show();
+                } else {
+                    info_pop.setText("REKISTERÖITYMINEN EPÄONNISTUI!");
+                }
             } else {
-                info.setText("Rekisteröitymisvirhe: Täytä kaikki kentät!");
+                info_pop.setText("TÄYTÄ KAIKKI KENTÄT!");
             }
             // stage.close();
 //            stage.setScene(this.newUserScene);

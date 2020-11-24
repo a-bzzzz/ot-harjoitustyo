@@ -5,18 +5,13 @@
  */
 package recipes.domain;
 
-//import javafx.application.Application;
-import java.sql.SQLException;
-import recipes.gui.RecipesGUI;
-
 /**
  *
  * @author aebjork
  */
-public class Main {
+public class Recipe {
 
-    public static void main(String[] args) throws SQLException {
-        RecipesGUI.main(args);
+    public Recipe(String recipeName, int portionAmount, String recipeCategory) {
     }
 
 }
