@@ -49,7 +49,7 @@ public class ValidationTest {
     @Test
     public void checksUserCorrectlyWhenUsernameWrong() throws SQLException {
         assertTrue(check.validate("testAnother", "testPword") == null);
-    }   
+    }
 
     @Test
     public void checksUserCorrectlyWhenUserIsCreatedAndPasswordWrong() throws SQLException {
@@ -65,17 +65,17 @@ public class ValidationTest {
     public void checksPasswordCorrectlyWhenUserIsNOTCreatedButPasswordIsRegistered() throws SQLException {
         assertFalse(check.validate("testAnother", "testPassword") != null);
     }
-    
+
     @Test
     public void checksNewUserRightWhenNoBlanks() throws SQLException {
         assertTrue(check.newValidate(testUser));
     }
-    
+
     @Test
     public void checksNewUserRightWhenAllBlanks() throws SQLException {
-        assertFalse(check.newValidate(new User("","","","","")));
+        assertFalse(check.newValidate(new User("", "", "", "", "")));
     }
-    
+
     @Test
     public void checksNewUserRightWhenOneFieldIsBlank() throws SQLException {
         assertFalse(check.newValidate(new User("ta", "tb", "", "testPerson", "testPword")));
