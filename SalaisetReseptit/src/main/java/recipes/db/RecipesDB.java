@@ -12,7 +12,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import recipes.domain.Recipe;
-import recipes.domain.User;
+// import recipes.domain.User;
 
 /**
  *
