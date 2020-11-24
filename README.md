@@ -17,6 +17,8 @@ Salasana:         secret
 
 [Vaatimusmäärittely](https://github.com/a-bzzzz/ot-harjoitustyo/blob/master/dokumentaatio/vaatimusmaarittely.md)
 
+[Arkkitehtuurikuvaus](https://github.com/a-bzzzz/ot-harjoitustyo/tree/master/dokumentaatio/arkkitehtuuri)
+
 [Testausdokumentaatio](https://github.com/a-bzzzz/ot-harjoitustyo/tree/master/dokumentaatio/testaus)
 
 [Laatudokumentaatio](https://github.com/a-bzzzz/ot-harjoitustyo/tree/master/dokumentaatio/laatu)
