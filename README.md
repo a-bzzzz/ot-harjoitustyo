@@ -9,6 +9,7 @@ Sovelluksen avulla loppukäyttäjä voi lisätä, ylläpitää, hakea ja listata
 Sovellus on keskeneräinen (alkuvaiheessa), mutta kirjautumista voi kokeilla seuraavilla valmiiksi järjestelmään luoduilla tunnuksilla:
 
 Käyttäjätunnus:   admin
+
 Salasana:         secret
 
 
