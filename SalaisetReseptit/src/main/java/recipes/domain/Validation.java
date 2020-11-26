@@ -6,6 +6,8 @@
 package recipes.domain;
 
 import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.Map;
 import recipes.db.UsersInterface;
 
 /**
@@ -15,30 +17,28 @@ import recipes.db.UsersInterface;
 public class Validation {
 
     private UsersInterface udbase;
+    private Info<User, String> userInfo;
 
     public Validation(UsersInterface udbase) {
         this.udbase = udbase;
     }
 
-    public User validate(String username, String password) throws SQLException {
+    public Info<User, String> validate(String username, String password) throws SQLException {
+        Info info = new Info(null, "");
         User loginUser = udbase.searchUser(username);
+        String infotext = "";
         // System.out.println("kirjautuva käyttäjä on: " + loginUser); 
         if (loginUser == null) {
-            if (this.udbase.getDBPath().equals("jdbc:sqlite:UsersDatabase.db")) {
-                throw new SQLException("KÄYTTÄJÄÄ EI TUNNISTETTU! Yritä uudelleen tai rekisteröidy.");
-            } else {
-                System.out.println("KÄYTTÄJÄÄ EI TUNNISTETTU! Yritä uudelleen tai rekisteröidy.");
-            }
-        }
-        if (loginUser == null || !loginUser.getPassword().equals(password)) {
+            infotext = "KÄYTTÄJÄÄ EI TUNNISTETTU! Yritä uudelleen tai rekisteröidy.";
+        } else if (!loginUser.getPassword().equals(password)) {
             loginUser = null;
-            if (this.udbase.getDBPath().equals("jdbc:sqlite:UsersDatabase.db")) {
-                throw new SQLException("VÄÄRÄ SALASANA! Yritä uudelleen tai rekisteröidy.");
-            } else {
-                System.out.println("VÄÄRÄ SALASANA! Yritä uudelleen tai rekisteröidy.");
-            }
+            infotext = "VÄÄRÄ SALASANA! Yritä uudelleen tai rekisteröidy.";
+        } else {
+            infotext = loginUser.getUsername() + " on kirjautumassa..";
         }
-        return loginUser;
+        info.setUser(loginUser);
+        info.setText(infotext);
+        return info;
     }
 
     public boolean newValidate(User newUser) {

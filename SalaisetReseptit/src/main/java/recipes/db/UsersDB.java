@@ -11,6 +11,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import recipes.domain.User;
 
 /**
@@ -91,8 +93,13 @@ public class UsersDB implements UsersInterface {
             success = true;
             db.close();
         } catch (SQLException s) {
-            success = false;
             System.out.println("Database error in addUser: " + s.getMessage());
+            try {
+                db.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(UsersDB.class.getName()).log(Level.SEVERE, null, ex); // ?????
+            }
+            success = false;            
         }
         return success;
     }
@@ -106,8 +113,14 @@ public class UsersDB implements UsersInterface {
             user = this.getUser(userName);
             db.close();
         } catch (SQLException s) {
+            System.out.println("Database error in searchUser: " + s.getMessage());
             user = null;
-        }
+            try {
+                db.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(UsersDB.class.getName()).log(Level.SEVERE, null, ex); // ????
+            }
+        }       
         return user;
     }
 

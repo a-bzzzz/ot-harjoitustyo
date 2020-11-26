@@ -15,7 +15,7 @@ import recipes.gui.RecipesGUI;
  */
 public class Main {
 
-    public static void main(String[] args) throws SQLException {
+    public static void main(String[] args) {
         RecipesGUI.main(args);
     }
 

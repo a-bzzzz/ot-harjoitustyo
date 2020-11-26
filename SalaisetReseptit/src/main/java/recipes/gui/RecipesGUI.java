@@ -6,6 +6,7 @@
 package recipes.gui;
 
 import java.sql.SQLException;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.application.Application;
@@ -24,6 +25,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import recipes.db.RecipesDB;
 import recipes.db.UsersDB;
+import recipes.domain.Info;
 import recipes.domain.User;
 import recipes.domain.Validation;
 
@@ -51,7 +53,7 @@ public class RecipesGUI extends Application {
     private final int HEIGHT = 600;
     private final int SMALLWIDTH = 300;
     private final int SMALLHEIGHT = 500;
-    private String user_name = "XXX";
+    private String userName = "XXX";
     private boolean dbCreated = false;
     private User admin = new User("a", "b", "admin@email.fi", "admin", "secret");
     private boolean adminUserCreated;
@@ -206,7 +208,7 @@ public class RecipesGUI extends Application {
         stage.setTitle("Registration");
 
         // beginScene
-        Label hello = new Label("Terve, " + this.user_name + ", herkullista päivää!");
+        Label hello = new Label("Terve, " + this.userName + ", herkullista päivää!");
 
         Label title2 = new Label("Salaiset reseptit");
         HBox titlebar2 = new HBox();
@@ -235,33 +237,36 @@ public class RecipesGUI extends Application {
 
         // ----------------------------------
         // Event Handlers
-        endButton.setOnAction((event) -> {
+        // Closing application in different scenes
+        endButton.setOnAction((event) -> {  // in homeScene
             stage.close();
         });
 
-        end2.setOnAction((event) -> {
+        end2.setOnAction((event) -> {       // in beginScene
             stage.close();
         });
 
-        end3.setOnAction((event) -> {
+        end3.setOnAction((event) -> {       // in newUserScene
             stage.close();
         });
 
+        // Login action: from homeScene to beginScene, if successfull
         loginButton.setOnAction((event) -> {
 
             String inputUsername = userField.getText().strip();
             String inputPassword = passField.getText().strip();
-            // info.setText("Käyttäjätunnus: " + inputUsername + "   Salasana: " + inputPassword); 
 
             try {
-                User loginUser = this.check.validate(inputUsername, inputPassword);
+                Info<User, String> loginInfo = this.check.validate(inputUsername, inputPassword);
+                User loginUser = loginInfo.getUser();
+                String infotext = loginInfo.getText();
                 if (loginUser != null) {
-                    this.user_name = loginUser.getFirstname();
-                    hello.setText("Terve, " + this.user_name + ", herkullista päivää!");
+                    this.userName = loginUser.getFirstname();
+                    hello.setText("Terve, " + this.userName + ", herkullista päivää!");
                     this.beginScene = new Scene(setBegin, this.WIDTH, this.HEIGHT);
                     stage.setScene(beginScene);
                 } else {
-                    info.setText("Kirjautusmisvirhe");
+                    info.setText(infotext);
                 }
             } catch (SQLException s) {
                 info.setText("Kirjautumisvirhe: " + s.getMessage());
@@ -269,18 +274,21 @@ public class RecipesGUI extends Application {
 
         });
 
+        // From homeScene to newUserScene
         registerButton.setOnAction((event) -> {
             stage.close();
             stage.setScene(this.newUserScene);
             stage.show();
         });
 
+        // Back to homeScene from newUserScene       
         back.setOnAction((event) -> {
             stage.close();
             stage.setScene(this.homeScene);
             stage.show();
         });
 
+        // Registration in newUserScene (adds a new user), if successfull -> beginScene 
         register.setOnAction((event) -> {
 
             String inFname = fnameField.getText().strip();
@@ -295,9 +303,9 @@ public class RecipesGUI extends Application {
             valid = this.check.newValidate(newUser);
             System.out.println("Täytetyt kentät ovat oikein: " + valid);
             if (valid) {
-                User etsitty = this.udbase.searchUser(inUname);
-                System.out.println("Tarkistetaan löytyykö jo lisättävä käyttäjä " + etsitty);
-                if (etsitty == null) {
+                User searchedUser = this.udbase.searchUser(inUname);
+                System.out.println("Tarkistetaan löytyykö jo lisättävä käyttäjä " + searchedUser);
+                if (searchedUser == null) {
                     System.out.println("Lisättävää ei löytynyt vielä rekisteristä.");
                 }
             }
@@ -323,7 +331,12 @@ public class RecipesGUI extends Application {
 //            } catch (SQLException s) {
 //                // info.setText("Rekisteröitymisvirhe: " + s.getMessage());
 //                info.setText("Rekisteröitymisvirhe: Username is already in use");
-//            }
+            fnameField.setText("");
+            lnameField.setText("");
+            emailField.setText("");
+            unameField.setText("");
+            newPword.setText("");
+
         });
 
         // ----------------------------------
