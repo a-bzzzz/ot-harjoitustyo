@@ -11,7 +11,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import recipes.domain.Recipe;
@@ -30,6 +32,8 @@ public class RecipesDB {
     private Statement st;
     private PreparedStatement p;
     private ResultSet r;
+
+    private Recipe recipe;
 
     public RecipesDB(String dbase) {
         this.dbase = dbase;
@@ -81,9 +85,6 @@ public class RecipesDB {
 
     }
 
-    // TODO: Tarkista toteutus! Luo myös Stuff ja Guidance tauluille lisäys- ja muut tarvittavat metodit
-    // id, name, portions, category, stuff_id, guidance_id
-    //public void addRecipe(String recipeName, int portionAmount, String recipeCategory) throws SQLException {
     public boolean addRecipe(Recipe recipe, Map ingredients, List instructions) {
 
         boolean success = false;
@@ -92,13 +93,10 @@ public class RecipesDB {
             db = DriverManager.getConnection(path);
             st = db.createStatement();
 
-            // TODO: Lisää puuttuvat kentät -> reseptiin lisätään ensin perustiedot, sitten aineet ja lopuksi ohjeet
             String recipeName = recipe.getRecipeName();
             int portionAmount = recipe.getPortionAmount();
             String recipeCategory = recipe.getCategory();
 
-//            Recipe recipe = this.getRecipe(recipeName);
-//            if (recipe == null) {
             st.execute("BEGIN TRANSACTION");
 
             p = db.prepareStatement("INSERT INTO Recipes(name,portions,category) VALUES (?,?,?)",
@@ -110,36 +108,19 @@ public class RecipesDB {
             p.executeUpdate();
             r = p.getGeneratedKeys();
             r.next();
-//            st.execute("COMMIT");
-//            } else {
-//                throw new SQLException("Recipe details have already been added to database.");
-//            }
+
             // Getting recipe id for adding ingredients and instructions
-            // st.execute("BEGIN TRANSACTION");
             p = db.prepareStatement("SELECT id FROM Recipes WHERE name=?");
             p.setString(1, recipeName);
             r = p.executeQuery();
             int recipeID = r.getInt("id");
 
-//            st.execute("ALTER TABLE Recipes ADD COLUMN stuff_id INTEGER REFERENCES Stuff");
-//            st.execute("ALTER TABLE Recipes ADD COLUMN guide_id INTEGER REFERENCES Guidance");
-//            p = db.prepareStatement("INSERT INTO Recipes(stuff_id,guide_id) VALUES (?,?)",
-//                    Statement.RETURN_GENERATED_KEYS);
-//            p.setInt(1, recipeID);
-//            p.setInt(2, recipeID);
-
             st.execute("COMMIT");
-            System.out.println("Reseptin id: " + recipeID); // POISTETTAVA
+            // System.out.println("Reseptin id: " + recipeID);
 
             this.addStuff(ingredients, recipeID);
             this.addGuidance(instructions, recipeID);
 
-//            st.execute("BEGIN TRANSACTION");
-//            st.execute("ALTER TABLE Recipes ADD COLUMN stuff_id INTEGER");
-//            st.execute("ALTER TABLE Recipes ADD COLUMN guide_id INTEGER");
-//            p.setInt(4, recipeID);
-//            p.setInt(5, recipeID);
-//            st.execute("COMMIT");
             db.close();
             success = true;
         } catch (SQLException s) {
@@ -183,40 +164,58 @@ public class RecipesDB {
         }
     }
 
-    // TODO: Muokattava tätä ja seuraavaa metodia, jotta haetaan myös id:llä..
     public Recipe searchRecipebyName(String recipeName) {
-        // System.out.println("Searcing a recipe from database..");
-        Recipe recipe = null;
+        this.recipe = null;
         try {
             db = DriverManager.getConnection(this.path);
             st = db.createStatement();
-            recipe = this.getRecipe(recipeName);
+            this.recipe = this.getRecipe(recipeName);
             db.close();
         } catch (SQLException s) {
-            recipe = null;
+            this.recipe = null;
         }
-        return recipe;
+        return this.recipe;
     }
 
-    // TODO: Haku id:llä! Ja db:n generoimat id:t???
     private Recipe getRecipe(String recipeName) throws SQLException {
-        // System.out.println("Getting recipe details..");
         System.out.println("Haetaan reseptiä nimeltään " + recipeName);
         st.execute("BEGIN TRANSACTION");
+
         p = db.prepareStatement("SELECT * FROM Recipes WHERE name=?");
         p.setString(1, recipeName);
-
         r = p.executeQuery();
         int recipeID = r.getInt("id");
-        Recipe recipe = new Recipe(r.getString("name"),
-                r.getInt("portions"),
-                r.getString("category"));
+        String name = r.getString("name");
+        int portions = r.getInt("portions");
+        String category = r.getString("category");
+        this.recipe = new Recipe(name, portions, category);
+
+        p = db.prepareStatement("SELECT * FROM Stuff WHERE id=?");
+        p.setInt(1, recipeID);
+        r = p.executeQuery();
+        while (r.next()) {
+            String stuffName = r.getString("stuff_name");
+            String stuffAmount = r.getString("amount");
+            this.recipe.setIngredient(stuffName, stuffAmount);
+        }
+
+        p = db.prepareStatement("SELECT * FROM Guidance WHERE id=?");
+        p.setInt(1, recipeID);
+        r = p.executeQuery();
+        while (r.next()) {
+            String line = r.getString("text");
+            this.recipe.setInstruction(line);
+        }
+
         st.execute("COMMIT");
+
         System.out.println("getRecipe-metodissa: " + recipe);
+        System.out.println("raaka-aineet: " + this.recipe.listIngredients());
+        System.out.println("ohjeet: " + this.recipe.listInstructions());
         return recipe;
     }
 
-    // TODO: Muokattava tätä ja seuraavaa metodia, jotta haetaan myös id:llä..
+    // TODO: 
     public Recipe searchRecipebyStuff(String stuff) {
         // System.out.println("Searcing a recipe from database..");
         Recipe recipe = null;

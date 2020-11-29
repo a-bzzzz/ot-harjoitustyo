@@ -21,11 +21,6 @@ public class Recipe {
     private String category;
     private Map<String, String> ingredients;   // ingredient's name and amount
     private List<String> instructions;                  // list of instruction rows
-    
-    /**
-     * Creates tables: Recipes, Stuff, Guidance Recipes: id, name, portions,
-     * category, stuff_id, stuff_amount, guidance_id
-     */
 
     public Recipe(String recipeName, int portionAmount, String recipeCategory) {
         this.recipeName = recipeName;
@@ -68,16 +63,40 @@ public class Recipe {
         return this.ingredients;
     }
 
-    public void setIngredients(Map ingredients) {
-        this.ingredients = ingredients;
+    public String listIngredients() {
+        String output = "";
+        for (String stuff : this.ingredients.keySet()) {
+            output += ("\n" + stuff);
+        }
+        return output;
+    }
+
+    public String listAmounts() {
+        String output = "";
+        for (String amount : this.ingredients.values()) {
+            output += ("\n   " + amount);
+        }
+        return output;
+    }
+
+    public void setIngredient(String stuff, String amount) {
+        this.ingredients.put(stuff, amount);
     }
 
     public List getInstructions() {
         return this.instructions;
     }
 
-    public void setInstructions(List instructions) {
-        this.instructions = instructions;
+    public String listInstructions() {
+        String output = "";
+        for (int i = 0; i < this.instructions.size(); i++) {
+            output += ("\n   " + (i + 1) + "  " + this.instructions.get(i));
+        }
+        return output;
     }
-    
+
+    public void setInstruction(String text) {
+        this.instructions.add(text);
+    }
+
 }
