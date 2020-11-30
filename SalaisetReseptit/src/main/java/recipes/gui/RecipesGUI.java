@@ -7,11 +7,14 @@ package recipes.gui;
 
 import java.sql.SQLException;
 import javafx.application.Application;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
@@ -91,7 +94,7 @@ public class RecipesGUI extends Application {
             this.recipe.setIngredient("kaakaojauhe", "2 rkl");
             this.recipe.setInstruction("Kuumenna maito lähes kiehuvaksi.");
             this.recipe.setInstruction("Lisää kaakaojauhe ja sekoita.");
-            recipeCreated = this.dbase.addRecipe(recipe, this.recipe.getIngredients(), this.recipe.getInstructions());
+            recipeCreated = this.dbase.addRecipe(recipe, this.recipe.getIngredientsAndAmounts(), this.recipe.getInstructions());
             if (recipeCreated) {
                 System.out.println("The first recipe, " + this.recipe.toString() + ", has been created.");
             }
@@ -357,9 +360,12 @@ public class RecipesGUI extends Application {
         optionBar.getChildren().addAll(modify, remove, info3, infoButton);
 
         GridPane rDetails = new GridPane();
-        TextField stuffDetails = new TextField("");
-        TextField amountDetails = new TextField("");
-        TextField guidelines = new TextField("");
+//        TextField stuffDetails = new TextField("");
+//        TextField amountDetails = new TextField("");
+//        TextField guidelines = new TextField("");
+        ListView<String> stuffDetails = new ListView<String>();
+        ListView<String> amountDetails = new ListView<String>();
+        ListView<String> guidelines = new ListView<String>();
 
         rDetails.add(stuff, 1, 1);
         rDetails.add(blanco3, 2, 1);
@@ -529,12 +535,19 @@ public class RecipesGUI extends Application {
             if (this.recipe == null) {
                 info1.setText("RESEPTIÄ EI LÖYDY! Hae uudelleen tai luo resepti.");
             } else {
+                info1.setText("");
                 System.out.println("Haettu resepti on: " + recipe);
                 stage.close();
                 stage.setTitle("Recipe - " + this.recipe.getRecipeName());
-                stuffDetails.setText(this.recipe.listIngredients());
-                amountDetails.setText(this.recipe.listAmounts());
-                guidelines.setText(this.recipe.listInstructions());
+                ObservableList<String> stuffList = FXCollections.observableArrayList(
+                        this.recipe.getIngredients());
+                stuffDetails.setItems(stuffList);
+                ObservableList<String> amountList = FXCollections.observableArrayList(
+                        this.recipe.getAmounts());
+                amountDetails.setItems(amountList);
+                ObservableList<String> instructionList = FXCollections.observableArrayList(
+                        this.recipe.getInstructions());
+                guidelines.setItems(instructionList);
                 stage.setScene(this.recipeScene);
                 stage.show();
             }

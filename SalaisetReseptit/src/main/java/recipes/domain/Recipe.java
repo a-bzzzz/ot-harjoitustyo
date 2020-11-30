@@ -59,8 +59,24 @@ public class Recipe {
         this.category = category;
     }
 
-    public Map getIngredients() {
+    public Map getIngredientsAndAmounts() {
         return this.ingredients;
+    }
+
+    public List getIngredients() {
+        List<String> ingredientList = new ArrayList<>();
+        for (String i : this.ingredients.keySet()) {
+            ingredientList.add(i);
+        }
+        return ingredientList;
+    }
+
+    public List getAmounts() {
+        List<String> amountList = new ArrayList<>();
+        for (String i : this.ingredients.values()) {
+            amountList.add(i);
+        }
+        return amountList;
     }
 
     public String listIngredients() {
