@@ -20,7 +20,7 @@ public class Recipe {
     private int portionAmount;
     private String category;
     private Map<String, String> ingredients;   // ingredient's name and amount
-    private List<String> instructions;                  // list of instruction rows
+    private List<String> instructions;         // list of instruction rows
 
     public Recipe(String recipeName, int portionAmount, String recipeCategory) {
         this.recipeName = recipeName;
