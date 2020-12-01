@@ -34,10 +34,10 @@ public class Recipe {
         return this.recipeName;
     }
 
-    public void setRecipeName(String recipeName) {
-        this.recipeName = recipeName;
-    }
-
+//    public void setRecipeName(String recipeName) {
+//        this.recipeName = recipeName;
+//    }
+    
     public int getPortionAmount() {
         return this.portionAmount;
     }
@@ -47,18 +47,18 @@ public class Recipe {
         return this.category + ": " + this.recipeName + " - " + this.portionAmount + " annosta";
     }
 
-    public void setPortionAmount(int portionAmount) {
-        this.portionAmount = portionAmount;
-    }
-
+//    public void setPortionAmount(int portionAmount) {
+//        this.portionAmount = portionAmount;
+//    }
+    
     public String getCategory() {
         return this.category;
     }
 
-    public void setCategory(String category) {
-        this.category = category;
-    }
-
+//    public void setCategory(String category) {
+//        this.category = category;
+//    }
+    
     public Map getIngredientsAndAmounts() {
         return this.ingredients;
     }
@@ -79,22 +79,22 @@ public class Recipe {
         return amountList;
     }
 
-    public String listIngredients() {
-        String output = "";
-        for (String stuff : this.ingredients.keySet()) {
-            output += ("\n" + stuff);
-        }
-        return output;
-    }
+//    public String listIngredients() {
+//        String output = "";
+//        for (String stuff : this.ingredients.keySet()) {
+//            output += ("\n" + stuff);
+//        }
+//        return output;
+//    }
 
-    public String listAmounts() {
-        String output = "";
-        for (String amount : this.ingredients.values()) {
-            output += ("\n   " + amount);
-        }
-        return output;
-    }
-
+//    public String listAmounts() {
+//        String output = "";
+//        for (String amount : this.ingredients.values()) {
+//            output += ("\n   " + amount);
+//        }
+//        return output;
+//    }
+    
     public void setIngredient(String stuff, String amount) {
         this.ingredients.put(stuff, amount);
     }
@@ -103,13 +103,13 @@ public class Recipe {
         return this.instructions;
     }
 
-    public String listInstructions() {
-        String output = "";
-        for (int i = 0; i < this.instructions.size(); i++) {
-            output += ("\n   " + (i + 1) + "  " + this.instructions.get(i));
-        }
-        return output;
-    }
+//    public String listInstructions() {
+//        String output = "";
+//        for (int i = 0; i < this.instructions.size(); i++) {
+//            output += ("\n   " + (i + 1) + "  " + this.instructions.get(i));
+//        }
+//        return output;
+//    }
 
     public void setInstruction(String text) {
         this.instructions.add(text);

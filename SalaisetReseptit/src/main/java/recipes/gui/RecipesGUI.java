@@ -530,7 +530,7 @@ public class RecipesGUI extends Application {
 
         // Recipe search action - by name - in searchScene
         searchByName.setOnAction((event) -> {
-            this.recipeName = recipenameField.getText().trim();
+            this.recipeName = recipenameField.getText().trim().toLowerCase();
             this.recipe = this.dbase.searchRecipebyName(this.recipeName);
             if (this.recipe == null) {
                 info1.setText("RESEPTIÄ EI LÖYDY! Hae uudelleen tai luo resepti.");
@@ -556,7 +556,7 @@ public class RecipesGUI extends Application {
         // TODO:
         // Recipe search action - by ingredient - in searchScene
         searchByStuff.setOnAction((event) -> {
-            String stuffName = stuffField.getText().trim();
+            String stuffName = stuffField.getText().trim().toLowerCase();
             Recipe recipe = this.dbase.searchRecipebyStuff(stuffName);
         });
 

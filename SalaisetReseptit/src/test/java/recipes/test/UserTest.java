@@ -1,3 +1,5 @@
+package recipes.test;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -24,7 +26,7 @@ public class UserTest {
 
     @Before
     public void setUp() {
-        this.testUser = new User("ta", "tb", "test@email.fi", "testPerson", "testPword");
+        testUser = new User("ta", "tb", "test@email.fi", "testPerson", "testPword");
     }
 
     @Test

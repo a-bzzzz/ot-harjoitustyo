@@ -91,9 +91,9 @@ public class RecipesDB {
             db = DriverManager.getConnection(path);
             st = db.createStatement();
 
-            String recipeName = recipe.getRecipeName();
+            String recipeName = recipe.getRecipeName().toLowerCase();
             int portionAmount = recipe.getPortionAmount();
-            String recipeCategory = recipe.getCategory();
+            String recipeCategory = recipe.getCategory().toLowerCase();
 
             st.execute("BEGIN TRANSACTION");
 
@@ -208,8 +208,8 @@ public class RecipesDB {
         st.execute("COMMIT");
 
         System.out.println("getRecipe-metodissa: " + recipe);
-        System.out.println("raaka-aineet: " + this.recipe.listIngredients());
-        System.out.println("ohjeet: " + this.recipe.listInstructions());
+//        System.out.println("raaka-aineet: " + this.recipe.listIngredients());
+//        System.out.println("ohjeet: " + this.recipe.listInstructions());
         return recipe;
     }
 
