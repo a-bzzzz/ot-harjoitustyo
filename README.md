@@ -15,6 +15,8 @@ Salasana:         secret
 Reseptin nimi:    kaakao
 
 Myös oman käyttäjätunnuksen voi luoda ja kirjautua sillä sovellukseen.
+Käyttäjän kirjautumisen ja rekisteröitymisen lisäksi "Viikko 5" -releasessa toimii navigointi muutamissa ikkunoissa sekä reseptin hakeminen reseptin nimen perusteella.
+Tulossa mm. reseptin lisäys ja muokkaustoiminnot, sekä toivottavasti myös lisää hakutapoja, kuten reseptin hakeminen raaka-aineella, kategorialla, ts. hakuperusteiden mukainen lista, jolta voi valita tietyn reseptin tiedot näkymään. Mahdollisesti osa toiminnoista jää jatkokehitystarpeisiin.
 
 
 ### Dokumentaatio
