@@ -25,3 +25,8 @@ Salasana:         secret
 
 [Työaikakirjanpito](https://github.com/a-bzzzz/ot-harjoitustyo/tree/master/dokumentaatio/tunnit)
 
+
+### Releaset
+
+[Viikko 5](https://github.com/a-bzzzz/ot-harjoitustyo/releases/tag/viikko5)
+
