@@ -48,7 +48,7 @@ public class Validation {
         String uname = newUser.getUsername();
         String pword = newUser.getPassword();
 
-        if (fname.isBlank() || lname.isBlank() || email.isBlank() || uname.isBlank() || pword.isBlank()) {
+        if (fname.isEmpty() || lname.isEmpty() || email.isEmpty() || uname.isEmpty() || pword.isEmpty()) {
             return false;
         } else {
             return true;

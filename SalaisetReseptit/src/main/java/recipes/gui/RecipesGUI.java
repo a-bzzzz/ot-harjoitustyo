@@ -410,8 +410,8 @@ public class RecipesGUI extends Application {
         // Login action: from homeScene to beginScene, if successfull ----------
         loginButton.setOnAction((event) -> {
 
-            String inputUsername = userField.getText().strip();
-            String inputPassword = passField.getText().strip();
+            String inputUsername = userField.getText().trim();
+            String inputPassword = passField.getText().trim();
 
             try {
                 Info<User, String> loginInfo = this.check.validate(inputUsername, inputPassword);
@@ -477,11 +477,11 @@ public class RecipesGUI extends Application {
         // beginScene ----------------------------------------------------------
         register.setOnAction((event) -> {
 
-            String inFname = fnameField.getText().strip();
-            String inLname = lnameField.getText().strip();
-            String inEmail = emailField.getText().strip();
-            String inUname = unameField.getText().strip();
-            String inPword = newPword.getText().strip();
+            String inFname = fnameField.getText().trim();
+            String inLname = lnameField.getText().trim();
+            String inEmail = emailField.getText().trim();
+            String inUname = unameField.getText().trim();
+            String inPword = newPword.getText().trim();
             info_pop.setText("");
 
             boolean valid = false;
@@ -530,7 +530,7 @@ public class RecipesGUI extends Application {
 
         // Recipe search action - by name - in searchScene
         searchByName.setOnAction((event) -> {
-            this.recipeName = recipenameField.getText().strip();
+            this.recipeName = recipenameField.getText().trim();
             this.recipe = this.dbase.searchRecipebyName(this.recipeName);
             if (this.recipe == null) {
                 info1.setText("RESEPTIÄ EI LÖYDY! Hae uudelleen tai luo resepti.");
@@ -556,7 +556,7 @@ public class RecipesGUI extends Application {
         // TODO:
         // Recipe search action - by ingredient - in searchScene
         searchByStuff.setOnAction((event) -> {
-            String stuffName = stuffField.getText().strip();
+            String stuffName = stuffField.getText().trim();
             Recipe recipe = this.dbase.searchRecipebyStuff(stuffName);
         });
 
