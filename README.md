@@ -6,11 +6,15 @@
 
 Sovelluksen avulla loppukäyttäjä voi lisätä, ylläpitää, hakea ja listata ja poistaa ruokaohjeita eli ruokareseptejään käyttäjätunnuksilla suojatussa ympäristössä. Aluksi loppukäyttäjä voi luoda itselleen käyttäjätunnukset järjestelmään.
 
-Sovellus on keskeneräinen (alkuvaiheessa), mutta kirjautumista voi kokeilla seuraavilla valmiiksi järjestelmään luoduilla tunnuksilla:
+Sovellus on keskeneräinen (alkuvaiheessa), mutta sovellusta voi kokeilla seuraavilla valmiiksi järjestelmään luoduilla tunnuksilla ja reseptillä:
 
 Käyttäjätunnus:   admin
 
 Salasana:         secret
+
+Reseptin nimi:    kaakao
+
+Myös oman käyttäjätunnuksen voi luoda ja kirjautua sillä sovellukseen.
 
 
 ### Dokumentaatio
