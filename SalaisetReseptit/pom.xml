@@ -53,7 +53,9 @@
                     <exclude>recipes/gui/*</exclude>
                     <exclude>recipes/db/*</exclude>
                     <exclude>recipes/domain/Main</exclude>
-                    <exclude>recipes/domain/Recipe</exclude>
+                    <exclude>recipes/domain/Info</exclude>
+                    <exclude>recipes/domain/main</exclude>
+                    <exclude>recipes/domain/info</exclude>
                 </excludes>
     
             </configuration>
