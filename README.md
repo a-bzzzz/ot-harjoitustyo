@@ -66,6 +66,22 @@ mvn package
 
 generoi hakemistoon _target_ suoritettavan jar-tiedoston _Recipes-1.0-SNAPSHOT.jar_
 
+ohjelman voi suorittaa komennolla
+
+```
+java -jar jartiedoston_nimi.jar
+```
+
+"Viikko 5" -releasen kautta haetun pakkauksen nimi on recipes.jar, joten sen voi suorittaa komennolla
+
+```
+java -jar recipes.jar
+```
+
+Jar-tiedosto on mahdollista suorittaa millä tahansa koneella, olettaen että koneelle on asennettu Javan versio 1.8
+
+
+
 ### JavaDoc - TULOSSA VIIKOLLA 6
 
 JavaDoc generoidaan komennolla
@@ -75,6 +91,7 @@ mvn javadoc:javadoc
 ```
 
 JavaDocia voi tarkastella avaamalla selaimella tiedosto _target/site/apidocs/index.html_
+
 
 ### Checkstyle
 
