@@ -20,6 +20,9 @@ import recipes.domain.Recipe;
 /**
  *
  * @author aebjork
+ *
+ * This class offers an interface to the actual recipe database.
+ * GUI calls methods of this class, and this class is in connection to Recipe class.
  */
 public class RecipesDB {
 
@@ -42,6 +45,11 @@ public class RecipesDB {
         return this.path;
     }
 
+    /**
+     * Creates the database for recipes.
+     *
+     * @return true, if the database is created successfully; otherwise false
+     */
     public boolean createRecipeDB() {
 
         try {
@@ -83,6 +91,17 @@ public class RecipesDB {
 
     }
 
+    /**
+     * Enters the recipe details to recipe database, as well as ingredients
+     * with measures and guidelines to recipe object.
+     *
+     * @param recipe - Recipe object 
+     * @param ingredients - <stuff,amount> as Map object
+     * @param instructions - guidelines as a list
+     *
+     * @return true, if the the recipe details have been stored to database successfully,
+     * otherwise false
+     */
     public boolean addRecipe(Recipe recipe, Map ingredients, List instructions) {
 
         boolean success = false;
@@ -162,6 +181,12 @@ public class RecipesDB {
         }
     }
 
+    /** Gets the recipe from the database, when searching by the name of the recipe.
+     * 
+     * @param recipeName
+     * 
+     * @return Recipe object, if it can be found from the database, otherwise null
+     */
     public Recipe searchRecipebyName(String recipeName) {
         this.recipe = null;
         try {
