@@ -21,8 +21,8 @@ import recipes.domain.Recipe;
  *
  * @author aebjork
  *
- * This class offers an interface to the actual recipe database.
- * GUI calls methods of this class, and this class is in connection to Recipe class.
+ * This class offers an interface to the actual recipe database. GUI calls
+ * methods of this class, and this class is in connection to Recipe class.
  */
 public class RecipesDB {
 
@@ -41,6 +41,11 @@ public class RecipesDB {
         this.path = "jdbc:sqlite:" + this.dbase + ".db";
     }
 
+    /**
+     * Returns the name of the path of the database in use
+     * 
+     * @return path name of the database as String
+     */
     public String getDBPath() {
         return this.path;
     }
@@ -92,15 +97,15 @@ public class RecipesDB {
     }
 
     /**
-     * Enters the recipe details to recipe database, as well as ingredients
-     * with measures and guidelines to recipe object.
+     * Enters the recipe details to recipe database, as well as ingredients with
+     * measures and guidelines to recipe object.
      *
-     * @param recipe - Recipe object 
-     * @param ingredients - <stuff,amount> as Map object
-     * @param instructions - guidelines as a list
+     * @param recipe Recipe object
+     * @param ingredients stuff and amount as Map object
+     * @param instructions guidelines as a list
      *
-     * @return true, if the the recipe details have been stored to database successfully,
-     * otherwise false
+     * @return true, if the the recipe details have been stored to database
+     * successfully, otherwise false
      */
     public boolean addRecipe(Recipe recipe, Map ingredients, List instructions) {
 
@@ -181,11 +186,14 @@ public class RecipesDB {
         }
     }
 
-    /** Gets the recipe from the database, when searching by the name of the recipe.
-     * 
-     * @param recipeName
-     * 
-     * @return Recipe object, if it can be found from the database, otherwise null
+    /**
+     * Gets the recipe from the database, when searching by the name of the
+     * recipe.
+     *
+     * @param recipeName name of the recipe, that is being searched
+     *
+     * @return Recipe object, if it can be found from the database, otherwise
+     * null
      */
     public Recipe searchRecipebyName(String recipeName) {
         this.recipe = null;
@@ -238,7 +246,11 @@ public class RecipesDB {
         return recipe;
     }
 
-    // TODO: 
+    /**
+     * TODO
+     * @param stuff
+     * @return 
+     */
     public Recipe searchRecipebyStuff(String stuff) {
         // System.out.println("Searcing a recipe from database..");
         Recipe recipe = null;
