@@ -82,7 +82,7 @@ Jar-tiedosto on mahdollista suorittaa millä tahansa koneella, olettaen että ko
 
 
 
-### JavaDoc - TULOSSA VIIKOLLA 6
+### JavaDoc
 
 JavaDoc generoidaan komennolla
 
