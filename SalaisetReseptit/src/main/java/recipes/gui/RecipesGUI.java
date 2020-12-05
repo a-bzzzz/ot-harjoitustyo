@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package recipes.gui;
 
 import java.sql.SQLException;
@@ -27,6 +22,7 @@ import recipes.db.RecipesDB;
 import recipes.db.UsersDB;
 import recipes.domain.Info;
 import recipes.domain.Recipe;
+import recipes.domain.RecipeBook;
 import recipes.domain.User;
 import recipes.domain.Validation;
 
@@ -41,6 +37,7 @@ public class RecipesGUI extends Application {
     private RecipesDB dbase;
     private UsersDB udbase;
     private Validation check;
+    private RecipeBook book;
 
     private Scene homeScene;
     private Scene beginScene;
@@ -63,6 +60,7 @@ public class RecipesGUI extends Application {
     private boolean recipeCreated;
 
     private String recipeName;
+    private Recipe newRecipe;
 
     @Override
     public void init() {
@@ -73,6 +71,8 @@ public class RecipesGUI extends Application {
         this.check = new Validation(udbase);
         this.udbCreated = false;
         this.recipeName = "";
+        this.book = new RecipeBook();
+        this.newRecipe = null;
 
         String udbpath = this.udbase.getDBPath();
         System.out.println("Database path is: " + udbpath);
@@ -94,8 +94,8 @@ public class RecipesGUI extends Application {
             this.recipe.setIngredient("kaakaojauhe", "2 rkl");
             this.recipe.setInstruction("Kuumenna maito lähes kiehuvaksi.");
             this.recipe.setInstruction("Lisää kaakaojauhe ja sekoita.");
-            recipeCreated = this.dbase.addRecipe(recipe, this.recipe.getIngredientsAndAmounts(), this.recipe.getInstructions());
-            if (recipeCreated) {
+            this.recipeCreated = this.dbase.addRecipe(recipe, this.recipe.getIngredientsAndAmounts(), this.recipe.getInstructions());
+            if (this.recipeCreated) {
                 System.out.println("The first recipe, " + this.recipe.toString() + ", has been created.");
             }
         } else {
@@ -345,12 +345,14 @@ public class RecipesGUI extends Application {
         Button newPhase = new Button("Uusi vaihe");
         Button addRecipe = new Button("Lisää resepti");
         Button newRecipeButton = new Button("Uusi resepti");
-        ListView categories = new ListView();
-        // TODO: haettava kategoria lista ListView-olioon
+        ListView<String> categories = new ListView<String>();
+        ObservableList<String> categoryList = FXCollections.observableArrayList(
+                this.book.getCategories());
+        categories.setItems(categoryList);
 
+        HBox createRecipeView = new HBox();
         GridPane createRecipe = new GridPane();
         createRecipe.add(progTitleHome, 1, 1);
-        createRecipe.add(categories, 5, 1);
         createRecipe.add(recipeName, 1, 2);
         createRecipe.add(nameField, 2, 2);
         createRecipe.add(portions, 1, 3);
@@ -373,12 +375,14 @@ public class RecipesGUI extends Application {
         createRecipe.add(newRecipeButton, 3, 9);
         createRecipe.add(blancoCreate2, 1, 10);
 
+        createRecipeView.getChildren().addAll(createRecipe, categories);
+
         Label infoCreate = new Label("Täällä luodaan uusia reseptejä");
 
         BorderPane setCreate = new BorderPane();
         // TODO: Korjaa alla olevat:
         setCreate.setTop(createMenu);
-        setCreate.setCenter(createRecipe);
+        setCreate.setCenter(createRecipeView);
         setCreate.setBottom(infoCreate);
 
         this.createScene = new Scene(setCreate, this.WIDTH, this.HEIGHT);
@@ -473,7 +477,8 @@ public class RecipesGUI extends Application {
 
 //        endModify.setOnAction((event) -> {       // in modifyScene
 //            stage.close();
-//        });        
+//        });   
+
         // Login action: from homeScene to beginScene, if successfull ----------
         loginButton.setOnAction((event) -> {
 
@@ -499,73 +504,55 @@ public class RecipesGUI extends Application {
 
         // From homeScene to newUserScene --------------------------------------
         registerButton.setOnAction((event) -> {
-            stage.close();
-            stage.setScene(this.newUserScene);
             stage.setTitle("Registration");
-            stage.show();
+            stage.setScene(this.newUserScene);
         });
 
         // Back to homeScene from newUserScene ---------------------------------      
         backReg.setOnAction((event) -> {
-            stage.close();
             stage.setScene(this.homeScene);
-            stage.show();
         });
 
         // Back to beginScene from searchScene 
         backSearch.setOnAction((event) -> {
-            stage.close();
             stage.setScene(this.beginScene);
-            stage.show();
         });
 
         // Back to searchScene from recipeScene 
         backRecipe.setOnAction((event) -> {
-            stage.close();
             stage.setScene(this.searchScene);
-            stage.show();
         });
 
         // Back to beginScene from createScene
         backCreate.setOnAction((event) -> {
-            stage.close();
             stage.setScene(this.beginScene);
-            stage.show();
         });
 
         // Back to searchScene from modifyScene
 //        backModify.setOnAction((event) -> {
-//            stage.close();
 //            stage.setScene(this.searchScene);
-//            stage.show();
-//        });        
+//        });  
+
         // Back to homeScene from searchScene       
         toStartSearch.setOnAction((event) -> {
-            stage.close();
             stage.setScene(this.homeScene);
-            stage.show();
         });
 
         // Back to beginScene from recipeScene       
         toStartRecipe.setOnAction((event) -> {
-            stage.close();
             stage.setScene(this.beginScene);
-            stage.show();
         });
 
         // Back to homeScene from createScene       
         toStartCreate.setOnAction((event) -> {
-            stage.close();
             stage.setScene(this.homeScene);
-            stage.show();
         });
 
         // Back to beginScene from modifyScene       
 //        toStartModify.setOnAction((event) -> {
-//            stage.close();
 //            stage.setScene(this.beginScene);
-//            stage.show();
 //        });
+
         // Registration in newUserScene (adds a new user), if successfull -> 
         // beginScene ----------------------------------------------------------
         register.setOnAction((event) -> {
@@ -661,7 +648,6 @@ public class RecipesGUI extends Application {
         // 4. pyydetään valmistusohjeen rivi -> lisätään rivi kerrallaan luodulle instruction-listalle (lisää)
         // 5. syötetään ohjerivit listana reseptille (talleta)
         // 6. vasta kun kaikki tiedot syötetty, talletetaan tiedot tietokantaan (addRecipe) luo resepti -näppäimellä (tai joku muu komento)
-        // vai olisiko sittenkin parempi lisätä listat erikseen...?
         createButton.setOnAction((event) -> {
             infoCreate.setText("Siirrytään reseptin luomiseen..");
             stage.close();
@@ -672,49 +658,102 @@ public class RecipesGUI extends Application {
 
         addRecipeDetails.setOnAction((event) -> {
             String nameInput = nameField.getText().trim().toLowerCase();
-            int portionInput = Integer.valueOf(portionsField.getText().trim());
+            int portionsInput = 0;
+            if (!portionsField.getText().trim().isEmpty()) {
+                portionsInput = Integer.valueOf(portionsField.getText().trim());
+            }
             String categoryInput = categoryField.getText().trim().toLowerCase();
             if (nameInput.isEmpty()) {
                 infoCreate.setText("RESEPTIN NIMI PUUTTUU!");
-            } else if (!(portionInput > 0)) {
+            } else if (!(portionsInput > 0)) {
                 infoCreate.setText("ANNOSMÄÄRÄN OLTAVA VÄHINTÄÄN 1!");
-            // TODO: Lisää luokat RecipeBook ja Category, sekä näihin tarvittavat
+                // TODO: Lisää luokat RecipeBook ja Category, sekä näihin tarvittavat
 //            } else if (!book.validCategory(categoryInput)) {
             } else if (categoryInput.isEmpty()) {
                 infoCreate.setText("VALITSE OIKEA RESEPTIKATEGORIA!");
             } else {
-                Recipe newRecipe = new Recipe(nameInput, portionInput, categoryInput);
+                this.newRecipe = new Recipe(nameInput, portionsInput, categoryInput);
+                infoCreate.setText("Luotu perustiedot reseptille: " + this.newRecipe);
             }
-            // TODO: hae aine kerrallaan ja lisää reseptille
-            // TODO: hae ohjerivi kerrallaan ja lisää reseptille
         });
 
         clearRecipeDetails.setOnAction((event) -> {
-
+            nameField.setText("");
+            portionsField.setText("");
+            categoryField.setText("");
+            // TODO: Pitääkö samalla nollata newReceptin perustiedot vai ei?
+            this.newRecipe = null;
         });
 
+        // TODO: lisää näkymässä kategorialistalle numerot valintaa varten
+        // TODO: korjaa(?) reseptikategorialle numeroarvo - ja reseptille kategorialista
+        // TODO: hae aine kerrallaan ja lisää reseptille
+        // TODO: hae ohjerivi kerrallaan ja lisää reseptille
+        // TODO: lisää KOKO resepti tietokantaan
         addStuff.setOnAction((event) -> {
-
+            if (this.newRecipe == null) {
+                infoCreate.setText("LISÄÄ ENSIN RESEPTIN PERUSTIEDOT");
+            } else {
+                String stuffInput = ingredientField.getText().trim().toLowerCase();
+                String amountInput = amountField.getText().trim().toLowerCase();
+                if (stuffInput.isEmpty()) {
+                    infoCreate.setText("RAAKA-AINE PUUTTUU!");
+                } else if (amountInput.isEmpty()) {
+                    infoCreate.setText("LISÄÄ RAAKA-AINEEN MÄÄRÄ!");
+                } else {
+                    this.newRecipe.setIngredient(stuffInput, amountInput);
+                    infoCreate.setText("Reseptille lisätyt raaka-aineet: " + this.newRecipe.getIngredients());
+                }
+            }
         });
 
         newStuff.setOnAction((event) -> {
-
+            ingredientField.setText("");
+            amountField.setText("");
         });
 
         addPhase.setOnAction((event) -> {
-
+            if (this.newRecipe == null) {
+                infoCreate.setText("LISÄÄ ENSIN RESEPTIN PERUSTIEDOT!");
+            } else if (this.newRecipe.getIngredientsAndAmounts().isEmpty()) {
+                infoCreate.setText("LISÄÄ ENSIN RESEPTIN RAAKA-AINEET!");
+            } else {
+                String guideInput = guideField.getText().trim().toLowerCase();
+                if (guideInput.isEmpty()) {
+                    infoCreate.setText("OHJERIVI PUUTTUU!");
+                } else {
+                    this.newRecipe.setInstruction(guideInput);
+                    infoCreate.setText("Reseptille lisätyt ohjerivit: " + this.newRecipe.getInstructions());
+                }
+            }
         });
 
         newPhase.setOnAction((event) -> {
-
+            guideField.setText("");
         });
 
+        // TODO: Testaa virheellisillä syötteillä!
         addRecipe.setOnAction((event) -> {
-
+            if (this.newRecipe == null) {
+                infoCreate.setText("LISÄÄ ENSIN RESEPTIN PERUSTIEDOT!");
+            } else if (this.newRecipe.getIngredientsAndAmounts().isEmpty()) {
+                infoCreate.setText("LISÄÄ ENSIN RESEPTIN RAAKA-AINEET!");
+            } else if (this.newRecipe.getInstructions().isEmpty()) {
+                infoCreate.setText("LISÄÄ ENSIN OHJEISTUSTA!");
+            } else {
+                this.recipeCreated = this.dbase.addRecipe(this.newRecipe, this.newRecipe.getIngredientsAndAmounts(), this.newRecipe.getInstructions());
+                infoCreate.setText("Resepti, " + this.newRecipe.getRecipeName() + " on luotu: " + this.recipeCreated);
+            }
         });
 
         newRecipeButton.setOnAction((event) -> {
-
+            nameField.setText("            ");
+            portionsField.setText("            ");
+            categoryField.setText("            ");
+            ingredientField.setText("            ");
+            amountField.setText("            ");
+            guideField.setText("            ");
+            this.newRecipe = null;
         });
 
         // Recipe modification: From beginScene to modifyScene -----------------

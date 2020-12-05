@@ -25,7 +25,7 @@ public class Recipe {
     public Recipe(String recipeName, int portionAmount, String recipeCategory) {
         this.recipeName = recipeName;
         this.portionAmount = portionAmount;
-        this.category = recipeCategory;
+        this.category = recipeCategory;         // TODO: Mahdollisesti muutettava jonkinlaiseksi listaksi..
         this.ingredients = new HashMap<>();
         this.instructions = new ArrayList<>();
     }

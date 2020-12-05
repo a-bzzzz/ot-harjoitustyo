@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package recipes.db;
 
 import java.sql.Connection;
@@ -15,7 +10,6 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 import recipes.domain.Recipe;
-// import recipes.domain.User;
 
 /**
  *
@@ -240,9 +234,10 @@ public class RecipesDB {
 
         st.execute("COMMIT");
 
+        // TODO: Poista ao. tulosteet..
         System.out.println("getRecipe-metodissa: " + recipe);
-//        System.out.println("raaka-aineet: " + this.recipe.listIngredients());
-//        System.out.println("ohjeet: " + this.recipe.listInstructions());
+        System.out.println("raaka-aineet: " + this.recipe.getIngredients());
+        System.out.println("ohjeet: " + this.recipe.getInstructions());
         return recipe;
     }
 
