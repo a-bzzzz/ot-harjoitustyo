@@ -1,20 +1,18 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package recipes.domain;
 
-//import javafx.application.Application;
-import java.sql.SQLException;
 import recipes.gui.RecipesGUI;
 
 /**
- *
  * @author aebjork
+ * The main class for running this application, an electronic recipe book/cookbook.
  */
 public class Main {
 
+    /**
+     * The main method for starting the graphical user interface of the application.
+     * @param args
+     * @see recipes.gui.RecipesGUI
+     */
     public static void main(String[] args) {
         RecipesGUI.main(args);
     }
