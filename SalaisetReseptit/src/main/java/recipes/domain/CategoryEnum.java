@@ -1,8 +1,7 @@
 package recipes.domain;
 
 /**
- *
- * @author aebjork
+ * TODO: To use or not use this enum..?
  */
 public enum CategoryEnum {
 

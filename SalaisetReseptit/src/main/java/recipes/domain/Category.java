@@ -3,8 +3,7 @@ package recipes.domain;
 import java.util.List;
 
 /**
- *
- * @author aebjork
+ * TODO: To use or not use this class..?
  */
 public class Category {
 
