@@ -12,11 +12,9 @@ import java.util.Map;
 import recipes.domain.Recipe;
 
 /**
- *
- * @author aebjork
- *
- * This class offers an interface to the actual recipe database. GUI calls
+ * This class/data access object offers an interface to the actual recipe database. GUI calls
  * methods of this class, and this class is in connection to Recipe class.
+ * @see recipes.domain.Recipe
  */
 public class RecipesDB {
 
@@ -30,6 +28,10 @@ public class RecipesDB {
 
     private Recipe recipe;
 
+    /**
+     * Constructor, creates a RecipeDB object, which is responsible for connection to the actual recipe database
+     * @param dbase name of the recipe database
+     */
     public RecipesDB(String dbase) {
         this.dbase = dbase;
         this.path = "jdbc:sqlite:" + this.dbase + ".db";
@@ -37,7 +39,6 @@ public class RecipesDB {
 
     /**
      * Returns the name of the path of the database in use
-     * 
      * @return path name of the database as String
      */
     public String getDBPath() {
@@ -45,22 +46,18 @@ public class RecipesDB {
     }
 
     /**
-     * Creates the database for recipes.
-     *
-     * @return true, if the database is created successfully; otherwise false
+     * Creates the database for recipes with the following tables: Recipes, Stuff, Guidance
+     * @return true, if the recipe database is created successfully; otherwise false
      */
     public boolean createRecipeDB() {
 
         try {
-            /**
-             * Creates tables: Recipes, Stuff, Guidance
-             */
             db = DriverManager.getConnection(this.path);
             st = db.createStatement();
             st.execute("BEGIN TRANSACTION");
             st.execute("PRAGMA foreign_keys = ON");
             /**
-             * Recipes: id, name, portions, category
+             * Recipes: id, name, portions, category, idx_recipe_id
              */
             st.execute("CREATE TABLE Recipes(id INTEGER PRIMARY KEY NOT NULL UNIQUE, "
                     + "name TEXT NOT NULL, "
@@ -93,11 +90,10 @@ public class RecipesDB {
     /**
      * Enters the recipe details to recipe database, as well as ingredients with
      * measures and guidelines to recipe object.
-     *
      * @param recipe Recipe object
      * @param ingredients stuff and amount as Map object
      * @param instructions guidelines as a list
-     *
+     * @see recipes.domain.Recipe
      * @return true, if the the recipe details have been stored to database
      * successfully, otherwise false
      */
@@ -125,7 +121,7 @@ public class RecipesDB {
             r = p.getGeneratedKeys();
             r.next();
 
-            // Getting recipe id for adding ingredients and instructions
+            /** Getting recipe id for adding ingredients and instructions*/
             p = db.prepareStatement("SELECT id FROM Recipes WHERE name=?");
             p.setString(1, recipeName);
             r = p.executeQuery();
@@ -183,11 +179,9 @@ public class RecipesDB {
     /**
      * Gets the recipe from the database, when searching by the name of the
      * recipe.
-     *
      * @param recipeName name of the recipe, that is being searched
-     *
-     * @return Recipe object, if it can be found from the database, otherwise
-     * null
+     * @see recipes.domain.Recipe
+     * @return Recipe object, if it can be found from the database, otherwise null
      */
     public Recipe searchRecipebyName(String recipeName) {
         this.recipe = null;
@@ -243,8 +237,9 @@ public class RecipesDB {
 
     /**
      * TODO
-     * @param stuff
-     * @return 
+     * @param stuff name of an ingredient
+     * @see recipes.domain.Recipe
+     * @return recipe the searched recipe, if exists, otherwise null
      */
     public Recipe searchRecipebyStuff(String stuff) {
         // System.out.println("Searcing a recipe from database..");

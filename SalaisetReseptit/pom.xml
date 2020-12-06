@@ -52,10 +52,11 @@
                 <excludes>
                     <exclude>recipes/gui/*</exclude>
                     <exclude>recipes/db/*</exclude>
-                    <exclude>recipes/domain/Main</exclude>
-                    <exclude>recipes/domain/Info</exclude>
-                    <exclude>recipes/domain/main</exclude>
-                    <exclude>recipes/domain/info</exclude>
+                    <exclude>recipes/domain/Main.class</exclude>
+                    <exclude>recipes/domain/Info.class</exclude>
+                    <exclude>recipes/domain/Category.class</exclude>
+                    <exclude>recipes/domain/CategoryEnum.class</exclude>
+                    <exclude>recipes/domain/RecipeBook.class</exclude>
                 </excludes>
     
             </configuration>

@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package recipes.db;
 
 import java.sql.Connection;
@@ -16,8 +11,9 @@ import java.util.logging.Logger;
 import recipes.domain.User;
 
 /**
- *
- * @author aebjork
+ * This class/data access object offers an interface to the actual user database. GUI calls
+ * methods of this class, and this class is in connection to User class.
+ * @see recipes.domain.User
  */
 public class UsersDB implements UsersInterface {
 
@@ -29,6 +25,12 @@ public class UsersDB implements UsersInterface {
     private PreparedStatement p;
     private ResultSet r;
 
+    /**
+     * This class/data access object offers an interface to the actual recipe database. GUI calls
+     * methods of this class, and this class is in connection to Recipe class.
+     * @param ubase name of the user database
+     * @see UsersInterface, the interface for user data access objects
+     */
     public UsersDB(String ubase) {
         this.ubase = ubase;
         this.path = "jdbc:sqlite:" + this.ubase + ".db";
