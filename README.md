@@ -22,6 +22,8 @@ Tulossa mm. reseptin lisäys ja muokkaustoiminnot, sekä toivottavasti myös lis
 
 ## Dokumentaatio
 
+[Käyttöohje](https://github.com/a-bzzzz/ot-harjoitustyo/blob/master/dokumentaatio/kayttoohje.md)
+
 [Vaatimusmäärittely](https://github.com/a-bzzzz/ot-harjoitustyo/blob/master/dokumentaatio/vaatimusmaarittely.md)
 
 [Arkkitehtuurikuvaus](https://github.com/a-bzzzz/ot-harjoitustyo/tree/master/dokumentaatio/arkkitehtuuri)
