@@ -1,8 +1,8 @@
 # Käyttöohje
 
 Lataa tiedosto
-valitsemalla sopiva pakkaus: [recipes.jar](https://github.com/a-bzzzz/ot-harjoitustyo/releases)
-tai suoraan jar-paketti: [recipes.jar](https://github.com/a-bzzzz/ot-harjoitustyo/releases/download/viikko5/recipes.jar)
+valitsemalla sopiva pakkaus [releases](https://github.com/a-bzzzz/ot-harjoitustyo/releases)
+tai suoraan jar-paketti [recipes.jar](https://github.com/a-bzzzz/ot-harjoitustyo/releases/download/viikko5/recipes.jar)
 
 ## Konfigurointi
 
