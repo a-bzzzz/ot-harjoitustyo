@@ -49,7 +49,7 @@ Sovelluksen looginen toteutus on seuraavissa luokissa:
 
 Sovelluksen pysyviksi tarkoitetut tiedot, reseptit ja niiden raaka-aineet ja ohjerivit sekä käyttäjätiedot, talletetaan SQLite-tietokantoihin ja niiden tauluihin.
 
-###Tietokannat ja niiden taulukot
+### Tietokannat ja niiden taulukot
 
 | UsersDatabase | RecipesDatabase |
 | :-------------| :---------------|
