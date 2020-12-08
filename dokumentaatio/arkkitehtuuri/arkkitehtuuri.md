@@ -65,7 +65,7 @@ Pakkauksen _recipes.db_ luokat _RecipesDB_, _UsersDB_ ja _UsersInterface_ huoleh
 
 Sekvenssikaavioita ja/tai sanallisia kuvauksia sovelluslogiikan päätoiminnallisuuksista:
 
-### käyttäjän kirjaantuminen
+### Käyttäjän kirjaantuminen
 
 Aloitusnäkymässä käyttäjä kirjoittaa syotekenttiin käyttäjätunnuksensa ja salasanansa. Sen jälkeen klikataan  _Kirjaudu_-painiketta. Jos sekä käyttäjätunnus ja salasana ovat oikeat eli jo luotu järjestelmään, etenee sovelluksen kontrolli seuraavasti:
 
