@@ -10,7 +10,7 @@ Ohjelman luokat on jaettu kolmeen eri pakkaukseen, jotka - tai joiden luokat - k
 Pakkausten sisällöt ovat seuraavat:
 * _recipes.gui_     : JavaFX:llä toteutettu käyttöliittymä
 * _recipes.domain_  : sovelluslogiikka
-* _recipes.db       : tietojen pysyväistallennuksen huolehtivat luokat, rajapinnat varsinaisiin SQLite-tietokantoihin
+* _recipes.db_       : tietojen pysyväistallennuksen huolehtivat luokat, rajapinnat varsinaisiin SQLite-tietokantoihin
 
 
 ## Käyttöliittymä
@@ -29,7 +29,7 @@ Lisäksi jatkossa ohjelmaan on mahdollista lisätä vaikkapa muita popup-ikkunoi
 * A.2 - kirjautuminen eli oma pikkuikkunansa pelkästään kirjautumista varten (jos on tarpeen)
 * A.3 - salasana-tukipyyntö eli pikkuikkuna, jonka kautta loppukäyttäjä voi pyytää apua pääkäyttäjältä (admin) käyttäjätunnusten palauttamisen kanssa
 
-Käyttöliittymäikkunat on toteutettu JavaFX:n Scene-olioina. Käyttöliittymän koodi löytyy _gui_-pakkauksen _RecipesGUI_luokasta.
+Käyttöliittymäikkunat on toteutettu JavaFX:n Scene-olioina. Käyttöliittymän koodi löytyy _gui_-pakkauksen _RecipesGUI_-luokasta.
 
 _RecipesGUI_-luokka puolestaan kutsuu muiden pakkausten luokkia ja käyttää yleensä apuna kutsuissa käyttäjän syöttämiä parametreja.
 
@@ -49,13 +49,13 @@ Sovelluksen looginen toteutus on seuraavissa luokissa:
 
 Sovelluksen pysyviksi tarkoitetut tiedot, reseptit ja niiden raaka-aineet ja ohjerivit sekä käyttäjätiedot, talletetaan SQLite-tietokantoihin ja niiden tauluihin.
 
-###Tietokannat ja niiden taulukot**
+###Tietokannat ja niiden taulukot
 
-| Tietokannan nimi: | UsersDatabase | RecipesDatabase |
-| :----------------:| :-------------| :---------------|
-|                   | Users         | Recipes         |
-|                   |               | Stuff           |
-|                   |               | Guidance        |
+| UsersDatabase | RecipesDatabase |
+| :-------------| :---------------|
+| Users         | Recipes         |
+|               | Stuff           |
+|               | Guidance        |
 
 TODO: KORJAA ALLA OLEVA!...............................
 
