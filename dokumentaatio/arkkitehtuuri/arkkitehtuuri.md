@@ -5,7 +5,7 @@
 
 Ohjelman luokat on jaettu kolmeen eri pakkaukseen, jotka - tai joiden luokat - kutsuvat toinen toisiaan:
 
-<img src="https://github.com/a-bzzzz/ot-harjoitustyo/blob/master/dokumentaatio/arkkitehtuuri/Pakkaus_ja_luokkakaavio-Recipes.png" width="160">
+<img src="https://github.com/a-bzzzz/ot-harjoitustyo/blob/master/dokumentaatio/arkkitehtuuri/Pakkaus_ja_luokkakaavio-Recipes.png" width="750">
 
 Pakkausten sisällöt ovat seuraavat:
 * _recipes.gui_     : JavaFX:llä toteutettu käyttöliittymä
@@ -80,9 +80,9 @@ Reseptihaku-näkymässä käyttäjä kirjoittaa syötekenttään reseptin nimen.
 #### Reseptin lisääminen
 
 Käyttäjä lisää reseptin lisäys -näkymässä vaiheittain reseptin tiedot:
-\* reseptin nimi, annosmäärä ja kategoria
-\* reseptin raaka-aine ja sen määrä reseptissä lisätään jokainen raaka-aine (määrineen) kerrallaan
-\* reseptin valmistusohjeen vaiheet rivi kerrallaan
-\* lopuksi reseptin tiedot lisätään reseptikirjaan, käytännössä tietokantaan
+1. reseptin nimi, annosmäärä ja kategoria
+2. reseptin raaka-aine ja sen määrä reseptissä lisätään jokainen raaka-aine (määrineen) kerrallaan
+3. reseptin valmistusohjeen vaiheet rivi kerrallaan
+4. lopuksi reseptin tiedot lisätään reseptikirjaan, käytännössä tietokantaan
 
 
