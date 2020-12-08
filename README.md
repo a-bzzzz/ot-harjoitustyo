@@ -30,7 +30,7 @@ Tulossa mm. reseptin lisäys ja muokkaustoiminnot, sekä toivottavasti myös lis
 
 [Testausdokumentaatio](https://github.com/a-bzzzz/ot-harjoitustyo/blob/master/dokumentaatio/testaus/testikattavuus_Recipes.pdf)
 
-[Laatudokumentaatio](https://github.com/a-bzzzz/ot-harjoitustyo/tree/master/dokumentaatio/laatu)
+[Laatudokumentaatio](https://github.com/a-bzzzz/ot-harjoitustyo/blob/master/dokumentaatio/laatu/CheckstyleResults.png)
 
 [Työaikakirjanpito](https://github.com/a-bzzzz/ot-harjoitustyo/tree/master/dokumentaatio/tunnit)
 
