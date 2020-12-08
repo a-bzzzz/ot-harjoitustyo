@@ -61,23 +61,23 @@ Sovelluksen pysyviksi tarkoitetut tiedot, reseptit ja niiden raaka-aineet ja ohj
 Pakkauksen _recipes.db_ luokat _RecipesDB_, _UsersDB_ ja _UsersInterface_ huolehtivat tietojen tallettamisesta edellä näkyviin tietokantoihin, sekä tietojen hakemisesta näistä tietokannoista. 
 
 
-### Päätoiminnallisuudet
+## Päätoiminnallisuudet
 
 Sekvenssikaavioita ja/tai sanallisia kuvauksia sovelluslogiikan päätoiminnallisuuksista:
 
-#### käyttäjän kirjaantuminen
+### käyttäjän kirjaantuminen
 
 Aloitusnäkymässä käyttäjä kirjoittaa syotekenttiin käyttäjätunnuksensa ja salasanansa. Sen jälkeen klikataan  _Kirjaudu_-painiketta. Jos sekä käyttäjätunnus ja salasana ovat oikeat eli jo luotu järjestelmään, etenee sovelluksen kontrolli seuraavasti:
 
 <img src="https://github.com/a-bzzzz/ot-harjoitustyo/blob/master/dokumentaatio/arkkitehtuuri/Sekvenssikaavio_Recipes_login.png" width="750">
 
-#### Reseptin hakeminen reseptin nimellä
+### Reseptin hakeminen reseptin nimellä
 
 Reseptihaku-näkymässä käyttäjä kirjoittaa syötekenttään reseptin nimen. Sen jälkeen painetaan _Hae_-painiketta. Jos resepti löytyy haetulla nimellä tietokannasta, siirrytään reseptinäkymään, jossa näkyvät reseptin tiedot.
 
 <img src="https://github.com/a-bzzzz/ot-harjoitustyo/blob/master/dokumentaatio/arkkitehtuuri/Sekvenssikaavio_Recipes-searchByName.png" width="750">
 
-#### Reseptin lisääminen
+### Reseptin lisääminen
 
 Käyttäjä lisää reseptin lisäys -näkymässä vaiheittain reseptin tiedot:
 1. reseptin nimi, annosmäärä ja kategoria
