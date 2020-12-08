@@ -65,7 +65,7 @@ public class RecipesGUI extends Application {
     @Override
     public void init() {
         this.userDatabase = "UsersDatabase";
-        this.recipeDatabase = "UsersDatabase";
+        this.recipeDatabase = "RecipesDatabase";
         this.udbase = new UsersDB(this.userDatabase);
         this.dbase = new RecipesDB(this.recipeDatabase);
         this.check = new Validation(udbase);
@@ -478,7 +478,6 @@ public class RecipesGUI extends Application {
 //        endModify.setOnAction((event) -> {       // in modifyScene
 //            stage.close();
 //        });   
-
         // Login action: from homeScene to beginScene, if successfull ----------
         loginButton.setOnAction((event) -> {
 
@@ -532,7 +531,6 @@ public class RecipesGUI extends Application {
 //        backModify.setOnAction((event) -> {
 //            stage.setScene(this.searchScene);
 //        });  
-
         // Back to homeScene from searchScene       
         toStartSearch.setOnAction((event) -> {
             stage.setScene(this.homeScene);
@@ -552,7 +550,6 @@ public class RecipesGUI extends Application {
 //        toStartModify.setOnAction((event) -> {
 //            stage.setScene(this.beginScene);
 //        });
-
         // Registration in newUserScene (adds a new user), if successfull -> 
         // beginScene ----------------------------------------------------------
         register.setOnAction((event) -> {

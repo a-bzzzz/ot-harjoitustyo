@@ -7,7 +7,6 @@ package recipes.domain;
  * @param <V> info text
  * @see recipes.gui.RecipesGUI
  * @see recipes.domain.Validation
- * @see recipes.domain.Validation.validate
  */
 public class Info<K, V> {
     
