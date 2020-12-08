@@ -32,7 +32,7 @@ Tulossa mm. reseptin lisäys ja muokkaustoiminnot, sekä toivottavasti myös lis
 
 [Laatudokumentaatio](https://github.com/a-bzzzz/ot-harjoitustyo/blob/master/dokumentaatio/laatu/CheckstyleResults.png)
 
-[Työaikakirjanpito](https://github.com/a-bzzzz/ot-harjoitustyo/tree/master/dokumentaatio/tunnit)
+[Työaikakirjanpito](https://github.com/a-bzzzz/ot-harjoitustyo/blob/master/dokumentaatio/tunnit/tyoaikakirjanpito.pdf)
 
 
 ## Releaset
