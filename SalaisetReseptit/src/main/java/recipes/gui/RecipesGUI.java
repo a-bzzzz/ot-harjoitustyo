@@ -65,7 +65,7 @@ public class RecipesGUI extends Application {
     @Override
     public void init() {
         this.userDatabase = "UsersDatabase";
-        this.recipeDatabase = "RecipesDatabase";
+        this.recipeDatabase = "UsersDatabase";
         this.udbase = new UsersDB(this.userDatabase);
         this.dbase = new RecipesDB(this.recipeDatabase);
         this.check = new Validation(udbase);

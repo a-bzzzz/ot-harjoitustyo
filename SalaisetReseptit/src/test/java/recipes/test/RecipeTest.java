@@ -25,11 +25,11 @@ public class RecipeTest {
     Recipe anotherRecipe;
     private Map<String, String> testIngredients;   // ingredient's name and amount
     private List<String> testInstructions;
-    
+
     @Before
     public void setUp() {
-        testRecipe = new Recipe("testilettu", 4, "jälkiruuat");
-        anotherRecipe = new Recipe("isolettu", 2, "jälkiruuat");
+        testRecipe = new Recipe("testilettu", 4, "jälkiruoat");
+        anotherRecipe = new Recipe("isolettu", 2, "jälkiruoat");
         this.testIngredients = new HashMap<>();
         this.testInstructions = new ArrayList<>();
         this.testRecipe.setIngredient("kananmuna", "3 kpl");
@@ -42,7 +42,7 @@ public class RecipeTest {
         this.testRecipe.setInstruction("Paista taikinasta ohukaisia rasvassa pannulla.");
         this.testRecipe.setInstruction("Tarjoa lisänä esim. kermavaahtoa, marjoja, sokeria, hilloa, sokeroitua marjasurvosta tai jäätelöä.");
     }
-    
+
     @Test
     public void getsRightRecipeName() {
         assertThat("testilettu", is(equalTo(testRecipe.getRecipeName())));
@@ -57,36 +57,59 @@ public class RecipeTest {
 
     @Test
     public void toStringMakesRightOutput() {
-        assertThat("jälkiruuat: testilettu - 4 annosta", is(equalTo(testRecipe.toString())));
-        assertThat("jälkiruuat: testilettu - 4 annosta", is(not(equalTo(anotherRecipe.toString()))));
+        assertThat("jälkiruoat: testilettu - 4 annosta", is(equalTo(testRecipe.toString())));
+        assertThat("jälkiruoat: testilettu - 4 annosta", is(not(equalTo(anotherRecipe.toString()))));
     }
 
     @Test
     public void getsRightCategory() {
-        assertThat("jälkiruuat", is(equalTo(testRecipe.getCategory())));
+        assertThat("jälkiruoat", is(equalTo(testRecipe.getCategory())));
         assertThat("juomat", is(not(equalTo(testRecipe.getCategory()))));
     }
-    
+
     @Test
     public void getsRightIngredientsAndAmounts() {
         assertThat("[vehnäjauho, kananmuna, sokeri, suola, maito]", is(equalTo(testRecipe.getIngredientsAndAmounts().keySet().toString())));
         assertThat("[3 dl, 3 kpl, 2 rkl, 1 tl, 6 dl]", is(equalTo(testRecipe.getIngredientsAndAmounts().values().toString())));
     }
-    
+
     @Test
     public void returnsRightIngredientList() {
         assertThat("[vehnäjauho, kananmuna, sokeri, suola, maito]", is(equalTo(testRecipe.getIngredients().toString())));
     }
-    
+
     @Test
     public void returnsRightIAmountList() {
         assertThat("[3 dl, 3 kpl, 2 rkl, 1 tl, 6 dl]", is(equalTo(testRecipe.getAmounts().toString())));
     }
-    
+
     @Test
     public void getsRightInstructions() {
         assertThat("[Vatkaa munien rakenne rikki kulhossa, lisää taikinaan n. 2 dl maitoa ja muut aineet ja vatkaa tasaiseksi., Lisää loppu maito ja sekoita. Anna turvota 30 min., Paista taikinasta ohukaisia rasvassa pannulla., Tarjoa lisänä esim. kermavaahtoa, marjoja, sokeria, hilloa, sokeroitua marjasurvosta tai jäätelöä.]", is(equalTo(testRecipe.getInstructions().toString())));
         assertThat("[vehnäjauho, kananmuna, sokeri, suola, maito]", is(not(equalTo(testRecipe.getInstructions().toString()))));
+    }
+
+    @Test
+    public void createsRecipeDetailsCorrectly() {
+        Recipe tikka = new Recipe("tikka masala", 6, "pääruoat");
+        assertThat("pääruoat: tikka masala - 6 annosta", is(equalTo(tikka.toString())));
+    }
+
+    @Test
+    public void setsIngredientsCorrectly() {
+        Recipe tikka = new Recipe("tikka masala", 6, "pääruoat");
+        tikka.setIngredient("broilerin leikkeleitä", "350 g");
+        tikka.setIngredient("turkkilaista jogurttia", "4 dl");
+        assertThat("[turkkilaista jogurttia, broilerin leikkeleitä]", is(equalTo(tikka.getIngredients().toString())));
+        assertThat("[4 dl, 350 g]", is(equalTo(tikka.getAmounts().toString())));
+    }
+
+    @Test
+    public void setsIstructionsCorrectly() {
+        Recipe tikka = new Recipe("tikka masala", 6, "pääruoat");
+        tikka.setInstruction("Sekoita mausteseos ja puolet siitä jogurtin joukkoon.");
+        tikka.setInstruction("Kääntele broilerit jogurtissa ja anna maustua noin puoli tuntia huoneenlämmössä.");
+        assertThat("[Sekoita mausteseos ja puolet siitä jogurtin joukkoon., Kääntele broilerit jogurtissa ja anna maustua noin puoli tuntia huoneenlämmössä.]", is(equalTo(tikka.getInstructions().toString())));
     }
 
 }
