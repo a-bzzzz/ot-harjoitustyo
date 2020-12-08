@@ -11,7 +11,7 @@ Sovelluksen avulla loppukäyttäjä voi lisätä, ylläpitää, hakea ja listata
 ### Käyttäjäroolit
 
 1. Loppukäyttäjä
-1. Ylläpitäjä (jatkossa)
+1. Ylläpitäjä (1. käyttökerralla sovellus luo admin-tunnukset, mutta ylläpitäjäroolin toimintojen parempi toteutus jää jatkokehitykselle)
 
 
 ### Toiminnallisuudet
@@ -19,15 +19,15 @@ Sovelluksen avulla loppukäyttäjä voi lisätä, ylläpitää, hakea ja listata
 Perusversio: Tavalliset loppukäyttäjät voivat sovelluksella
 * luoda käyttäjätunnuksen -> tehty
 * kirjautua järjestelmään omilla käyttäjätunnuksillaan (järjestelmä ilmoittaa, jos käyttäjällä ei ole vielä tunnuksia eli oikeuksia järjetelmään pääsyyn) -> tehty 
-* luoda reseptin tai reseptejä - TULOSSA
+* luoda reseptin tai reseptejä -> tehty
 * hakea reseptiä tietyillä hakukriteereillä tai tietyn reseptikategorian kautta -> tehty: haku reseptin nimellä, muut hakutavat - TULOSSA
-* listata tietyn kategorian reseptinimiä ja/tai reseptien perustietoja - TULOSSA / JATKOKEHITYS
+* listata tietyn kategorian reseptinimiä ja/tai reseptien perustietoja - TULOSSA
 * muokata luomiaan reseptejä - TULOSSA
 * poistaa haetun reseptin - TULOSSA
 * kirjautua ulos järjestelmästä -> tehty
 
 Jatkokehitys: Ylläpitäjät voivat sovelluksessa edellä mainitun lisäksi
-* kirjautua järjestelmään admin-tunnuksilla -> tehty (alustavasti)
+* kirjautua järjestelmään admin-tunnuksilla -> tehty (alustavasti automaattisesti luodaan admin-tunnukset)
 * muokata ja listata käyttäjätietoja (loppukäyttäjien käyttäjätunnuksia)
 * poistaa käyttäjätietoja (loppukäyttäjien tunnuksia)
 * listata reseptejä ja niiden perustietoja hieman monipuolisemmin
