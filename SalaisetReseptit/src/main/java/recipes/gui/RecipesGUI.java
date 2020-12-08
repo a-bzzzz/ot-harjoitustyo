@@ -519,6 +519,7 @@ public class RecipesGUI extends Application {
 
         // Back to searchScene from recipeScene 
         backRecipe.setOnAction((event) -> {
+            recipenameField.setText("                                        ");
             stage.setScene(this.searchScene);
         });
 
@@ -599,10 +600,11 @@ public class RecipesGUI extends Application {
         // Advancing to recipe search: From beginScene to searchScene -----------------------
         searchButton.setOnAction((event) -> {
             infoBegin.setText("Siirrytään reseptin hakuun..");
-            stage.close();
+            //stage.close();
             stage.setTitle("Recipe search");
+            recipenameField.setText("                                        ");
             stage.setScene(this.searchScene);
-            stage.show();
+            //stage.show();
         });
 
         // Recipe search action - by name - in searchScene

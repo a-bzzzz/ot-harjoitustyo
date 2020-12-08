@@ -9,6 +9,8 @@ import java.sql.Statement;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import recipes.domain.Recipe;
 
 /**
@@ -137,6 +139,11 @@ public class RecipesDB {
             success = true;
         } catch (SQLException s) {
             System.out.println("Database error in addRecipe: " + s.getMessage());
+            try {
+                db.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(RecipesDB.class.getName()).log(Level.SEVERE, null, ex);
+            }
             success = false;
         }
         return success;
@@ -192,6 +199,11 @@ public class RecipesDB {
             db.close();
         } catch (SQLException s) {
             this.recipe = null;
+            try {
+                db.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(RecipesDB.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
         return this.recipe;
     }
