@@ -28,7 +28,7 @@ Tulossa mm. reseptin lisäys ja muokkaustoiminnot, sekä toivottavasti myös lis
 
 [Arkkitehtuurikuvaus](https://github.com/a-bzzzz/ot-harjoitustyo/blob/master/dokumentaatio/arkkitehtuuri/arkkitehtuuri.md)
 
-[Testausdokumentaatio](https://github.com/a-bzzzz/ot-harjoitustyo/tree/master/dokumentaatio/testaus)
+[Testausdokumentaatio](https://github.com/a-bzzzz/ot-harjoitustyo/blob/master/dokumentaatio/testaus/testikattavuus_Recipes.pdf)
 
 [Laatudokumentaatio](https://github.com/a-bzzzz/ot-harjoitustyo/tree/master/dokumentaatio/laatu)
 
