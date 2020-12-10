@@ -1,6 +1,8 @@
 package recipes.gui;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -61,6 +63,7 @@ public class RecipesGUI extends Application {
 
     private String recipeName;
     private Recipe newRecipe;
+    private List<Recipe> recipes;
 
     @Override
     public void init() {
@@ -73,6 +76,7 @@ public class RecipesGUI extends Application {
         this.recipeName = "";
         this.book = new RecipeBook();
         this.newRecipe = null;
+        this.recipes = new ArrayList<>();
 
         String udbpath = this.udbase.getDBPath();
         System.out.println("Database path is: " + udbpath);
@@ -636,7 +640,11 @@ public class RecipesGUI extends Application {
         // Recipe search action - by ingredient - in searchScene
         searchByStuff.setOnAction((event) -> {
             String stuffName = stuffField.getText().trim().toLowerCase();
-            Recipe recipe = this.dbase.searchRecipebyStuff(stuffName);
+            this.recipes = this.dbase.searchRecipebyStuff(stuffName);
+            // TODO: näytä lista gui:ssa
+            this.recipes.stream().forEach(r -> System.out.println(r));
+            // ??????????????????????????????????????????????           
+            
         });
 
         // Recipe creation: From beginScene to createScene ---------------------
