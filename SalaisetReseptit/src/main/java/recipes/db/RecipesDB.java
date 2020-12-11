@@ -16,9 +16,7 @@ import recipes.domain.Recipe;
 
 /**
  * This class/data access object offers an interface to the actual recipe
- * database. GUI calls methods of this class, and this class is in connection to
- * Recipe class.
- *
+ * database. GUI calls methods of this class, and this class is in connection to Recipe class.
  * @see recipes.domain.Recipe
  */
 public class RecipesDB {
@@ -36,9 +34,7 @@ public class RecipesDB {
     private List<Recipe> recipes;
 
     /**
-     * Constructor, creates a RecipeDB object, which is responsible for
-     * connection to the actual recipe database
-     *
+     * Constructor, creates a RecipeDB object, which is responsible for connection to the actual recipe database
      * @param dbase name of the recipe database
      */
     public RecipesDB(String dbase) {
@@ -49,7 +45,6 @@ public class RecipesDB {
 
     /**
      * Returns the name of the path of the database in use
-     *
      * @return path name of the database as String
      */
     public String getDBPath() {
@@ -57,77 +52,56 @@ public class RecipesDB {
     }
 
     /**
-     * Creates the database for recipes with the following tables: Recipes,
-     * Stuff, Guidance
-     *
-     * @return true, if the recipe database is created successfully; otherwise
-     * false
+     * Creates the database for recipes with the following tables: Recipes, Stuff, Guidance
+     * @return true, if the recipe database is created successfully; otherwise false
      */
     public boolean createRecipeDB() {
-
+        boolean success = this.getConnected();
         try {
-            db = DriverManager.getConnection(this.path);
-            st = db.createStatement();
             st.execute("BEGIN TRANSACTION");
             st.execute("PRAGMA foreign_keys = ON");
             /**
              * Recipes: id, name, portions, category, idx_recipe_id
              */
             st.execute("CREATE TABLE Recipes(id INTEGER PRIMARY KEY NOT NULL UNIQUE, "
-                    + "name TEXT NOT NULL, "
-                    + "portions INTEGER, "
-                    + "category TEXT)");
+                    + "name TEXT NOT NULL, portions INTEGER, category TEXT)");
             st.execute("CREATE INDEX idx_recipe_id ON Recipes (id)");
             /**
              * Stuff: id, stuff_name, amount
              */
-            st.execute("CREATE TABLE Stuff(id INTEGER NOT NULL,"
-                    + "stuff_name TEXT, "
-                    + "amount TEXT)");
+            st.execute("CREATE TABLE Stuff(id INTEGER NOT NULL, stuff_name TEXT, amount TEXT)");
             /**
              * Guidance: id, row, text
              */
-            st.execute("CREATE TABLE Guidance(id INTEGER NOT NULL,"
-                    + "row INTEGER NOT NULL, "
-                    + "text TEXT)");
+            st.execute("CREATE TABLE Guidance(id INTEGER NOT NULL, row INTEGER NOT NULL, text TEXT)");
             st.execute("COMMIT");
             db.close();
             System.out.println("Database " + this.dbase + ".db has been created.");
-            return true;
         } catch (SQLException s) {
-            System.out.println("Database error in createRecipeDB: " + s.getMessage());
-            return false;
+            success = this.handleError(s);
+            return success;
         }
-
+        return success;
     }
 
     /**
-     * Enters the recipe details to recipe database, as well as ingredients with
-     * measures and guidelines to recipe object.
-     *
+     * Enters the recipe details to recipe database, as well as ingredients with measures and guidelines to recipe object.
      * @param recipe Recipe object
      * @param ingredients stuff and amount as Map object
      * @param instructions guidelines as a list
      * @see recipes.domain.Recipe
-     * @return true, if the the recipe details have been stored to database
-     * successfully, otherwise false
+     * @return true, if the the recipe details have been stored to database successfully, otherwise false
      */
     public boolean addRecipe(Recipe recipe, Map ingredients, List instructions) {
-
-        boolean success = false;
-
+        boolean success = this.getConnected();
         try {
-            db = DriverManager.getConnection(path);
-            st = db.createStatement();
-
             String recipeName = recipe.getRecipeName().toLowerCase();
             int portionAmount = recipe.getPortionAmount();
             String recipeCategory = recipe.getCategory().toLowerCase();
 
             st.execute("BEGIN TRANSACTION");
 
-            p = db.prepareStatement("INSERT INTO Recipes(name,portions,category) VALUES (?,?,?)",
-                    Statement.RETURN_GENERATED_KEYS);
+            p = db.prepareStatement("INSERT INTO Recipes(name,portions,category) VALUES (?,?,?)", Statement.RETURN_GENERATED_KEYS);
             p.setString(1, recipeName);
             p.setInt(2, portionAmount);
             p.setString(3, recipeCategory);
@@ -153,13 +127,8 @@ public class RecipesDB {
             db.close();
             success = true;
         } catch (SQLException s) {
-            System.out.println("Database error in addRecipe: " + s.getMessage());
-            try {
-                db.close();
-            } catch (SQLException ex) {
-                Logger.getLogger(RecipesDB.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            success = false;
+            success = this.handleError(s);
+            return success;
         }
         return success;
     }
@@ -201,33 +170,24 @@ public class RecipesDB {
     /**
      * Gets the recipe from the database, when searching by the name of the
      * recipe.
-     *
      * @param recipeName name of the recipe, that is being searched
      * @see recipes.domain.Recipe
-     * @return Recipe object, if it can be found from the database, otherwise
-     * null
+     * @return Recipe object, if it can be found from the database, otherwise null
      */
     public Recipe searchRecipebyName(String recipeName) {
         this.recipe = null;
+        this.getConnected();
         try {
-            db = DriverManager.getConnection(this.path);
-            st = db.createStatement();
             this.recipe = this.getRecipe(recipeName);
             db.close();
         } catch (SQLException s) {
             this.recipe = null;
-            try {
-                db.close();
-            } catch (SQLException ex) {
-                Logger.getLogger(RecipesDB.class.getName()).log(Level.SEVERE, null, ex);
-            }
+            this.handleError(s);
         }
         return this.recipe;
     }
 
     /**
-     * TODO
-     *
      * @param stuff name of an ingredient
      * @see recipes.domain.Recipe
      * @return recipe the searched recipe, if exists, otherwise null
@@ -235,9 +195,8 @@ public class RecipesDB {
     public List<Recipe> searchRecipebyStuff(String stuff) {
         System.out.println("Searcing a recipe from database by an ingredient..");
         this.recipes = new ArrayList<>();
+        this.getConnected();
         try {
-            db = DriverManager.getConnection(this.path);
-            st = db.createStatement();
             this.recipes = this.getByIngredient(stuff);
             db.close();
         } catch (SQLException s) {
@@ -254,180 +213,129 @@ public class RecipesDB {
         p.setString(1, recipeName);
         r = p.executeQuery();
         if (r.next()) {
-            this.recipeID = r.getInt("id");
-            String name = r.getString("name");
-            int portions = r.getInt("portions");
-            String category = r.getString("category");
-            this.recipe = new Recipe(name, portions, category);
+            this.setRecipeDetails();
         } else {
-            return null; // TODO: OK????
+            return null;
         }
 
         p = db.prepareStatement("SELECT * FROM Stuff WHERE id=?");
         p.setInt(1, this.recipeID);
         r = p.executeQuery();
         while (r.next()) {
-            String stuffName = r.getString("stuff_name");
-            String stuffAmount = r.getString("amount");
-            this.recipe.setIngredient(stuffName, stuffAmount);
+            this.setIngredients();
         }
 
         p = db.prepareStatement("SELECT * FROM Guidance WHERE id=?");
         p.setInt(1, this.recipeID);
         r = p.executeQuery();
         while (r.next()) {
-            String line = r.getString("text");
-            this.recipe.setInstruction(line);
+            this.setInstructions();
         }
 
         st.execute("COMMIT");
-
-        // TODO: Poista ao. tulosteet..
-//        System.out.println("getRecipe-metodissa: " + recipe);
-//        System.out.println("raaka-aineet: " + this.recipe.getIngredients());
-//        System.out.println("ohjeet: " + this.recipe.getInstructions());
-        return recipe;
+        return this.recipe;
     }
-
+    
     private List<Recipe> getByIngredient(String ingredient) throws SQLException {
         System.out.println("Haetaan reseptiä raaka-aineella " + ingredient);
         st.execute("BEGIN TRANSACTION");
-
-//        p = db.prepareStatement("SELECT DISTINCT * FROM Recipes R, Stuff S, Guidance G "
-//                + "LEFT JOIN Stuff S ON R.id = S.id "
-//                + "LEFT JOIN Guidance G ON R.id = G.id "
-//                + "WHERE S.stuff_name=? "
-//                + "GROUP BY R.id");
-//        p = db.prepareStatement("SELECT DISTINCT * FROM Recipes R "
-//                + "LEFT JOIN Stuff S ON R.id = S.id "
-////                + "WHERE S.stuff_name=? "
-//                + "WHERE S.stuff_name LIKE '%?%' "
-//                + "GROUP BY R.id");
-//        p = db.prepareStatement("SELECT DISTINCT * FROM Recipes R, Stuff S "
-////                + "LEFT JOIN Stuff S ON R.id = S.id "
-//                + "WHERE S.stuff_name=?");// AND R.id = S.id");
-////                + "GROUP BY R.id");
-        p = db.prepareStatement("SELECT * FROM Stuff S "//);
-                //                + "LEFT JOIN Stuff S ON R.id = S.id "
-                + "WHERE S.stuff_name=?");// AND R.id = S.id");
-//                + "GROUP BY R.id");
+        p = db.prepareStatement("SELECT * FROM Stuff S WHERE S.stuff_name=?");
         p.setString(1, ingredient);
         System.out.println("Aloitetaan kysely..");
         r = p.executeQuery();
-        // TODO: haussa tulee useita osumia - miten otetaan kiinni? ei kuten alla!
-//        String receivedName = r.getString("name");
-//        System.out.println("Reseptin nimi on: " + receivedName);
-        System.out.println("Kysely tehty. Yritetään tulostaa jotain..");
         List<Integer> ids = new ArrayList<>();
-//        if (r.next()) {
-//            System.out.println("Löytyy ainakin 1.");
-//            this.recipeID = r.getInt("id");
-//            ids.add(this.recipeID);
-//            System.out.println("Raaka-aineen id: " + this.recipeID);
         while (r.next()) {
             this.recipeID = r.getInt("id");
             System.out.println("Raaka-aineen id: " + this.recipeID);
             ids.add(this.recipeID);
         }
         System.out.println("Reseptien id:t: " + ids);
+        this.recipes = this.listSelectedRecipes(ids);
+        st.execute("COMMIT");
+        return this.recipes;
+    }
 
-        for (Integer i : ids) {
-            // TODO: tee erilliset metodit näiden osien muodostamisista -> on toistoa!!
-            p = db.prepareStatement("SELECT * FROM Recipes R WHERE R.id=?");
-            p.setInt(1, this.recipeID);
-            r = p.executeQuery();
-//            if (r.next()) {
+    private List<Recipe> listSelectedRecipes(List<Integer> ids) {
+        for (Integer id : ids) {
+            try {
+                p = db.prepareStatement("SELECT * FROM Recipes R WHERE R.id=?");
+                p.setInt(1, id);
+                r = p.executeQuery();
+                this.setRecipeDetails();
+
+                p = db.prepareStatement("SELECT * FROM Stuff WHERE id=?");
+                p.setInt(1, id);
+                r = p.executeQuery();
+                while (r.next()) {
+                    this.setIngredients();
+                }
+
+                p = db.prepareStatement("SELECT * FROM Guidance WHERE id=?");
+                p.setInt(1, id);
+                while (r.next()) {
+                    this.setInstructions();
+                }
+
+                this.recipes.add(this.recipe);
+            } catch (SQLException s) {
+                this.recipes = null;
+                this.handleError(s);
+            }
+        }
+        return this.recipes;
+    }
+
+    private void setRecipeDetails() {
+        try {
             this.recipeID = r.getInt("id");
             String name = r.getString("name");
             int portions = r.getInt("portions");
             String category = r.getString("category");
             this.recipe = new Recipe(name, portions, category);
-            System.out.println("Resepti on: " + this.recipe);
-//            } else {
-//                return null; // TODO: OK????
-//            }
-
-            p = db.prepareStatement("SELECT * FROM Stuff WHERE id=?");
-            p.setInt(1, this.recipeID);
-            ResultSet q = p.executeQuery();
-            while (q.next()) {
-                String stuffName = q.getString("stuff_name");
-                String stuffAmount = q.getString("amount");
-                this.recipe.setIngredient(stuffName, stuffAmount);
-            }
-
-            p = db.prepareStatement("SELECT * FROM Guidance WHERE id=?");
-            p.setInt(1, this.recipeID);
-            ResultSet z = p.executeQuery();
-            while (z.next()) {
-                String line = z.getString("text");
-                this.recipe.setInstruction(line);
-            }
-            
-            System.out.println("Lisättävä resepti: " + this.recipe);
-            recipes.add(this.recipe);
+        } catch (SQLException s) {
+            this.handleError(s);
         }
-//                st.execute("COMMIT");
+        System.out.println("Resepti on: " + this.recipe);
+    }
 
-//    }
-//            String name = r.getString("R.name");
-//            System.out.println("ekan reseptin nimi: " + name);
-//        } else {
-//            System.out.println("Ei löytynyt yhtään!");
-//        }
-//        this.recipes = new ArrayList<>();
-//        while (r.next()) {
-//            String name = r.getString("R.name");
-//            System.out.println("reseptin nimi: " + name);
-//            this.recipes.add(new Recipe(name, 0, "muut"));
-//        }
-
-        /*
-        while (r.next()) {
-            this.recipe = null;
-            int recipeID = r.getInt("id");
-            String name = r.getString("name");
-            int portions = r.getInt("portions");
-            String category = r.getString("category");
-            this.recipe = new Recipe(name, portions, category);
-
-            p = db.prepareStatement("SELECT * FROM Stuff WHERE id=?");
-            p.setInt(1, recipeID);
-            r = p.executeQuery();
-//            while (r.next()) {
-//                String stuffName = r.getString("stuff_name");
-//                String stuffAmount = r.getString("amount");
-//                this.recipe.setIngredient(stuffName, stuffAmount);
-//            }
-            ResultSet q = p.executeQuery();
-            while (q.next()) {
-                String stuffName = q.getString("stuff_name");
-                String stuffAmount = q.getString("amount");
-                this.recipe.setIngredient(stuffName, stuffAmount);
-            }
-
-            p = db.prepareStatement("SELECT * FROM Guidance WHERE id=?");
-            p.setInt(1, recipeID);
-//            r = p.executeQuery();
-//            while (r.next()) {
-//                String line = r.getString("text");
-//                this.recipe.setInstruction(line);
-//            }
-            ResultSet z = p.executeQuery();
-            while (z.next()) {
-                String line = z.getString("text");
-                this.recipe.setInstruction(line);
-            }
-            recipes.add(this.recipe);
-            // TODO: Poista ao. tulosteet..
-            System.out.println("getByIngredient-metodissa: " + recipe);
-            System.out.println("raaka-aineet: " + this.recipe.getIngredients());
-            System.out.println("ohjeet: " + this.recipe.getInstructions());
+    private void setIngredients() {
+        try {
+            String stuffName = r.getString("stuff_name");
+            String stuffAmount = r.getString("amount");
+            this.recipe.setIngredient(stuffName, stuffAmount);
+        } catch (SQLException s) {
+            this.handleError(s);
         }
-         */
-        st.execute("COMMIT");
+    }
 
-        return recipes;
+    private void setInstructions() {
+        try {
+            String line = r.getString("text");
+            this.recipe.setInstruction(line);
+        } catch (SQLException s) {
+            this.handleError(s);
+        }
+    }
+
+    private boolean getConnected() {
+        try {
+            db = DriverManager.getConnection(this.path);
+            st = db.createStatement();
+        } catch (SQLException s) {
+            System.out.println("Database error when trying to connect with " + this.dbase + ": " + s.getMessage());
+            return false;
+        }
+        return true;
+    }
+
+    private boolean handleError(SQLException s) {  
+        try {
+            System.out.println("Database error: " + s.getMessage());
+            db.close();
+        } catch (SQLException ex) {
+            System.out.println("Database error when trying to close " + this.dbase + ": " + ex.getMessage());
+        }
+        return false;
     }
 
 }
