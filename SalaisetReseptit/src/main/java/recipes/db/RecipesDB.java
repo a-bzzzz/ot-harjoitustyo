@@ -8,11 +8,13 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import recipes.domain.Recipe;
+import recipes.domain.RecipeBook;
 
 /**
  * This class/data access object offers an interface to the actual recipe
@@ -31,7 +33,8 @@ public class RecipesDB {
 
     private int recipeID;
     private Recipe recipe;
-    private List<Recipe> recipes;
+    private Map<String,Recipe> recipes;
+    private RecipeBook book;
 
     /**
      * Constructor, creates a RecipeDB object, which is responsible for connection to the actual recipe database
@@ -41,6 +44,7 @@ public class RecipesDB {
         this.dbase = dbase;
         this.path = "jdbc:sqlite:" + this.dbase + ".db";
         this.recipeID = 0;
+        this.book = new RecipeBook();
     }
 
     /**
@@ -53,6 +57,9 @@ public class RecipesDB {
 
     /**
      * Creates the database for recipes with the following tables: Recipes, Stuff, Guidance
+     * Recipes: id, name, portions, category, idx_recipe_id
+     * Stuff: id, stuff_name, amount
+     * Guidance: id, row, text
      * @return true, if the recipe database is created successfully; otherwise false
      */
     public boolean createRecipeDB() {
@@ -60,19 +67,9 @@ public class RecipesDB {
         try {
             st.execute("BEGIN TRANSACTION");
             st.execute("PRAGMA foreign_keys = ON");
-            /**
-             * Recipes: id, name, portions, category, idx_recipe_id
-             */
-            st.execute("CREATE TABLE Recipes(id INTEGER PRIMARY KEY NOT NULL UNIQUE, "
-                    + "name TEXT NOT NULL, portions INTEGER, category TEXT)");
+            st.execute("CREATE TABLE Recipes(id INTEGER PRIMARY KEY NOT NULL UNIQUE, name TEXT NOT NULL, portions INTEGER, category TEXT)");
             st.execute("CREATE INDEX idx_recipe_id ON Recipes (id)");
-            /**
-             * Stuff: id, stuff_name, amount
-             */
             st.execute("CREATE TABLE Stuff(id INTEGER NOT NULL, stuff_name TEXT, amount TEXT)");
-            /**
-             * Guidance: id, row, text
-             */
             st.execute("CREATE TABLE Guidance(id INTEGER NOT NULL, row INTEGER NOT NULL, text TEXT)");
             st.execute("COMMIT");
             db.close();
@@ -110,16 +107,12 @@ public class RecipesDB {
             r = p.getGeneratedKeys();
             r.next();
 
-            /**
-             * Getting recipe id for adding ingredients and instructions
-             */
             p = db.prepareStatement("SELECT id FROM Recipes WHERE name=?");
             p.setString(1, recipeName);
             r = p.executeQuery();
             int recipeID = r.getInt("id");
 
             st.execute("COMMIT");
-            // System.out.println("Reseptin id: " + recipeID);
 
             this.addStuff(ingredients, recipeID);
             this.addGuidance(instructions, recipeID);
@@ -192,23 +185,21 @@ public class RecipesDB {
      * @see recipes.domain.Recipe
      * @return recipe the searched recipe, if exists, otherwise null
      */
-    public List<Recipe> searchRecipebyStuff(String stuff) {
+    public Map<String,Recipe> searchRecipebyStuff(String stuff) {
         System.out.println("Searcing a recipe from database by an ingredient..");
-        this.recipes = new ArrayList<>();
+        this.recipes = new HashMap<>();
         this.getConnected();
         try {
             this.recipes = this.getByIngredient(stuff);
             db.close();
         } catch (SQLException s) {
-            recipe = null;
+            this.recipe = null;
         }
         return this.recipes;
     }
 
     private Recipe getRecipe(String recipeName) throws SQLException {
-        // System.out.println("Haetaan reseptiä nimeltään " + recipeName);
         st.execute("BEGIN TRANSACTION");
-
         p = db.prepareStatement("SELECT * FROM Recipes WHERE name=?");
         p.setString(1, recipeName);
         r = p.executeQuery();
@@ -236,7 +227,7 @@ public class RecipesDB {
         return this.recipe;
     }
     
-    private List<Recipe> getByIngredient(String ingredient) throws SQLException {
+    private Map<String,Recipe> getByIngredient(String ingredient) throws SQLException {
         System.out.println("Haetaan reseptiä raaka-aineella " + ingredient);
         st.execute("BEGIN TRANSACTION");
         p = db.prepareStatement("SELECT * FROM Stuff S WHERE S.stuff_name=?");
@@ -250,12 +241,12 @@ public class RecipesDB {
             ids.add(this.recipeID);
         }
         System.out.println("Reseptien id:t: " + ids);
-        this.recipes = this.listSelectedRecipes(ids);
+        this.recipes = this.getSelectedRecipes(ids);
         st.execute("COMMIT");
         return this.recipes;
     }
 
-    private List<Recipe> listSelectedRecipes(List<Integer> ids) {
+    private Map<String,Recipe> getSelectedRecipes(List<Integer> ids) {
         for (Integer id : ids) {
             try {
                 p = db.prepareStatement("SELECT * FROM Recipes R WHERE R.id=?");
@@ -276,12 +267,13 @@ public class RecipesDB {
                     this.setInstructions();
                 }
 
-                this.recipes.add(this.recipe);
+                this.recipes.put(this.recipe.getRecipeName(),this.recipe);
             } catch (SQLException s) {
                 this.recipes = null;
                 this.handleError(s);
             }
         }
+        this.book.setRecipes(this.recipes);
         return this.recipes;
     }
 

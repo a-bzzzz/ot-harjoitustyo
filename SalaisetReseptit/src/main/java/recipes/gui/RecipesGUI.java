@@ -2,7 +2,9 @@ package recipes.gui;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -63,7 +65,7 @@ public class RecipesGUI extends Application {
 
     private String recipeName;
     private Recipe newRecipe;
-    private List<Recipe> recipes;
+    private Map<String,Recipe> recipes;
 
     @Override
     public void init() {
@@ -76,7 +78,7 @@ public class RecipesGUI extends Application {
         this.recipeName = "";
         this.book = new RecipeBook();
         this.newRecipe = null;
-        this.recipes = new ArrayList<>();
+        this.recipes = new HashMap<>();
 
         String udbpath = this.udbase.getDBPath();
         System.out.println("Database path is: " + udbpath);
@@ -285,6 +287,8 @@ public class RecipesGUI extends Application {
         searchMenu.setAlignment(Pos.TOP_LEFT);
         Label infoSearch = new Label("");
 
+        ListView<String> recipeView = new ListView<String>();
+
         GridPane searchOp = new GridPane();
         Label rname = new Label("Reseptin nimi");
         Label rstuff = new Label("Raaka-ainehaku");
@@ -302,6 +306,7 @@ public class RecipesGUI extends Application {
         searchOp.add(rstuff, 1, 2);
         searchOp.add(stuffField, 2, 2);
         searchOp.add(searchByStuff, 3, 2);
+        searchOp.add(recipeView, 8, 5); // TODO: onko sopiva paikka???
 
         Pane searchPane = new Pane();
         searchPane.setPrefSize(this.WIDTH, this.HEIGHT);
@@ -639,12 +644,16 @@ public class RecipesGUI extends Application {
         // TODO:
         // Recipe search action - by ingredient - in searchScene
         searchByStuff.setOnAction((event) -> {
+            ObservableList<String> recipeList = null; // TODO: Miten tyhjätään listalta aiemmat hakutulokset???
             String stuffName = stuffField.getText().trim().toLowerCase();
             this.recipes = this.dbase.searchRecipebyStuff(stuffName);
+            this.book.setRecipes(this.recipes);
             // TODO: näytä lista gui:ssa
-            this.recipes.stream().forEach(r -> System.out.println(r));
-            // ??????????????????????????????????????????????           
-            
+            this.recipes.keySet().stream().forEach(r -> System.out.println(r));
+            // ??????????????????????????????????????????????  
+            recipeList = FXCollections.observableArrayList(
+                    this.book.getNames());
+            recipeView.setItems(recipeList);
         });
 
         // Recipe creation: From beginScene to createScene ---------------------
