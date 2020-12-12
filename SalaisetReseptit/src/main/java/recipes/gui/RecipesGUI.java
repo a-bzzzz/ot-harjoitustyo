@@ -50,6 +50,7 @@ public class RecipesGUI extends Application {
     private Scene createScene;
     private Scene modifyScene;
     private Scene recipeScene;
+    private GridPane searchOp;
 
     private final int WIDTH = 900;
     private final int HEIGHT = 600;
@@ -65,7 +66,8 @@ public class RecipesGUI extends Application {
 
     private String recipeName;
     private Recipe newRecipe;
-    private Map<String,Recipe> recipes;
+    private Map<String, Recipe> recipes;
+    private List<String> recipeNames;
 
     @Override
     public void init() {
@@ -79,6 +81,8 @@ public class RecipesGUI extends Application {
         this.book = new RecipeBook();
         this.newRecipe = null;
         this.recipes = new HashMap<>();
+        this.recipeNames = new ArrayList<>();
+        this.searchOp = new GridPane();
 
         String udbpath = this.udbase.getDBPath();
         System.out.println("Database path is: " + udbpath);
@@ -288,32 +292,36 @@ public class RecipesGUI extends Application {
         Label infoSearch = new Label("");
 
         ListView<String> recipeView = new ListView<String>();
+//        ObservableList<String> recipeList = null;
 
-        GridPane searchOp = new GridPane();
+//        GridPane searchOp = new GridPane();
         Label rname = new Label("Reseptin nimi");
         Label rstuff = new Label("Raaka-ainehaku");
+        Label rpick = new Label("Valitse listalta reseptin numero");
         TextField recipenameField = new TextField("                                        ");
         TextField stuffField = new TextField("                                        ");
+        TextField pickField = new TextField("    ");
         Button searchByName = new Button("Hae");
         Button searchByStuff = new Button("Hae");
-        searchOp.setAlignment(Pos.CENTER_LEFT);
-        searchOp.setVgap(10);
-        searchOp.setHgap(10);
-        searchOp.setPadding(new Insets(10, 10, 10, 10));
-        searchOp.add(rname, 1, 1);
-        searchOp.add(recipenameField, 2, 1);
-        searchOp.add(searchByName, 3, 1);
-        searchOp.add(rstuff, 1, 2);
-        searchOp.add(stuffField, 2, 2);
-        searchOp.add(searchByStuff, 3, 2);
-        searchOp.add(recipeView, 8, 5); // TODO: onko sopiva paikka???
+        Button pickButton = new Button("Hae");
+        this.searchOp.setAlignment(Pos.CENTER_LEFT);
+        this.searchOp.setVgap(10);
+        this.searchOp.setHgap(10);
+        this.searchOp.setPadding(new Insets(10, 10, 10, 10));
+        this.searchOp.add(rname, 1, 1);
+        this.searchOp.add(recipenameField, 2, 1);
+        this.searchOp.add(searchByName, 3, 1);
+        this.searchOp.add(rstuff, 1, 2);
+        this.searchOp.add(stuffField, 2, 2);
+        this.searchOp.add(searchByStuff, 3, 2);
+        this.searchOp.add(recipeView, 8, 5); // TODO: onko sopiva paikka???
 
         Pane searchPane = new Pane();
         searchPane.setPrefSize(this.WIDTH, this.HEIGHT);
         BorderPane setSearch = new BorderPane();
         // TODO: Korjaa alla olevat:
         setSearch.setTop(searchMenu);
-        setSearch.setCenter(searchOp);
+        setSearch.setCenter(this.searchOp);
         // TODO: Lisättävä kategoriahaku
         setSearch.setBottom(infoSearch);
         searchPane.getChildren().add(setSearch);
@@ -433,9 +441,6 @@ public class RecipesGUI extends Application {
         optionBar.getChildren().addAll(modify, remove, infoRecipe, infoButton);
 
         GridPane rDetails = new GridPane();
-//        TextField stuffDetails = new TextField("");
-//        TextField amountDetails = new TextField("");
-//        TextField guidelines = new TextField("");
         ListView<String> stuffDetails = new ListView<String>();
         ListView<String> amountDetails = new ListView<String>();
         ListView<String> guidelines = new ListView<String>();
@@ -609,16 +614,15 @@ public class RecipesGUI extends Application {
         // Advancing to recipe search: From beginScene to searchScene -----------------------
         searchButton.setOnAction((event) -> {
             infoBegin.setText("Siirrytään reseptin hakuun..");
-            //stage.close();
             stage.setTitle("Recipe search");
             recipenameField.setText("                                        ");
             stage.setScene(this.searchScene);
-            //stage.show();
         });
 
         // Recipe search action - by name - in searchScene
         searchByName.setOnAction((event) -> {
             this.recipeName = recipenameField.getText().trim().toLowerCase();
+            // TODO: Tee alla olevasta oma metodinsa
             this.recipe = this.dbase.searchRecipebyName(this.recipeName);
             if (this.recipe == null) {
                 infoSearch.setText("RESEPTIÄ EI LÖYDY! Hae uudelleen tai luo resepti.");
@@ -641,7 +645,6 @@ public class RecipesGUI extends Application {
             }
         });
 
-        // TODO:
         // Recipe search action - by ingredient - in searchScene
         searchByStuff.setOnAction((event) -> {
             ObservableList<String> recipeList = null; // TODO: Miten tyhjätään listalta aiemmat hakutulokset???
@@ -649,11 +652,56 @@ public class RecipesGUI extends Application {
             this.recipes = this.dbase.searchRecipebyStuff(stuffName);
             this.book.setRecipes(this.recipes);
             // TODO: näytä lista gui:ssa
-            this.recipes.keySet().stream().forEach(r -> System.out.println(r));
-            // ??????????????????????????????????????????????  
+            for (String name : this.recipes.keySet()) {
+                this.recipeNames.add(name);
+            }
+            this.recipes.keySet().stream().forEach(r -> System.out.println(r)); 
             recipeList = FXCollections.observableArrayList(
                     this.book.getNames());
             recipeView.setItems(recipeList);
+            this.searchOp.add(rpick, 1, 3);
+            this.searchOp.add(pickField, 2, 3);
+            this.searchOp.add(pickButton, 3, 3);
+        });
+
+//        recipeView.setOnMouseClicked((event) -> {
+//            infoSearch.setText("Reseptilistaa on klikattu!");
+////            String jotain = recipeView.getOnMouseClicked().get;
+//            int index = recipeView.getEditingIndex();
+//            infoSearch.setText("Indeksi on " + index);
+////            String selectedRecipe = this.recipeNames.get(index);
+////            infoSearch.setText("VALITTU RESEPTI: " + selectedRecipe);
+////            recipeList.indexOf(two)//addListener((change, oldValue, newValue) -> {
+////                
+////            });                      
+//        });
+
+        pickButton.setOnAction((event) -> {
+            infoSearch.setText("Resepti on valittu listalta..");
+            int index = Integer.valueOf(pickField.getText().trim()) - 1;
+            this.recipeName = this.recipeNames.get(index);
+            infoSearch.setText("Valittu resepti on: " + this.recipeName);
+            // TODO: Alla olevassa toisteisuutta, pitäisi olla omassa metodissaan..
+            this.recipe = this.dbase.searchRecipebyName(this.recipeName);
+            if (this.recipe == null) {
+                infoSearch.setText("RESEPTIÄ EI LÖYDY! Hae uudelleen tai luo resepti.");
+            } else {
+                infoSearch.setText("");
+                System.out.println("Haettu resepti on: " + this.recipe);
+                stage.close();
+                stage.setTitle("Recipe - " + this.recipe.getRecipeName());
+                ObservableList<String> stuffList = FXCollections.observableArrayList(
+                        this.recipe.getIngredients());
+                stuffDetails.setItems(stuffList);
+                ObservableList<String> amountList = FXCollections.observableArrayList(
+                        this.recipe.getAmounts());
+                amountDetails.setItems(amountList);
+                ObservableList<String> instructionList = FXCollections.observableArrayList(
+                        this.recipe.getInstructions());
+                guidelines.setItems(instructionList);
+                stage.setScene(this.recipeScene);
+                stage.show();
+            }
         });
 
         // Recipe creation: From beginScene to createScene ---------------------
