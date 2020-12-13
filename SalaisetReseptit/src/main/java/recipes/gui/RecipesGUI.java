@@ -51,6 +51,10 @@ public class RecipesGUI extends Application {
     private Scene modifyScene;
     private Scene recipeScene;
     private GridPane searchOp;
+    private Label infoSearch;
+    private ListView<String> stuffDetails;
+    private ListView<String> amountDetails;
+    private ListView<String> guidelines;
 
     private final int WIDTH = 900;
     private final int HEIGHT = 600;
@@ -83,6 +87,10 @@ public class RecipesGUI extends Application {
         this.recipes = new HashMap<>();
         this.recipeNames = new ArrayList<>();
         this.searchOp = new GridPane();
+        this.infoSearch = new Label();
+        this.stuffDetails = new ListView<String>();
+        this.amountDetails = new ListView<String>();
+        this.guidelines = new ListView<String>();
 
         String udbpath = this.udbase.getDBPath();
         System.out.println("Database path is: " + udbpath);
@@ -622,27 +630,7 @@ public class RecipesGUI extends Application {
         // Recipe search action - by name - in searchScene
         searchByName.setOnAction((event) -> {
             this.recipeName = recipenameField.getText().trim().toLowerCase();
-            // TODO: Tee alla olevasta oma metodinsa
-            this.recipe = this.dbase.searchRecipebyName(this.recipeName);
-            if (this.recipe == null) {
-                infoSearch.setText("RESEPTIÄ EI LÖYDY! Hae uudelleen tai luo resepti.");
-            } else {
-                infoSearch.setText("");
-                System.out.println("Haettu resepti on: " + recipe);
-                stage.close();
-                stage.setTitle("Recipe - " + this.recipe.getRecipeName());
-                ObservableList<String> stuffList = FXCollections.observableArrayList(
-                        this.recipe.getIngredients());
-                stuffDetails.setItems(stuffList);
-                ObservableList<String> amountList = FXCollections.observableArrayList(
-                        this.recipe.getAmounts());
-                amountDetails.setItems(amountList);
-                ObservableList<String> instructionList = FXCollections.observableArrayList(
-                        this.recipe.getInstructions());
-                guidelines.setItems(instructionList);
-                stage.setScene(this.recipeScene);
-                stage.show();
-            }
+            this.setRecipeView(stage);
         });
 
         // Recipe search action - by ingredient - in searchScene
@@ -655,7 +643,7 @@ public class RecipesGUI extends Application {
             for (String name : this.recipes.keySet()) {
                 this.recipeNames.add(name);
             }
-            this.recipes.keySet().stream().forEach(r -> System.out.println(r)); 
+            this.recipes.keySet().stream().forEach(r -> System.out.println(r));
             recipeList = FXCollections.observableArrayList(
                     this.book.getNames());
             recipeView.setItems(recipeList);
@@ -675,33 +663,12 @@ public class RecipesGUI extends Application {
 ////                
 ////            });                      
 //        });
-
         pickButton.setOnAction((event) -> {
-            infoSearch.setText("Resepti on valittu listalta..");
+            this.infoSearch.setText("Resepti on valittu listalta..");
             int index = Integer.valueOf(pickField.getText().trim()) - 1;
             this.recipeName = this.recipeNames.get(index);
-            infoSearch.setText("Valittu resepti on: " + this.recipeName);
-            // TODO: Alla olevassa toisteisuutta, pitäisi olla omassa metodissaan..
-            this.recipe = this.dbase.searchRecipebyName(this.recipeName);
-            if (this.recipe == null) {
-                infoSearch.setText("RESEPTIÄ EI LÖYDY! Hae uudelleen tai luo resepti.");
-            } else {
-                infoSearch.setText("");
-                System.out.println("Haettu resepti on: " + this.recipe);
-                stage.close();
-                stage.setTitle("Recipe - " + this.recipe.getRecipeName());
-                ObservableList<String> stuffList = FXCollections.observableArrayList(
-                        this.recipe.getIngredients());
-                stuffDetails.setItems(stuffList);
-                ObservableList<String> amountList = FXCollections.observableArrayList(
-                        this.recipe.getAmounts());
-                amountDetails.setItems(amountList);
-                ObservableList<String> instructionList = FXCollections.observableArrayList(
-                        this.recipe.getInstructions());
-                guidelines.setItems(instructionList);
-                stage.setScene(this.recipeScene);
-                stage.show();
-            }
+            this.infoSearch.setText("Valittu resepti on: " + this.recipeName);
+            this.setRecipeView(stage);
         });
 
         // Recipe creation: From beginScene to createScene ---------------------
@@ -731,8 +698,6 @@ public class RecipesGUI extends Application {
                 infoCreate.setText("RESEPTIN NIMI PUUTTUU!");
             } else if (!(portionsInput > 0)) {
                 infoCreate.setText("ANNOSMÄÄRÄN OLTAVA VÄHINTÄÄN 1!");
-                // TODO: Lisää luokat RecipeBook ja Category, sekä näihin tarvittavat
-//            } else if (!book.validCategory(categoryInput)) {
             } else if (categoryInput.isEmpty()) {
                 infoCreate.setText("VALITSE OIKEA RESEPTIKATEGORIA!");
             } else {
@@ -837,6 +802,27 @@ public class RecipesGUI extends Application {
         stage.setScene(this.homeScene);
         stage.show();
 
+    }
+
+    private void setRecipeView(Stage stage) {
+        this.recipe = this.dbase.searchRecipebyName(this.recipeName);
+        if (this.recipe == null) {
+            this.infoSearch.setText("RESEPTIÄ EI LÖYDY! Hae uudelleen tai luo resepti.");
+        } else {
+            this.infoSearch.setText("");
+            System.out.println("Haettu resepti on: " + this.recipe);
+            stage.close();
+            stage.setTitle("Recipe - " + this.recipe.getRecipeName());
+            ObservableList<String> stuffList = FXCollections.observableArrayList(this.recipe.getIngredients());
+            this.stuffDetails.setItems(stuffList);
+            ObservableList<String> amountList = FXCollections.observableArrayList(this.recipe.getAmounts());
+            this.amountDetails.setItems(amountList);
+            ObservableList<String> instructionList = FXCollections.observableArrayList(this.recipe.getInstructions());
+            this.guidelines.setItems(instructionList);
+            stage.close();
+            stage.setScene(this.recipeScene);
+            stage.show();
+        }
     }
 
     @Override
