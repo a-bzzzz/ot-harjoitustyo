@@ -528,6 +528,7 @@ public class RecipesGUI extends Application {
                 if (loginUser != null) {
                     this.userName = loginUser.getFirstname();
                     hello.setText("Terve, " + this.userName + ", herkullista päivää!");
+                    stage.setTitle("Secret Recipes - main menu");
                     stage.setScene(beginScene);
                 } else {
                     infoHome.setText(infotext);
@@ -561,11 +562,13 @@ public class RecipesGUI extends Application {
 //            rpick.setText("");
 //            pickField.setText("");
 //            pickButton.setText("");
+            stage.setTitle("Recipe search");
             stage.setScene(this.searchScene);
         });
 
         // Back to beginScene from createScene
         backCreate.setOnAction((event) -> {
+            stage.setTitle("Secret Recipes - main menu");
             stage.setScene(this.beginScene);
         });
 
@@ -575,16 +578,19 @@ public class RecipesGUI extends Application {
 //        });  
         // Back to homeScene from searchScene       
         toStartSearch.setOnAction((event) -> {
+            stage.setTitle("Secret Recipes");
             stage.setScene(this.homeScene);
         });
 
         // Back to beginScene from recipeScene       
         toStartRecipe.setOnAction((event) -> {
+            stage.setTitle("Secret Recipes - main menu");
             stage.setScene(this.beginScene);
         });
 
         // Back to homeScene from createScene       
         toStartCreate.setOnAction((event) -> {
+            stage.setTitle("Secret Recipes");
             stage.setScene(this.homeScene);
         });
 
@@ -651,6 +657,7 @@ public class RecipesGUI extends Application {
 //            this.searchOp.add(rpick, 1, 3);
 //            this.searchOp.add(pickField, 2, 3);
 //            this.searchOp.add(pickButton, 3, 3);
+            stage.setTitle("Recipe search");
             stage.setScene(this.searchScene);
         });
 
@@ -864,6 +871,39 @@ public class RecipesGUI extends Application {
                 ObservableList<String> allRecipesList = FXCollections.observableArrayList(nameList);
                 recipeListView.setItems(allRecipesList);
                 recipeListView.setVisible(true);
+
+//                String inputID = bpickField.getText();
+                Map<String, String> idsAndNames = new HashMap<>();
+                for (Recipe recipe : this.recipes.values()) {
+                    String id = String.valueOf(recipe.getId());
+                    String name = recipe.getRecipeName();
+                    idsAndNames.put(id, name);
+                }
+
+                bpickButton.setOnAction((e) -> {
+                    String inputID = bpickField.getText().trim().toLowerCase();
+//                    Map<String,String> idsAndNames = new HashMap<>();
+//                    for (Recipe recipe : this.recipes.values()) {
+//                        String id = String.valueOf(recipe.getId());
+//                        String name = recipe.getRecipeName();
+//                        idsAndNames.put(id, name);
+//                    }
+                    if (!idsAndNames.keySet().contains(inputID)) {
+                        infoBegin.setText("VALITSE OIKEA RESEPTIN NUMERO! Katso listalta.");
+                    } else {
+                        // TODO: hae resepti!!!
+                        this.recipeName = idsAndNames.get(inputID);
+//                        this.recipeName = recipenameField.getText().trim().toLowerCase();
+                        this.setRecipeView(stage);
+                        bpick.setVisible(false);
+                        bpickField.setVisible(false);
+                        bpickButton.setVisible(false);
+                        recipeListView.setVisible(false);
+                        bpickField.setText("");
+                        infoBegin.setText("");
+                    }
+                });
+
             }
 //                startOp.add(recipeListView, 3, 5);
             // TODO: Selvitä, miksi reseptilista ei näy. alla olevalla rivillä ei vaikutusta.
