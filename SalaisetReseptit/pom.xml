@@ -56,7 +56,6 @@
                     <exclude>recipes/domain/Info.class</exclude>
                     <exclude>recipes/domain/Category.class</exclude>
                     <exclude>recipes/domain/CategoryEnum.class</exclude>
-                    <exclude>recipes/domain/RecipeBook.class</exclude>
                 </excludes>
     
             </configuration>

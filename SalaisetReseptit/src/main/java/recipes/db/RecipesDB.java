@@ -18,7 +18,9 @@ import recipes.domain.RecipeBook;
 
 /**
  * This class/data access object offers an interface to the actual recipe
- * database. GUI calls methods of this class, and this class is in connection to Recipe class.
+ * database. GUI calls methods of this class, and this class is in connection to
+ * Recipe class.
+ *
  * @see recipes.domain.Recipe
  */
 public class RecipesDB {
@@ -33,11 +35,13 @@ public class RecipesDB {
 
     private int recipeID;
     private Recipe recipe;
-    private Map<String,Recipe> recipes;
+    private Map<String, Recipe> recipes;
     private RecipeBook book;
 
     /**
-     * Constructor, creates a RecipeDB object, which is responsible for connection to the actual recipe database
+     * Constructor, creates a RecipeDB object, which is responsible for
+     * connection to the actual recipe database
+     *
      * @param dbase name of the recipe database
      */
     public RecipesDB(String dbase) {
@@ -49,6 +53,7 @@ public class RecipesDB {
 
     /**
      * Returns the name of the path of the database in use
+     *
      * @return path name of the database as String
      */
     public String getDBPath() {
@@ -56,11 +61,12 @@ public class RecipesDB {
     }
 
     /**
-     * Creates the database for recipes with the following tables: Recipes, Stuff, Guidance
-     * Recipes: id, name, portions, category, idx_recipe_id
-     * Stuff: id, stuff_name, amount
-     * Guidance: id, row, text
-     * @return true, if the recipe database is created successfully; otherwise false
+     * Creates the database for recipes with the following tables: Recipes,
+     * Stuff, Guidance Recipes: id, name, portions, category, idx_recipe_id
+     * Stuff: id, stuff_name, amount Guidance: id, row, text
+     *
+     * @return true, if the recipe database is created successfully; otherwise
+     * false
      */
     public boolean createRecipeDB() {
         boolean success = this.getConnected();
@@ -81,20 +87,58 @@ public class RecipesDB {
         return success;
     }
 
+    // TODO: tee, testaa ja kommentoi
+    public Map getAllRecipes() {
+        boolean success = this.getConnected();
+        List<String> recipeNames = new ArrayList<>();
+        try {
+            st.execute("BEGIN TRANSACTION");
+            p = db.prepareStatement("SELECT * FROM Recipes");
+            r = p.executeQuery();
+            while (r.next()) {
+                String recipeName = r.getString("name");
+                System.out.println("Reseptikirjaan lisättävän reseptin nimi: " + recipeName);
+                recipeNames.add(recipeName);
+            }
+            st.execute("COMMIT");
+            // TODO: Pitäisikö luoda uusi reseptikirja, jottei jää vanhat haut?
+//            this.book = new RecipeBook(); // ?????
+            for (String name : recipeNames) {
+                Recipe pickedRecipe = this.getRecipe(name);
+                System.out.println("Listaa varten haettu resepti: " + pickedRecipe);
+                this.book.addRecipe(name, pickedRecipe);
+            }
+            db.close();
+//            success = true;
+        } catch (SQLException s) {
+            this.handleError(s);
+//            return success;
+        }
+//        return success;
+        return this.book.getAllRecipes();
+    }
+
     /**
-     * Enters the recipe details to recipe database, as well as ingredients with measures and guidelines to recipe object.
+     * Enters the recipe details to recipe database, as well as ingredients with
+     * measures and guidelines to recipe object.
+     *
      * @param recipe Recipe object
      * @param ingredients stuff and amount as Map object
      * @param instructions guidelines as a list
      * @see recipes.domain.Recipe
-     * @return true, if the the recipe details have been stored to database successfully, otherwise false
+     * @return true, if the the recipe details have been stored to database
+     * successfully, otherwise false
      */
-    public boolean addRecipe(Recipe recipe, Map ingredients, List instructions) {
+    public boolean addRecipe(Recipe newRecipe, Map ingredients, List instructions) {
+
         boolean success = this.getConnected();
         try {
-            String recipeName = recipe.getRecipeName().toLowerCase();
-            int portionAmount = recipe.getPortionAmount();
-            String recipeCategory = recipe.getCategory().toLowerCase();
+//            String recipeName = recipe.getRecipeName().toLowerCase();
+//            int portionAmount = recipe.getPortionAmount();
+//            String recipeCategory = recipe.getCategory().toLowerCase();
+            String recipeName = newRecipe.getRecipeName().toLowerCase();
+            int portionAmount = newRecipe.getPortionAmount();
+            String recipeCategory = newRecipe.getCategory().toLowerCase();
 
             st.execute("BEGIN TRANSACTION");
 
@@ -114,6 +158,11 @@ public class RecipesDB {
 
             st.execute("COMMIT");
 
+            // TODO: Tarkista, toimiiko ao. lisäykset reseptikirjaan (ei tietokantaan lisäys) - tai onko tarpeen? vasta haettaessa?
+            newRecipe.setID(recipeID); 
+            newRecipe.setIngredient(ingredients);
+            newRecipe.setInstruction(instructions);
+            // TODO: Tarvitseeko lisätä reseptikirjaan tässä vaiheessa - vai vasta hakutuloksia listatessa?
             this.addStuff(ingredients, recipeID);
             this.addGuidance(instructions, recipeID);
 
@@ -163,9 +212,11 @@ public class RecipesDB {
     /**
      * Gets the recipe from the database, when searching by the name of the
      * recipe.
+     *
      * @param recipeName name of the recipe, that is being searched
      * @see recipes.domain.Recipe
-     * @return Recipe object, if it can be found from the database, otherwise null
+     * @return Recipe object, if it can be found from the database, otherwise
+     * null
      */
     public Recipe searchRecipebyName(String recipeName) {
         this.recipe = null;
@@ -185,7 +236,7 @@ public class RecipesDB {
      * @see recipes.domain.Recipe
      * @return recipe the searched recipe, if exists, otherwise null
      */
-    public Map<String,Recipe> searchRecipebyStuff(String stuff) {
+    public Map<String, Recipe> searchRecipebyStuff(String stuff) {
         System.out.println("Searcing a recipe from database by an ingredient..");
         this.recipes = new HashMap<>();
         this.getConnected();
@@ -198,6 +249,30 @@ public class RecipesDB {
         return this.recipes;
     }
 
+    public boolean deleteRecipe(Recipe removableRecipe) {
+        boolean success = false;
+        this.getConnected(); // ?????
+        int recipeID = removableRecipe.getId();
+        System.out.println("Poistettavan reseptin tunnus on: " + recipeID);
+        try {
+            st.execute("BEGIN TRANSACTION");
+            p = db.prepareStatement("DELETE FROM Recipes WHERE id=?");
+            p.setInt(1, recipeID);
+            p.executeUpdate();
+            p = db.prepareStatement("DELETE FROM Stuff WHERE id=?");
+            p.setInt(1, recipeID);
+            p.executeUpdate();
+            p = db.prepareStatement("DELETE FROM Guidance WHERE id=?");
+            p.setInt(1, recipeID);
+            p.executeUpdate();
+            st.execute("COMMIT");
+        } catch (SQLException s) {
+            success = false;
+            this.handleError(s);
+        }
+        return success;
+    }
+
     private Recipe getRecipe(String recipeName) throws SQLException {
         st.execute("BEGIN TRANSACTION");
         p = db.prepareStatement("SELECT * FROM Recipes WHERE name=?");
@@ -205,6 +280,7 @@ public class RecipesDB {
         r = p.executeQuery();
         if (r.next()) {
             this.setRecipeDetails();
+            this.recipe.setID(this.recipeID); // ?????
         } else {
             return null;
         }
@@ -226,8 +302,8 @@ public class RecipesDB {
         st.execute("COMMIT");
         return this.recipe;
     }
-    
-    private Map<String,Recipe> getByIngredient(String ingredient) throws SQLException {
+
+    private Map<String, Recipe> getByIngredient(String ingredient) throws SQLException {
         System.out.println("Haetaan reseptiä raaka-aineella " + ingredient);
         st.execute("BEGIN TRANSACTION");
         p = db.prepareStatement("SELECT * FROM Stuff S WHERE S.stuff_name=?");
@@ -246,13 +322,14 @@ public class RecipesDB {
         return this.recipes;
     }
 
-    private Map<String,Recipe> getSelectedRecipes(List<Integer> ids) {
+    private Map<String, Recipe> getSelectedRecipes(List<Integer> ids) {
         for (Integer id : ids) {
             try {
                 p = db.prepareStatement("SELECT * FROM Recipes R WHERE R.id=?");
                 p.setInt(1, id);
                 r = p.executeQuery();
                 this.setRecipeDetails();
+                this.recipe.setID(id);
 
                 p = db.prepareStatement("SELECT * FROM Stuff WHERE id=?");
                 p.setInt(1, id);
@@ -267,13 +344,13 @@ public class RecipesDB {
                     this.setInstructions();
                 }
 
-                this.recipes.put(this.recipe.getRecipeName(),this.recipe);
+                this.recipes.put(this.recipe.getRecipeName(), this.recipe);
             } catch (SQLException s) {
                 this.recipes = null;
                 this.handleError(s);
             }
         }
-        this.book.setRecipes(this.recipes);
+//        this.book.setRecipes(this.recipes);
         return this.recipes;
     }
 
@@ -320,7 +397,7 @@ public class RecipesDB {
         return true;
     }
 
-    private boolean handleError(SQLException s) {  
+    private boolean handleError(SQLException s) {
         try {
             System.out.println("Database error: " + s.getMessage());
             db.close();

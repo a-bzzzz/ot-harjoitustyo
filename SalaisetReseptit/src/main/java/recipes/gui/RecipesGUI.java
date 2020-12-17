@@ -2,6 +2,7 @@ package recipes.gui;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -257,23 +258,37 @@ public class RecipesGUI extends Application {
 
         Button searchButton = new Button("Hae reseptejä");
         Button createButton = new Button("Luo uusi resepti");
-        Button modifyButton = new Button("Muokkaa reseptiä");
-        Label one = new Label("1. ");
-        Label two = new Label("2. ");
-        Label three = new Label("3. ");
+        Button listButton = new Button("Listaa kaikki reseptit");
+        Label one = new Label("1.");
+        Label two = new Label("2.");
+        Label three = new Label("3.");
+        Label toModify = new Label("Reseptin muokkaus: Valitse ensin \"1. Hae reseptejä\".");
+        Label bpick = new Label("Valitse listalta reseptin numero");
+        TextField bpickField = new TextField("    ");
+        Button bpickButton = new Button("Hae");
+        ListView<String> recipeListView = new ListView<String>();
         GridPane startOp = new GridPane();
         startOp.setAlignment(Pos.CENTER_LEFT);
         startOp.setVgap(10);
         startOp.setHgap(10);
         startOp.setPadding(new Insets(10, 10, 10, 10));
-        startOp.add(titlebarBegin, 1, 0);
-        startOp.add(blancoBegin, 1, 1);
-        startOp.add(one, 0, 2);
-        startOp.add(searchButton, 1, 2);
-        startOp.add(two, 0, 3);
-        startOp.add(createButton, 1, 3);
-        startOp.add(three, 0, 4);
-        startOp.add(modifyButton, 1, 4);
+        startOp.add(titlebarBegin, 1, 1);
+        startOp.add(blancoBegin, 2, 1);
+        startOp.add(one, 0, 3);
+        startOp.add(searchButton, 1, 3);
+        startOp.add(two, 0, 4);
+        startOp.add(createButton, 1, 4);
+        startOp.add(three, 0, 5);
+        startOp.add(listButton, 1, 5);
+        startOp.add(bpick, 3, 3);
+        startOp.add(bpickField, 3, 4);
+        startOp.add(bpickButton, 4, 4);
+        bpick.setVisible(false);
+        bpickField.setVisible(false);
+        bpickButton.setVisible(false);
+        startOp.add(toModify, 1, 6);
+        startOp.add(recipeListView, 3, 7);
+        recipeListView.setVisible(false);
 
         Label infoBegin = new Label("Valitse toiminto painamalla nappia");
 
@@ -371,8 +386,7 @@ public class RecipesGUI extends Application {
         Button addRecipe = new Button("Lisää resepti");
         Button newRecipeButton = new Button("Uusi resepti");
         ListView<String> categories = new ListView<String>();
-        ObservableList<String> categoryList = FXCollections.observableArrayList(
-                this.book.getCategories());
+        ObservableList<String> categoryList = FXCollections.observableArrayList(this.book.getCategories());
         categories.setItems(categoryList);
 
         HBox createRecipeView = new HBox();
@@ -412,18 +426,17 @@ public class RecipesGUI extends Application {
 
         this.createScene = new Scene(setCreate, this.WIDTH, this.HEIGHT);
 
-        // modifyScene ---------------------------------------------------------
-        // TODO: GUI-elementit
-//        Pane modifyPane = new Pane();
-//        modifyPane.setPrefSize(this.WIDTH, this.HEIGHT);
-        BorderPane setModify = new BorderPane();
-        // TODO: Korjaa alla olevat:
-//        setModify.setTop(beginMenu);
-//        setModify.setCenter(startOp);
-//        setModify.setBottom(info2);
-
-        this.modifyScene = new Scene(setModify, this.WIDTH, this.HEIGHT);
-
+//        // modifyScene ---------------------------------------------------------
+//        // TODO: GUI-elementit
+////        Pane modifyPane = new Pane();
+////        modifyPane.setPrefSize(this.WIDTH, this.HEIGHT);
+//        BorderPane setModify = new BorderPane();
+//        // TODO: Korjaa alla olevat:
+////        setModify.setTop(beginMenu);
+////        setModify.setCenter(startOp);
+////        setModify.setBottom(info2);
+//
+//        this.modifyScene = new Scene(setModify, this.WIDTH, this.HEIGHT);
         // recipeScene ---------------------------------------------------------
         HBox recipeMenu = new HBox();
         Label recipename = new Label(this.recipeName);
@@ -445,21 +458,23 @@ public class RecipesGUI extends Application {
         Button modify = new Button("Muokkaa");
         Button remove = new Button("Poista");
         Label infoRecipe = new Label("Resepti: " + this.recipe);
-        Button infoButton = new Button("Info"); // TODO: Näytö lisätieto-/ohjeistuskentän avaava painike
-        optionBar.getChildren().addAll(modify, remove, infoRecipe, infoButton);
+//        Button infoButton = new Button("Info"); // TODO: Näytö lisätieto-/ohjeistuskentän avaava painike
+//        Label delConf = new Label("VAROITUS: Haluatko todella poistaa tämän reseptin?");
+        Button removeButton = new Button("POISTA");
+        Button noRemoveButton = new Button("PERUUTA");
+//        delConf.visibleProperty().setValue(false);
+        removeButton.visibleProperty().setValue(false);
+        noRemoveButton.visibleProperty().setValue(false);
+        optionBar.getChildren().addAll(modify, remove, infoRecipe, removeButton, noRemoveButton); //, infoButton);
 
         GridPane rDetails = new GridPane();
-        ListView<String> stuffDetails = new ListView<String>();
-        ListView<String> amountDetails = new ListView<String>();
-        ListView<String> guidelines = new ListView<String>();
-
         rDetails.add(stuff, 1, 1);
         rDetails.add(blancoDetailsRecipe, 2, 1);
         rDetails.add(amountRecipe, 3, 1);
         rDetails.add(guide, 4, 1);
-        rDetails.add(stuffDetails, 1, 3);
-        rDetails.add(amountDetails, 3, 3);
-        rDetails.add(guidelines, 4, 3);
+        rDetails.add(this.stuffDetails, 1, 3);
+        rDetails.add(this.amountDetails, 3, 3);
+        rDetails.add(this.guidelines, 4, 3);
 
         Pane recipePane = new Pane();
         recipePane.setPrefSize(this.WIDTH, this.HEIGHT);
@@ -542,6 +557,10 @@ public class RecipesGUI extends Application {
         // Back to searchScene from recipeScene 
         backRecipe.setOnAction((event) -> {
             recipenameField.setText("                                        ");
+//            this.recipe = null;
+//            rpick.setText("");
+//            pickField.setText("");
+//            pickButton.setText("");
             stage.setScene(this.searchScene);
         });
 
@@ -621,9 +640,17 @@ public class RecipesGUI extends Application {
 
         // Advancing to recipe search: From beginScene to searchScene -----------------------
         searchButton.setOnAction((event) -> {
+//            this.recipe = null; // ???
             infoBegin.setText("Siirrytään reseptin hakuun..");
             stage.setTitle("Recipe search");
             recipenameField.setText("                                        ");
+            // TODO: Tähän nämä kenttien tyhjennykset - vai muualle?
+//            rpick.setText("");
+//            pickField.setText("");
+//            pickButton.setText("");
+//            this.searchOp.add(rpick, 1, 3);
+//            this.searchOp.add(pickField, 2, 3);
+//            this.searchOp.add(pickButton, 3, 3);
             stage.setScene(this.searchScene);
         });
 
@@ -635,17 +662,23 @@ public class RecipesGUI extends Application {
 
         // Recipe search action - by ingredient - in searchScene
         searchByStuff.setOnAction((event) -> {
-            ObservableList<String> recipeList = null; // TODO: Miten tyhjätään listalta aiemmat hakutulokset???
+            this.recipes = new HashMap<>(); // ?????
+//            ObservableList<String> recipeList = null; // TODO: Miten tyhjätään listalta aiemmat hakutulokset???
             String stuffName = stuffField.getText().trim().toLowerCase();
             this.recipes = this.dbase.searchRecipebyStuff(stuffName);
-            this.book.setRecipes(this.recipes);
+//            this.book = new RecipeBook(); // ?????
+//            this.book.setRecipes(this.recipes, this.recipe.getRecipeName()); // ?????
+            for (Recipe recipe : this.recipes.values()) {
+                this.book.addSelectedRecipe(recipe.getRecipeName(), recipe);
+            }
+            // TODO: KORJAA ALLA OLEVAA: mikä on järkevin tapa (monista) hakea reseptien nimet????
             // TODO: näytä lista gui:ssa
             for (String name : this.recipes.keySet()) {
+                System.out.println("Haettu resepti: " + name);
                 this.recipeNames.add(name);
             }
             this.recipes.keySet().stream().forEach(r -> System.out.println(r));
-            recipeList = FXCollections.observableArrayList(
-                    this.book.getNames());
+            ObservableList<String> recipeList = FXCollections.observableArrayList(this.book.listSelectedNames());
             recipeView.setItems(recipeList);
             this.searchOp.add(rpick, 1, 3);
             this.searchOp.add(pickField, 2, 3);
@@ -668,6 +701,9 @@ public class RecipesGUI extends Application {
             int index = Integer.valueOf(pickField.getText().trim()) - 1;
             this.recipeName = this.recipeNames.get(index);
             this.infoSearch.setText("Valittu resepti on: " + this.recipeName);
+//            rpick.setText("");
+//            pickField.setText("");
+//            pickButton.setText("");
             this.setRecipeView(stage);
         });
 
@@ -693,7 +729,7 @@ public class RecipesGUI extends Application {
             if (!portionsField.getText().trim().isEmpty()) {
                 portionsInput = Integer.valueOf(portionsField.getText().trim());
             }
-            String categoryInput = categoryField.getText().trim().toLowerCase();
+            String categoryInput = categoryField.getText().trim().toUpperCase();
             if (nameInput.isEmpty()) {
                 infoCreate.setText("RESEPTIN NIMI PUUTTUU!");
             } else if (!(portionsInput > 0)) {
@@ -785,13 +821,90 @@ public class RecipesGUI extends Application {
             this.newRecipe = null;
         });
 
-        // Recipe modification: From beginScene to modifyScene -----------------
-        modifyButton.setOnAction((event) -> {
-            //infoModify.setText("Siirrytään reseptin muokkaukseen..");
-            stage.close();
-            stage.setTitle("Recipe modification");
-            stage.setScene(this.modifyScene);
-            stage.show();
+        // TODO: Kaikkien reseptien listauksen mahdollistava tapahtumakäsittelijä
+        listButton.setOnAction((event) -> {
+            infoBegin.setText("Listataan kaikki reseptit..");
+//            Boolean fetched = this.dbase.getAllRecipes();
+            // Map allRecipes = this.dbase.getAllRecipes();
+            this.recipes = this.dbase.getAllRecipes();
+            // ?????? MITÄ PALAUTUU ??????
+            System.out.println("Tulostetaan kaikki palautuneet/haetut reseptit:");
+            for (Recipe recipe : this.recipes.values()) {
+                System.out.println(recipe);
+            }
+//            System.out.println("Fetched: " + fetched);
+//            if (fetched) {
+            if (this.recipes.keySet().isEmpty()) {
+                infoBegin.setText("RESEPTIKIRJA ON TYHJÄ!");
+            } else {
+//                this.recipes = this.book.listAllRecipes();
+//                this.recipeNames = this.book.getAllNames();
+                bpick.setVisible(true);
+                bpickField.setVisible(true);
+                bpickButton.setVisible(true);
+//                List<String> nameList = new ArrayList<>();
+//                for (Recipe recipe : this.recipes.values()) {
+//                    allRecipesList.add
+//                }
+//                List<String> nameList = this.book.listAllNames();
+
+                List<String> nameList = new ArrayList<>();
+                System.out.println("Listataan kaikkien reseptien nimet:");
+                for (Recipe recipe : this.recipes.values()) {
+                    String row = recipe.getId() + " - " + recipe.getRecipeName();
+                    nameList.add(row);
+                    System.out.println(row);
+                }
+                nameList.sort(String::compareToIgnoreCase);
+//                for (int i = 0; i < nameList.size(); i++) {
+//                    System.out.println(nameList.get(i));
+//                }
+//                ObservableList<String> allRecipesList = FXCollections.observableArrayList(this.book.listAllNames());
+
+                ObservableList<String> allRecipesList = FXCollections.observableArrayList(nameList);
+                recipeListView.setItems(allRecipesList);
+                recipeListView.setVisible(true);
+            }
+//                startOp.add(recipeListView, 3, 5);
+            // TODO: Selvitä, miksi reseptilista ei näy. alla olevalla rivillä ei vaikutusta.
+//                recipeListView.setVisible(true);
+//            } else {
+//                infoBegin.setText("Virhe reseptilistan haussa!"); // ?????
+//            }
+        });
+
+//        // Recipe modification: From beginScene to modifyScene -----------------
+//        modifyButton.setOnAction((event) -> {
+//            //infoModify.setText("Siirrytään reseptin muokkaukseen..");
+//            stage.close();
+//            stage.setTitle("Recipe modification");
+//            stage.setScene(this.modifyScene);
+//            stage.show();
+//        });
+//        // TODO:
+//        modify.setOnAction((event) -> {
+//            infoRecipe.setText("Siirrytään reseptin muokkaustilaan..");
+//        });
+        // TODO:
+        remove.setOnAction((event) -> {
+            int id = this.recipe.getId();
+            infoRecipe.setText("VAROITUS: Haluatko todella poistaa reseptin " + id + " - " + this.recipe.getRecipeName() + "?");
+//            delConf.visibleProperty().setValue(true);
+            removeButton.visibleProperty().setValue(true);
+            noRemoveButton.visibleProperty().setValue(true);
+            removeButton.setOnAction((eh) -> {
+                boolean success = this.dbase.deleteRecipe(this.recipe);
+                if (success) {
+                    infoRecipe.setText("Resepti " + this.recipe.getRecipeName() + " on poistettu.");
+                } else {
+                    infoRecipe.setText("Reseptin " + this.recipe.getRecipeName() + " poistaminen epäonnistui!");
+                }
+            });
+            noRemoveButton.setOnAction((e) -> {
+                infoRecipe.setText("");
+                removeButton.visibleProperty().setValue(false);
+                noRemoveButton.visibleProperty().setValue(false);
+            });
         });
 
         // =====================================================================

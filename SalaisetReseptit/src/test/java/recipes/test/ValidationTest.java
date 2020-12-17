@@ -31,8 +31,8 @@ public class ValidationTest {
 
         User testDBExisting = this.testUBase.searchUser("testPerson");
         if (testDBExisting == null) {
-            this.testUBase.createUsersDB();
-            this.testUBase.addUser(testUser);
+            testUBase.createUsersDB();
+            testUBase.addUser(testUser);
         }
 
     }

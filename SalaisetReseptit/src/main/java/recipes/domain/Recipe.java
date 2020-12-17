@@ -13,6 +13,7 @@ import java.util.Map;
  */
 public class Recipe {
 
+    private int id;
     private String recipeName;
     private int portionAmount;
     private String category;
@@ -52,9 +53,6 @@ public class Recipe {
         return this.recipeName;
     }
 
-//    public void setRecipeName(String recipeName) {
-//        this.recipeName = recipeName;
-//    }
     /**
      * Getter, returns how many portions you will make by following this recipe.
      *
@@ -65,20 +63,6 @@ public class Recipe {
     }
 
     /**
-     * The textual formatting of the Recipe object including its category, name
-     * and portion amount.
-     *
-     * @return short recipe information as String
-     */
-    @Override
-    public String toString() {
-        return this.category + ": " + this.recipeName + " - " + this.portionAmount + " annosta";
-    }
-
-//    public void setPortionAmount(int portionAmount) {
-//        this.portionAmount = portionAmount;
-//    }
-    /**
      * Getter, returns the recipe category this recipe belongs to.
      *
      * @return the recipe's category
@@ -87,9 +71,15 @@ public class Recipe {
         return this.category;
     }
 
-//    public void setCategory(String category) {
-//        this.category = category;
-//    }
+    /**
+     * Getter, returns the recipe's identifying id number.
+     *
+     * @return the recipe's id
+     */
+    public int getId() {
+        return this.id;
+    }
+
     /**
      * Getter, returns recipe's ingredients with amounts.
      *
@@ -125,6 +115,72 @@ public class Recipe {
         return amountList;
     }
 
+    /**
+     * Getter, returns recipe's instructions.
+     *
+     * @return list of recipe's guidelines as List object, or null
+     */
+    public List getInstructions() {
+        return this.instructions;
+    }
+
+    /**
+     * Setter, sets the recipes id received from the recipe database
+     *
+     * @param recipeID recipe's id number
+     */
+    public void setID(int recipeID) {
+        this.id = recipeID;
+    }
+
+    /**
+     * Setter, sets a pair of ingredient name and amount for the recipe
+     *
+     * @param stuff ingredient name
+     * @param amount ingredient amount
+     */
+    public void setIngredient(String stuff, String amount) {
+        this.ingredients.put(stuff, amount);
+    }
+    
+    /**
+     * Setter, sets a collection of ingredients for the recipe.
+     *
+     * @param newIngredients ingredients of the recipe
+     */
+    public void setIngredient(Map newIngredients) {
+        this.ingredients = newIngredients;
+    }
+
+    /**
+     * Setter, sets a row of instruction to the recipe adding it on the list.
+     *
+     * @param text one line of the recipe instructions, how to make the portion
+     */
+    public void setInstruction(String text) {
+        this.instructions.add(text);
+    }
+    
+    /**
+     * Setter, sets a collection of instructions for the recipe.
+     *
+     * @param instructions instructions of the recipe
+     */
+    public void setInstruction(List instructions) {
+        this.instructions = instructions;
+    }
+
+    /**
+     * The textual formatting of the Recipe object including its category, name
+     * and portion amount.
+     *
+     * @return short recipe information as String
+     */
+    @Override
+    public String toString() {
+        return this.category + ": " + this.recipeName + " - " + this.portionAmount + " annosta";
+    }
+
 //    public String listIngredients() {
 //        String output = "";
 //        for (String stuff : this.ingredients.keySet()) {
@@ -139,39 +195,11 @@ public class Recipe {
 //        }
 //        return output;
 //    }
-    /**
-     * Setter, sets a pair of ingredient name and amount for the recipe
-     *
-     * @param stuff ingredient name
-     * @param amount ingredient amount
-     */
-    public void setIngredient(String stuff, String amount) {
-        this.ingredients.put(stuff, amount);
-    }
-
-    /**
-     * Getter, returns recipe's instructions.
-     *
-     * @return list of recipe's guidelines as List object, or null
-     */
-    public List getInstructions() {
-        return this.instructions;
-    }
-
 //    public String listInstructions() {
 //        String output = "";
 //        for (int i = 0; i < this.instructions.size(); i++) {
 //            output += ("\n   " + (i + 1) + "  " + this.instructions.get(i));
 //        }
 //        return output;
-//    }
-    /**
-     * Setter, sets a row of instruction to the recipe adding it on the list.
-     *
-     * @param text one line of the recipe instructions, how to make the portion
-     */
-    public void setInstruction(String text) {
-        this.instructions.add(text);
-    }
-
+//    }    
 }
