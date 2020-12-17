@@ -12,17 +12,17 @@ import java.util.Map;
 public class RecipeBook {
 
     private Map<String, Recipe> allRecipes; // Tänne haetaan kaikki tietokannasta löytyvät reseptit
-    private Map<String, Recipe> selectedRecipes; // Tänne valitaan reseptejä hakutuloksen perusteella, EI välttämättä kaikkia reseptejä
-    private List<String> allRecipeNames;
-    private List<String> selectedRecipeNames;
+//    private Map<String, Recipe> selectedRecipes; // Tänne valitaan reseptejä hakutuloksen perusteella, EI välttämättä kaikkia reseptejä
+//    private List<String> allRecipeNames;
+//    private List<String> selectedRecipeNames;
     private Map<Integer, String> categories;
 //    private Map<Integer,Category> categories;
 
     public RecipeBook() {
         this.allRecipes = new HashMap<>();
-        this.allRecipeNames = new ArrayList<>();
-        this.selectedRecipes = new HashMap<>();
-        this.selectedRecipeNames = new ArrayList<>();
+//        this.allRecipeNames = new ArrayList<>();
+//        this.selectedRecipes = new HashMap<>();
+//        this.selectedRecipeNames = new ArrayList<>();
         this.categories = new HashMap<>();
         this.setCategories();
     }
@@ -53,28 +53,28 @@ public class RecipeBook {
             return false;
         } else {
             this.allRecipes.put(name, newRecipe);
-            this.allRecipeNames.add(name);
+//            this.allRecipeNames.add(name);
             return true;
         }
     }
 
-    public boolean addSelectedRecipe(String name, Recipe recipe) {
-        if (this.selectedRecipes.keySet().contains(name)) {
-            return false;
-        } else {
-            this.selectedRecipes.put(name, recipe);
-            this.selectedRecipeNames.add(name);
-            return true;
-        }
-    }
+//    public boolean addSelectedRecipe(String name, Recipe recipe) {
+//        if (this.selectedRecipes.keySet().contains(name)) {
+//            return false;
+//        } else {
+//            this.selectedRecipes.put(name, recipe);
+//            this.selectedRecipeNames.add(name);
+//            return true;
+//        }
+//    }
 
     public Map getAllRecipes() {
         return this.allRecipes;
     }
 
-    public Map getSelectedRecipes() {
-        return this.selectedRecipes;
-    } 
+//    public Map getSelectedRecipes() {
+//        return this.selectedRecipes;
+//    } 
     
     // TODO: tämä ei toimi! ei mitään virkaa!
     public List listAllNames() {
@@ -101,29 +101,29 @@ public class RecipeBook {
     }
 
     // TODO: Tarvitaanko erikseen metodit kaikille ja valituille resepteille? Toisteisuutta!
-    public List listSelectedNames() {
-        List<String> nameList = new ArrayList<>();
-//        for (String name : this.selectedRecipes.keySet()) {
-//            this.selectedRecipeNames.add(name);
-//        }
-//        if (!this.selectedRecipeNames.isEmpty()) {
-//            for (int i = 0; i < this.selectedRecipeNames.size(); i++) {
-//                String row = ((i + 1) + " - " + this.selectedRecipeNames.get(i));
+//    public List listSelectedNames() {
+//        List<String> nameList = new ArrayList<>();
+////        for (String name : this.selectedRecipes.keySet()) {
+////            this.selectedRecipeNames.add(name);
+////        }
+////        if (!this.selectedRecipeNames.isEmpty()) {
+////            for (int i = 0; i < this.selectedRecipeNames.size(); i++) {
+////                String row = ((i + 1) + " - " + this.selectedRecipeNames.get(i));
+////                System.out.println(row);
+////                nameList.add(row);
+////            }
+//////            return nameList;
+////        }
+//        if (!this.selectedRecipes.isEmpty()) {
+//            for (Recipe recipe : this.selectedRecipes.values()) {
+//                String row = (recipe.getId() + " - " + recipe.getRecipeName());
 //                System.out.println(row);
 //                nameList.add(row);
 //            }
 ////            return nameList;
 //        }
-        if (!this.selectedRecipes.isEmpty()) {
-            for (Recipe recipe : this.selectedRecipes.values()) {
-                String row = (recipe.getId() + " - " + recipe.getRecipeName());
-                System.out.println(row);
-                nameList.add(row);
-            }
-//            return nameList;
-        }
-        return nameList;
-    }
+//        return nameList;
+//    }
 
     public List getCategories() {
         List<String> categoryList = new ArrayList<>();

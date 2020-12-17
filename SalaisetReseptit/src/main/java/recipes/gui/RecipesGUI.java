@@ -53,6 +53,7 @@ public class RecipesGUI extends Application {
     private Scene recipeScene;
     private GridPane searchOp;
     private Label infoSearch;
+    private Label infoRecipe;
     private ListView<String> stuffDetails;
     private ListView<String> amountDetails;
     private ListView<String> guidelines;
@@ -464,7 +465,7 @@ public class RecipesGUI extends Application {
         HBox optionBar = new HBox();
         Button modify = new Button("Muokkaa");
         Button remove = new Button("Poista");
-        Label infoRecipe = new Label("Resepti: " + this.recipe);
+        this.infoRecipe = new Label("Resepti: " + this.recipe);
 //        Button infoButton = new Button("Info"); // TODO: Näytö lisätieto-/ohjeistuskentän avaava painike
 //        Label delConf = new Label("VAROITUS: Haluatko todella poistaa tämän reseptin?");
         Button removeButton = new Button("POISTA");
@@ -472,7 +473,7 @@ public class RecipesGUI extends Application {
 //        delConf.visibleProperty().setValue(false);
         removeButton.visibleProperty().setValue(false);
         noRemoveButton.visibleProperty().setValue(false);
-        optionBar.getChildren().addAll(modify, remove, infoRecipe, removeButton, noRemoveButton); //, infoButton);
+        optionBar.getChildren().addAll(modify, remove, this.infoRecipe, removeButton, noRemoveButton); //, infoButton);
 
         GridPane rDetails = new GridPane();
         rDetails.add(stuff, 1, 1);
@@ -584,7 +585,6 @@ public class RecipesGUI extends Application {
 //        pickField.setText("");
 //        stage.setTitle("Recipe search");
 //        stage.setScene(this.searchScene);
-
 //        });  
         // Back to homeScene from searchScene       
         toStartSearch.setOnAction((event) -> {
@@ -906,6 +906,7 @@ public class RecipesGUI extends Application {
         // Kaikkien reseptien listauksen mahdollistava tapahtumakäsittelijä
         listButton.setOnAction((event) -> {
             infoBegin.setText("Listataan kaikki reseptit..");
+            this.recipes = null; // ?????
             this.recipes = this.dbase.getAllRecipes();
             System.out.println("Tulostetaan kaikki palautuneet/haetut reseptit:");
             for (Recipe recipe : this.recipes.values()) {
@@ -976,11 +977,16 @@ public class RecipesGUI extends Application {
             removeButton.visibleProperty().setValue(true);
             noRemoveButton.visibleProperty().setValue(true);
             removeButton.setOnAction((eh) -> {
+                String name = this.recipe.getRecipeName();
                 boolean success = this.dbase.deleteRecipe(this.recipe);
                 if (success) {
-                    infoRecipe.setText("Resepti " + this.recipe.getRecipeName() + " on poistettu.");
+                    this.recipes.remove(this.recipe); // TODO: ei toimi -> näkyy edelleen listalla!
+                    this.recipes.keySet().forEach(r -> System.out.println(r)); // ?????
+                    infoRecipe.setText("Resepti " + name + " on poistettu.");
+                    removeButton.visibleProperty().setValue(false);
+                    noRemoveButton.visibleProperty().setValue(false);
                 } else {
-                    infoRecipe.setText("Reseptin " + this.recipe.getRecipeName() + " poistaminen epäonnistui!");
+                    infoRecipe.setText("Reseptin " + name + " poistaminen epäonnistui!");
                 }
             });
             noRemoveButton.setOnAction((e) -> {
@@ -1005,6 +1011,7 @@ public class RecipesGUI extends Application {
         if (this.recipe == null) {
             this.infoSearch.setText("RESEPTIÄ EI LÖYDY! Hae uudelleen tai luo resepti.");
         } else {
+            this.infoRecipe.setText("");
             this.infoSearch.setText("");
             System.out.println("Haettu resepti on: " + this.recipe);
             stage.close();
