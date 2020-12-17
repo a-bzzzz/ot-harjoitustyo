@@ -255,14 +255,14 @@ public class RecipesDB {
         int recipeID = removableRecipe.getId();
         System.out.println("Poistettavan reseptin tunnus on: " + recipeID);
         try {
-            st.execute("BEGIN TRANSACTION");
-            p = db.prepareStatement("DELETE FROM Recipes WHERE id=?");
-            p.setInt(1, recipeID);
-            p.executeUpdate();
+            st.execute("BEGIN TRANSACTION");           
             p = db.prepareStatement("DELETE FROM Stuff WHERE id=?");
             p.setInt(1, recipeID);
             p.executeUpdate();
             p = db.prepareStatement("DELETE FROM Guidance WHERE id=?");
+            p.setInt(1, recipeID);
+            p.executeUpdate();
+            p = db.prepareStatement("DELETE FROM Recipes WHERE id=?");
             p.setInt(1, recipeID);
             p.executeUpdate();
             st.execute("COMMIT");
