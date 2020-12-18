@@ -76,16 +76,16 @@ public class RecipeBookTest {
         assertFalse(testBook.addRecipe(testRecipe.getRecipeName(), testRecipe));
     }
     
-    @Test
-    public void addsSelectedRecipeToBookWhenNameisNew() {
-        assertTrue(testBook.addSelectedRecipe(testRecipe.getRecipeName(), testRecipe));
-    }
+//    @Test
+//    public void addsSelectedRecipeToBookWhenNameisNew() {
+//        assertTrue(testBook.addSelectedRecipe(testRecipe.getRecipeName(), testRecipe));
+//    }
     
-    @Test
-    public void doesNOTaddSelectedRecipeToBookWhenNameisUsed() {
-        assertTrue(testBook.addSelectedRecipe(testRecipe.getRecipeName(), testRecipe));
-        assertFalse(testBook.addSelectedRecipe(testRecipe.getRecipeName(), testRecipe));
-    }
+//    @Test
+//    public void doesNOTaddSelectedRecipeToBookWhenNameisUsed() {
+//        assertTrue(testBook.addSelectedRecipe(testRecipe.getRecipeName(), testRecipe));
+//        assertFalse(testBook.addSelectedRecipe(testRecipe.getRecipeName(), testRecipe));
+//    }
     
     @Test
     public void getsAllRecipes() {
@@ -95,27 +95,27 @@ public class RecipeBookTest {
         assertThat("[jälkiruoat: isolettu - 2 annosta, jälkiruoat: testilettu - 4 annosta]", is(equalTo(testBook.getAllRecipes().values().toString())));
     }
     
-    @Test
-    public void getsSelectedRecipes() {
-        assertThat("[]", is(equalTo(testBook.getSelectedRecipes().values().toString())));
-        testBook.addSelectedRecipe(anotherRecipe.getRecipeName(), anotherRecipe);
-        assertThat("[jälkiruoat: isolettu - 2 annosta]", is(equalTo(testBook.getSelectedRecipes().values().toString())));
-    }
+//    @Test
+//    public void getsSelectedRecipes() {
+//        assertThat("[]", is(equalTo(testBook.getSelectedRecipes().values().toString())));
+//        testBook.addSelectedRecipe(anotherRecipe.getRecipeName(), anotherRecipe);
+//        assertThat("[jälkiruoat: isolettu - 2 annosta]", is(equalTo(testBook.getSelectedRecipes().values().toString())));
+//    }
     
     @Test
     public void listsAllNames() {
         assertThat("[]", is(equalTo(testBook.listAllNames().toString())));
         testBook.addRecipe(testRecipe.getRecipeName(), testRecipe);
         testBook.addRecipe(anotherRecipe.getRecipeName(), anotherRecipe);
-        assertThat("[1 - testilettu, 2 - isolettu]", is(equalTo(testBook.listAllNames().toString())));
+        assertThat("[0 - isolettu, 100 - testilettu]", is(equalTo(testBook.listAllNames().toString())));
     }
     
-    @Test
-    public void listsSelectedNames() {
-        assertThat("[]", is(equalTo(testBook.listSelectedNames().toString())));
-        testBook.addSelectedRecipe(anotherRecipe.getRecipeName(), anotherRecipe);
-        assertThat("[1 - isolettu]", is(equalTo(testBook.listSelectedNames().toString())));
-    }
+//    @Test
+//    public void listsSelectedNames() {
+//        assertThat("[]", is(equalTo(testBook.listSelectedNames().toString())));
+//        testBook.addSelectedRecipe(anotherRecipe.getRecipeName(), anotherRecipe);
+//        assertThat("[1 - isolettu]", is(equalTo(testBook.listSelectedNames().toString())));
+//    }
     
     @Test
     public void getsCateories() {
