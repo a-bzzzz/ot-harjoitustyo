@@ -656,43 +656,8 @@ public class RecipesGUI extends Application {
 
         // Advancing to recipe search: From beginScene to searchScene -----------------------
         searchButton.setOnAction((event) -> {
-            infoBegin.setText("Siirrytään reseptin hakuun..");
-
-            // TODO: Seuraava pätkä omaan metodiinsa? Toisteisuutta! -----------
-            this.recipes = this.dbase.getAllRecipes();
-            System.out.println("Tulostetaan kaikki palautuneet/haetut reseptit:");
-            for (Recipe recipe : this.recipes.values()) {
-                System.out.println(recipe);
-            }
-            if (this.recipes.keySet().isEmpty()) {
-                infoBegin.setText("RESEPTIKIRJA ON TYHJÄ!");
-            } else {
-                bpick.setVisible(true);
-                bpickField.setVisible(true);
-                bpickButton.setVisible(true);
-
-                List<String> nameList = new ArrayList<>();
-                System.out.println("Listataan kaikkien reseptien nimet:");
-                for (Recipe recipe : this.recipes.values()) {
-                    String row = recipe.getId() + " - " + recipe.getRecipeName();
-                    nameList.add(row);
-                    System.out.println(row);
-                }
-                nameList.sort(String::compareToIgnoreCase);
-
-                ObservableList<String> allRecipesList = FXCollections.observableArrayList(nameList);
-                recipeView.setItems(allRecipesList);
-//                recipeListView.setVisible(true);
-
-//                Map<String, String> idsAndNames = new HashMap<>();
-//                for (Recipe recipe : this.recipes.values()) {
-//                    String id = String.valueOf(recipe.getId());
-//                    String name = recipe.getRecipeName();
-//                    idsAndNames.put(id, name);
-//                }
-            }
-            // -------------------------------------------------------------
-
+            this.infoSearch.setText("Valitse hakutapa: reseptin nimi tai raaka-aine.");
+            this.recipesToList(stage, this.infoSearch, recipeView);
             recipenameField.setText("                                        ");
             stage.setTitle("Recipe search");
             stage.setScene(this.searchScene);
@@ -733,7 +698,6 @@ public class RecipesGUI extends Application {
                 }
                 nameList.sort(String::compareToIgnoreCase);
 
-//                this.recipes.keySet().stream().forEach(r -> System.out.println(r)); // POISTETTAVA
                 ObservableList<String> recipeList = FXCollections.observableArrayList(nameList);
                 recipeView.setItems(recipeList);
                 rpick.setVisible(true);
@@ -768,27 +732,6 @@ public class RecipesGUI extends Application {
             }
         });
 
-//        recipeView.setOnMouseClicked((event) -> {
-//            infoSearch.setText("Reseptilistaa on klikattu!");
-////            String jotain = recipeView.getOnMouseClicked().get;
-//            int index = recipeView.getEditingIndex();
-//            infoSearch.setText("Indeksi on " + index);
-////            String selectedRecipe = this.recipeNames.get(index);
-////            infoSearch.setText("VALITTU RESEPTI: " + selectedRecipe);
-////            recipeList.indexOf(two)//addListener((change, oldValue, newValue) -> {
-////                
-////            });                      
-//        });
-//        pickButton.setOnAction((event) -> {
-//            this.infoSearch.setText("Resepti on valittu listalta..");
-//            int index = Integer.valueOf(pickField.getText().trim()) - 1;
-//            this.recipeName = this.recipeNames.get(index);
-//            this.infoSearch.setText("Valittu resepti on: " + this.recipeName);
-////            rpick.setText("");
-////            pickField.setText("");
-////            pickButton.setText("");
-//            this.setRecipeView(stage);
-//        });
         // Recipe creation: From beginScene to createScene ---------------------
         // TODO: Reseptin lisäämisen vaiheet:
         // 1. pyydetään nimi, annosmäärä ja kategoria -> luodaan reseptin "perustiedot"
@@ -832,11 +775,6 @@ public class RecipesGUI extends Application {
             this.newRecipe = null;
         });
 
-        // TODO: lisää näkymässä kategorialistalle numerot valintaa varten
-        // TODO: korjaa(?) reseptikategorialle numeroarvo - ja reseptille kategorialista
-        // TODO: hae aine kerrallaan ja lisää reseptille
-        // TODO: hae ohjerivi kerrallaan ja lisää reseptille
-        // TODO: lisää KOKO resepti tietokantaan
         addStuff.setOnAction((event) -> {
             if (this.newRecipe == null) {
                 infoCreate.setText("LISÄÄ ENSIN RESEPTIN PERUSTIEDOT");
@@ -906,55 +844,34 @@ public class RecipesGUI extends Application {
         // Kaikkien reseptien listauksen mahdollistava tapahtumakäsittelijä
         listButton.setOnAction((event) -> {
             infoBegin.setText("Listataan kaikki reseptit..");
-            this.recipes = null; // ?????
-            this.recipes = this.dbase.getAllRecipes();
-            System.out.println("Tulostetaan kaikki palautuneet/haetut reseptit:");
+            this.recipesToList(stage, infoBegin, recipeListView);
+            bpick.setVisible(true);
+            bpickField.setVisible(true);
+            bpickButton.setVisible(true);
+
+            Map<String, String> idsAndNames = new HashMap<>();
             for (Recipe recipe : this.recipes.values()) {
-                System.out.println(recipe);
+                String id = String.valueOf(recipe.getId());
+                String name = recipe.getRecipeName();
+                idsAndNames.put(id, name);
             }
-            if (this.recipes.keySet().isEmpty()) {
-                infoBegin.setText("RESEPTIKIRJA ON TYHJÄ!");
-            } else {
-                bpick.setVisible(true);
-                bpickField.setVisible(true);
-                bpickButton.setVisible(true);
 
-                List<String> nameList = new ArrayList<>();
-                System.out.println("Listataan kaikkien reseptien nimet:");
-                for (Recipe recipe : this.recipes.values()) {
-                    String row = recipe.getId() + " - " + recipe.getRecipeName();
-                    nameList.add(row);
-                    System.out.println(row);
+            bpickButton.setOnAction((e) -> {
+                String inputID = bpickField.getText().trim().toLowerCase();
+                if (!idsAndNames.keySet().contains(inputID)) {
+                    infoBegin.setText("VALITSE OIKEA RESEPTIN NUMERO! Katso listalta.");
+                } else {
+                    this.recipeName = idsAndNames.get(inputID);
+                    this.setRecipeView(stage);
+                    bpick.setVisible(false);
+                    bpickField.setVisible(false);
+                    bpickButton.setVisible(false);
+                    recipeListView.setVisible(false);
+                    bpickField.setText("");
+                    infoBegin.setText("");
                 }
-                nameList.sort(String::compareToIgnoreCase);
+            });
 
-                ObservableList<String> allRecipesList = FXCollections.observableArrayList(nameList);
-                recipeListView.setItems(allRecipesList);
-                recipeListView.setVisible(true);
-
-                Map<String, String> idsAndNames = new HashMap<>();
-                for (Recipe recipe : this.recipes.values()) {
-                    String id = String.valueOf(recipe.getId());
-                    String name = recipe.getRecipeName();
-                    idsAndNames.put(id, name);
-                }
-
-                bpickButton.setOnAction((e) -> {
-                    String inputID = bpickField.getText().trim().toLowerCase();
-                    if (!idsAndNames.keySet().contains(inputID)) {
-                        infoBegin.setText("VALITSE OIKEA RESEPTIN NUMERO! Katso listalta.");
-                    } else {
-                        this.recipeName = idsAndNames.get(inputID);
-                        this.setRecipeView(stage);
-                        bpick.setVisible(false);
-                        bpickField.setVisible(false);
-                        bpickButton.setVisible(false);
-                        recipeListView.setVisible(false);
-                        bpickField.setText("");
-                        infoBegin.setText("");
-                    }
-                });
-            }
         });
 
 //        // Recipe modification: From beginScene to modifyScene -----------------
@@ -1025,6 +942,31 @@ public class RecipesGUI extends Application {
             stage.close();
             stage.setScene(this.recipeScene);
             stage.show();
+        }
+    }
+
+    private void recipesToList(Stage stage, Label info, ListView<String> view) {
+        this.recipes = null; // ?????
+        this.recipes = this.dbase.getAllRecipes();
+        System.out.println("Tulostetaan kaikki palautuneet/haetut reseptit:");
+        for (Recipe recipe : this.recipes.values()) {
+            System.out.println(recipe);
+        }
+        if (this.recipes.keySet().isEmpty()) {
+            info.setText("RESEPTIKIRJA ON TYHJÄ!");
+        } else {
+            List<String> nameList = new ArrayList<>();
+            System.out.println("Listataan kaikkien reseptien nimet:");
+            for (Recipe recipe : this.recipes.values()) {
+                String row = recipe.getId() + " - " + recipe.getRecipeName();
+                nameList.add(row);
+                System.out.println(row);
+            }
+            nameList.sort(String::compareToIgnoreCase);
+
+            ObservableList<String> allRecipesList = FXCollections.observableArrayList(nameList);
+            view.setItems(allRecipesList);
+            view.setVisible(true);
         }
     }
 

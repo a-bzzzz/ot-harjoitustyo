@@ -266,6 +266,7 @@ public class RecipesDB {
             p.setInt(1, recipeID);
             p.executeUpdate();
             st.execute("COMMIT");
+            this.getAllRecipes(); // ?????
             success = true;
         } catch (SQLException s) {
             success = false;
