@@ -11,8 +11,6 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import recipes.domain.Recipe;
 import recipes.domain.RecipeBook;
 
@@ -87,7 +85,10 @@ public class RecipesDB {
         return success;
     }
 
-    // TODO: tee, testaa ja kommentoi
+    /**
+     * Gets all the recipes from the database.
+     * @return recipes Collection of all recipes in the database as Map
+     */
     public Map getAllRecipes() {
         boolean success = this.getConnected();
         List<String> recipeNames = new ArrayList<>();
@@ -97,24 +98,18 @@ public class RecipesDB {
             r = p.executeQuery();
             while (r.next()) {
                 String recipeName = r.getString("name");
-                System.out.println("Reseptikirjaan lisättävän reseptin nimi: " + recipeName);
                 recipeNames.add(recipeName);
             }
             st.execute("COMMIT");
-            // TODO: Pitäisikö luoda uusi reseptikirja, jottei jää vanhat haut?
-//            this.book = new RecipeBook(); // ?????
+            this.book = new RecipeBook();
             for (String name : recipeNames) {
                 Recipe pickedRecipe = this.getRecipe(name);
-                System.out.println("Listaa varten haettu resepti: " + pickedRecipe);
                 this.book.addRecipe(name, pickedRecipe);
             }
             db.close();
-//            success = true;
         } catch (SQLException s) {
             this.handleError(s);
-//            return success;
         }
-//        return success;
         return this.book.getAllRecipes();
     }
 
@@ -133,9 +128,6 @@ public class RecipesDB {
 
         boolean success = this.getConnected();
         try {
-//            String recipeName = recipe.getRecipeName().toLowerCase();
-//            int portionAmount = recipe.getPortionAmount();
-//            String recipeCategory = recipe.getCategory().toLowerCase();
             String recipeName = newRecipe.getRecipeName().toLowerCase();
             int portionAmount = newRecipe.getPortionAmount();
             String recipeCategory = newRecipe.getCategory().toLowerCase();
@@ -158,11 +150,9 @@ public class RecipesDB {
 
             st.execute("COMMIT");
 
-            // TODO: Tarkista, toimiiko ao. lisäykset reseptikirjaan (ei tietokantaan lisäys) - tai onko tarpeen? vasta haettaessa?
             newRecipe.setID(recipeID); 
             newRecipe.setIngredient(ingredients);
             newRecipe.setInstruction(instructions);
-            // TODO: Tarvitseeko lisätä reseptikirjaan tässä vaiheessa - vai vasta hakutuloksia listatessa?
             this.addStuff(ingredients, recipeID);
             this.addGuidance(instructions, recipeID);
 
@@ -251,7 +241,7 @@ public class RecipesDB {
 
     public boolean deleteRecipe(Recipe removableRecipe) {
         boolean success = false;
-        this.getConnected(); // ?????
+        this.getConnected(); 
         int recipeID = removableRecipe.getId();
         System.out.println("Poistettavan reseptin tunnus on: " + recipeID);
         try {
@@ -266,7 +256,7 @@ public class RecipesDB {
             p.setInt(1, recipeID);
             p.executeUpdate();
             st.execute("COMMIT");
-            this.getAllRecipes(); // ?????
+            this.getAllRecipes(); 
             success = true;
         } catch (SQLException s) {
             success = false;
@@ -282,7 +272,7 @@ public class RecipesDB {
         r = p.executeQuery();
         if (r.next()) {
             this.setRecipeDetails();
-            this.recipe.setID(this.recipeID); // ?????
+            this.recipe.setID(this.recipeID); 
         } else {
             return null;
         }
@@ -352,7 +342,6 @@ public class RecipesDB {
                 this.handleError(s);
             }
         }
-//        this.book.setRecipes(this.recipes);
         return this.recipes;
     }
 
