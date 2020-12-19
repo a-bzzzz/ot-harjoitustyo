@@ -18,6 +18,7 @@ public class User {
 
     /**
      * Constructor, creates a user details of an application user.
+     *
      * @param firstname user's first name
      * @param lastname user's last name
      * @param email user's email address
@@ -36,6 +37,7 @@ public class User {
 
     /**
      * Getter, returns the first name of the user.
+     *
      * @return user's first name as String
      */
     public String getFirstname() {
@@ -44,6 +46,7 @@ public class User {
 
     /**
      * Getter, returns the last name of the user.
+     *
      * @return user's last name as String
      */
     public String getLastname() {
@@ -52,6 +55,7 @@ public class User {
 
     /**
      * Getter, returns the email address of the user.
+     *
      * @return user's email address as String
      */
     public String getEmail() {
@@ -60,6 +64,7 @@ public class User {
 
     /**
      * Getter, returns the username of the user.
+     *
      * @return username as String
      */
     public String getUsername() {
@@ -68,10 +73,24 @@ public class User {
 
     /**
      * Getter, returns the password of the user.
+     *
      * @return user's password as String
      */
     public String getPassword() {
         return this.password;
+    }
+
+    /**
+     * The textual formatting of the User object including first name, last
+     * name, email address, username and password.
+     *
+     * @return short user information as String
+     */
+    @Override
+    public String toString() {
+        return "\n" + firstname + " " + lastname
+                + "\n" + email + "\n" + username
+                + "\n" + password;
     }
 
 }
