@@ -4,9 +4,9 @@
 
 --------------------------------------------------------------
 
-Sovelluksen avulla loppukäyttäjä voi lisätä, ylläpitää, hakea ja listata ja poistaa ruokaohjeita eli ruokareseptejään käyttäjätunnuksilla suojatussa ympäristössä. Aluksi loppukäyttäjä voi luoda itselleen käyttäjätunnukset järjestelmään.
+Sovelluksen avulla loppukäyttäjä voi lisätä, hakea (reseptin nimellä ja raaka-aineella), listata ja poistaa ruokaohjeita eli ruokareseptejään käyttäjätunnuksilla suojatussa ympäristössä. Aluksi loppukäyttäjä voi luoda itselleen käyttäjätunnukset järjestelmään.
 
-Sovellus on keskeneräinen (alkuvaiheessa), mutta sovellusta voi kokeilla seuraavilla valmiiksi järjestelmään luoduilla tunnuksilla ja reseptillä:
+Sovellusta voi kokeilla ilman rekisteröitymistä seuraavilla valmiiksi järjestelmään luoduilla tunnuksilla ja reseptillä:
 
 Käyttäjätunnus:   admin
 
@@ -14,10 +14,11 @@ Salasana:         secret
 
 Reseptin nimi:    kaakao
 
-Myös oman käyttäjätunnuksen voi luoda ja kirjautua sillä sovellukseen.
+Myös oman käyttäjätunnuksen voi luoda ja kirjautua sillä sovellukseen. Rekisteröitymistä varten paina ensin ensimmäisessä näkymässä _Rekisteröidy_-painiketta ja täytä tarvittavat tiedot avautuvassa ikkunassa.
 
-Käyttäjän kirjautumisen ja rekisteröitymisen lisäksi "Viikko 5" -releasessa toimii navigointi muutamissa ikkunoissa sekä reseptin hakeminen reseptin nimen perusteella.
-Tulossa mm. reseptin lisäys ja muokkaustoiminnot, sekä toivottavasti myös lisää hakutapoja, kuten reseptin hakeminen raaka-aineella, kategorialla. Ts. hakuperusteiden mukainen lista, jolta voi valita tietyn reseptin tiedot näkymään. Mahdollisesti osa toiminnoista jää jatkokehitystarpeisiin.
+Käyttäjän kirjautumisen tai rekisteröitymisen (ja kirjautumisen) jälkeen käyttäjä pääsee ohjelman aloitusvalikkoon, jossa toiminnon voi valita painamalla näkymässä olevia painikkeita. Useimmista näkymistä voi navigoida takaisin päin joko _Alkuun_ tai _Takaisin_ -painikkeilla, tai ohjelman voi lopettaa kokonaan _Lopeta_-painikkeella. Katso tarkemmat ohjeet käyttöohjeesta.
+
+Ohjelman nykyisestä versiosta puuttuu reseptin muokkausmahdollisuus (paitsi poiston ja lisäyksen kautta) sekä muita mahdollisia reseptin hakutapoja, kuten esim. haku reseptin nimen osalla tai reseptin kategorialla. Ohjelma kuitenkin listaa kaikki saatavilla olevat reseptit käyttäjän näkyville, mikä helpottaa huomattavasti reseptien hakua.
 
 
 ## Dokumentaatio
