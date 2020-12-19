@@ -1,9 +1,7 @@
 package recipes.gui;
 
-//import java.io.FileInputStream;
 import java.sql.SQLException;
 import java.util.ArrayList;
-//import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -18,8 +16,8 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-//import javafx.scene.image.Image;
-//import javafx.scene.image.ImageView;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
@@ -35,8 +33,8 @@ import recipes.domain.User;
 import recipes.domain.Validation;
 
 /**
- *
- * @author aebjork
+ * Secret Recipes application RecipesGUI class presents the graphical user
+ * interface of the application.
  */
 public class RecipesGUI extends Application {
 
@@ -67,7 +65,7 @@ public class RecipesGUI extends Application {
     private final int SMALLHEIGHT = 500;
     private String userName = "XXX";
     private boolean udbCreated = false; // checks the existance of Users database
-    private boolean rdbCreated = false; // // checks the existance of Recipes database
+    private boolean rdbCreated = false; // checks the existance of Recipes database
     private final User admin = new User("a", "b", "admin@email.fi", "admin", "secret");
     private Recipe recipe = new Recipe("kaakao", 1, "juomat");
     private boolean adminUserCreated;
@@ -104,7 +102,7 @@ public class RecipesGUI extends Application {
             // adding new databases, if not already existing
             this.udbCreated = this.udbase.createUsersDB();
             System.out.println("Database " + this.userDatabase + " has been created: " + this.udbCreated);
-            // adding admin user to user database
+            // adding admin user to user database, when new database is created
             adminUserCreated = this.udbase.addUser(admin);
             if (adminUserCreated) {
                 System.out.println("Admin user " + this.admin.toString() + "\n has been created.");
@@ -124,14 +122,13 @@ public class RecipesGUI extends Application {
         } else {
             this.udbCreated = true;
         }
-
     }
 
     @Override
     public void start(Stage stage) throws Exception {
 
         // Scene set-ups =======================================================
-        // homeScene -----------------------------------------------------------
+        // homeScene - 1st scene, contais login and registration ---------------
         Pane screen = new Pane();
         screen.setPrefSize(this.WIDTH, this.HEIGHT);
 
@@ -144,17 +141,6 @@ public class RecipesGUI extends Application {
         Button loginButton = new Button("Kirjaudu");
         Button registerButton = new Button("Rekisteröidy");
         Button endHome = new Button("Lopeta");
-        // TODO: Ota kuva pois, jos ei toimi!
-//        Image food = new Image("file:food.jpg");
-//        ImageView imageView = new ImageView(food);
-//        imageView.setX(100);
-//        imageView.setY(50);
-//        imageView.setFitHeight(100);
-//        imageView.setFitWidth(150);
-//        imageView.setVisible(true);
-//        Pane imagePane = new Pane();
-//        imagePane.getChildren().add(imageView);
-
         Label infoHome = new Label("Kirjaudu tai rekisteröidy");
 
         VBox v_user = new VBox();
@@ -170,14 +156,9 @@ public class RecipesGUI extends Application {
         menuHome.setSpacing(10);
         menuHome.setAlignment(Pos.TOP_LEFT);
 
-//        HBox titlebarHome = new HBox();
-//        titlebarHome.getChildren().addAll(titleHome, imagePane);
-//        titlebarHome.setPadding(new Insets(10, 10, 10, 10));
-//        titlebarHome.setSpacing(10);
-//        titlebarHome.setAlignment(Pos.BASELINE_CENTER);
         GridPane titleHomeGrid = new GridPane();
         titleHomeGrid.add(titleHome, 2, 1);
-//        titleHomeGrid.add(imagePane, 3, 1);
+        titleHomeGrid.setAlignment(Pos.BASELINE_CENTER);
 
         HBox infobarHome = new HBox();
         infobarHome.getChildren().add(infoHome);
@@ -188,7 +169,6 @@ public class RecipesGUI extends Application {
         BorderPane setting = new BorderPane();
 
         setting.setTop(menuHome);
-//        setting.setCenter(titlebarHome);
         setting.setCenter(titleHomeGrid);
         setting.setBottom(infobarHome);
         setting.setPrefSize(this.WIDTH, this.HEIGHT);
@@ -256,7 +236,7 @@ public class RecipesGUI extends Application {
         popup.getChildren().addAll(titleReg, setpop, infoReg);
         this.newUserScene = new Scene(popup, this.SMALLWIDTH, this.SMALLHEIGHT);
 
-        // beginScene ----------------------------------------------------------
+        // beginScene - contains the main menu ---------------------------------
         Label hello = new Label("Terve, " + this.userName + ", herkullista päivää!");
 
         Label titleBegin = new Label("Salaiset reseptit");
@@ -323,7 +303,6 @@ public class RecipesGUI extends Application {
         HBox searchMenu = new HBox();
         Label recipeSearch = new Label("Reseptihaku");
         Label blancoSearch = new Label("                         ");
-//        Button backSearch = new Button("Takaisin");
         Button toStartSearch = new Button("Alkuun");
         Button endSearch = new Button("Lopeta");
         searchMenu.getChildren().addAll(recipeSearch, blancoSearch, toStartSearch, endSearch);
@@ -331,11 +310,8 @@ public class RecipesGUI extends Application {
         searchMenu.setSpacing(10);
         searchMenu.setAlignment(Pos.TOP_LEFT);
         Label infoSearch = new Label("");
-
         ListView<String> recipeView = new ListView<String>();
-//        ObservableList<String> recipeList = null;
 
-//        GridPane searchOp = new GridPane();
         Label rname = new Label("Reseptin nimi");
         Label rstuff = new Label("Raaka-ainehaku");
         Label rpick = new Label("Valitse listalta reseptin numero");
@@ -358,7 +334,7 @@ public class RecipesGUI extends Application {
         this.searchOp.add(rpick, 1, 3);
         this.searchOp.add(pickField, 2, 3);
         this.searchOp.add(pickButton, 3, 3);
-        this.searchOp.add(recipeView, 4, 4); // TODO: onko sopiva paikka???
+        this.searchOp.add(recipeView, 4, 4);
         rpick.setVisible(false);
         pickField.setVisible(false);
         pickButton.setVisible(false);
@@ -367,10 +343,8 @@ public class RecipesGUI extends Application {
         Pane searchPane = new Pane();
         searchPane.setPrefSize(this.WIDTH, this.HEIGHT);
         BorderPane setSearch = new BorderPane();
-        // TODO: Korjaa alla olevat:
         setSearch.setTop(searchMenu);
         setSearch.setCenter(this.searchOp);
-        // TODO: Lisättävä kategoriahaku
         setSearch.setBottom(this.infoSearch);
         searchPane.getChildren().add(setSearch);
 
@@ -384,7 +358,6 @@ public class RecipesGUI extends Application {
         Label titleCreate = new Label("Reseptin lisäys");
         Label blancoCreate = new Label("                         ");
         Label blancoCreate2 = new Label("                         ");
-//        Button backCreate = new Button("Takaisin");
         Button toStartCreate = new Button("Alkuun");
         Button endCreate = new Button("Lopeta");
         createMenu.getChildren().addAll(titleCreate, blancoCreate, toStartCreate, endCreate);
@@ -446,24 +419,12 @@ public class RecipesGUI extends Application {
         Label infoCreate = new Label("Täytä uuden reseptin perus-, raaka-aine- ja ohjetiedot");
 
         BorderPane setCreate = new BorderPane();
-        // TODO: Korjaa alla olevat:
         setCreate.setTop(createMenu);
         setCreate.setCenter(createRecipeView);
         setCreate.setBottom(infoCreate);
 
         this.createScene = new Scene(setCreate, this.WIDTH, this.HEIGHT);
 
-//        // modifyScene ---------------------------------------------------------
-//        // TODO: GUI-elementit
-////        Pane modifyPane = new Pane();
-////        modifyPane.setPrefSize(this.WIDTH, this.HEIGHT);
-//        BorderPane setModify = new BorderPane();
-//        // TODO: Korjaa alla olevat:
-////        setModify.setTop(beginMenu);
-////        setModify.setCenter(startOp);
-////        setModify.setBottom(info2);
-//
-//        this.modifyScene = new Scene(setModify, this.WIDTH, this.HEIGHT);
         // recipeScene ---------------------------------------------------------
         HBox recipeMenu = new HBox();
         Label recipename = new Label(this.recipeName);
@@ -485,14 +446,11 @@ public class RecipesGUI extends Application {
         Button modify = new Button("Muokkaa");
         Button remove = new Button("Poista");
         this.infoRecipe = new Label("Resepti: " + this.recipe);
-//        Button infoButton = new Button("Info"); // TODO: Näytö lisätieto-/ohjeistuskentän avaava painike
-//        Label delConf = new Label("VAROITUS: Haluatko todella poistaa tämän reseptin?");
         Button removeButton = new Button("POISTA");
         Button noRemoveButton = new Button("PERUUTA");
-//        delConf.visibleProperty().setValue(false);
         removeButton.visibleProperty().setValue(false);
         noRemoveButton.visibleProperty().setValue(false);
-        optionBar.getChildren().addAll(modify, remove, this.infoRecipe, removeButton, noRemoveButton); //, infoButton);
+        optionBar.getChildren().addAll(modify, remove, this.infoRecipe, removeButton, noRemoveButton);
 
         GridPane rDetails = new GridPane();
         rDetails.add(stuff, 1, 1);
@@ -514,40 +472,11 @@ public class RecipesGUI extends Application {
         this.recipeScene = new Scene(recipePane, this.WIDTH, this.HEIGHT);
 
         // Event Handlers ======================================================
-        // Closing application in different scenes -----------------------------
-        endHome.setOnAction((event) -> {  // in homeScene
-            stage.close();
-        });
-
-        endBegin.setOnAction((event) -> {       // in beginScene
-            stage.close();
-        });
-
-        endReg.setOnAction((event) -> {       // in newUserScene
-            stage.close();
-        });
-
-        endSearch.setOnAction((event) -> {       // in searchScene
-            stage.close();
-        });
-
-        endRecipe.setOnAction((event) -> {       // in recipeScene
-            stage.close();
-        });
-
-        endCreate.setOnAction((event) -> {       // in createScene
-            stage.close();
-        });
-
-//        endModify.setOnAction((event) -> {       // in modifyScene
-//            stage.close();
-//        });   
-        // Login action: from homeScene to beginScene, if successfull ----------
+        // Start: Login & registration -----------------------------------------
+        // homeScene -> beginScene - Login action, if successful 
         loginButton.setOnAction((event) -> {
-
             String inputUsername = userField.getText().trim();
             String inputPassword = passField.getText().trim();
-
             try {
                 Info<User, String> loginInfo = this.check.validate(inputUsername, inputPassword);
                 User loginUser = loginInfo.getUser();
@@ -563,77 +492,15 @@ public class RecipesGUI extends Application {
             } catch (SQLException s) {
                 infoHome.setText("Kirjautumisvirhe: " + s.getMessage());
             }
-
         });
 
-        // From homeScene to newUserScene --------------------------------------
+        // homeScene -> newUserScene - To registration 
         registerButton.setOnAction((event) -> {
             stage.setTitle("Registration");
             stage.setScene(this.newUserScene);
         });
 
-        // Back to homeScene from newUserScene ---------------------------------      
-        backReg.setOnAction((event) -> {
-            stage.setScene(this.homeScene);
-        });
-
-//        // Back to beginScene from searchScene 
-//        backSearch.setOnAction((event) -> {
-//            infoBegin.setText("Valitse toiminto painamalla nappia");
-//            stage.setTitle("Secret Recipes - main menu");
-//            stage.setScene(this.beginScene);
-//        });
-        // Back to searchScene from recipeScene 
-        backRecipe.setOnAction((event) -> {
-            this.infoSearch.setText("Valitse hakutapa: reseptin nimi tai raaka-aine");
-            recipenameField.setText("                                        ");
-            stuffField.setText("                                        ");
-            pickField.setText("    ");
-            stage.setTitle("Recipe search");
-            stage.setScene(this.searchScene);
-        });
-
-//        // Back to beginScene from createScene
-//        backCreate.setOnAction((event) -> {
-//            infoBegin.setText("Valitse toiminto painamalla nappia");
-//            stage.setTitle("Secret Recipes - main menu");
-//            stage.setScene(this.beginScene);
-//        });
-        // Back to searchScene from modifyScene -> VRS 2
-//        backModify.setOnAction((event) -> {
-//        this.infoSearch.setText("");
-//        recipenameField.setText("                                        ");
-//        pickField.setText("");
-//        stage.setTitle("Recipe search");
-//        stage.setScene(this.searchScene);
-//        }); 
-        // Back to beginScene from searchScene       
-        toStartSearch.setOnAction((event) -> {
-            infoBegin.setText("Valitse toiminto painamalla nappia");
-            stage.setTitle("Secret Recipes - main menu");
-            stage.setScene(this.beginScene);
-        });
-
-        // Back to beginScene from recipeScene       
-        toStartRecipe.setOnAction((event) -> {
-            infoBegin.setText("Valitse toiminto painamalla nappia");
-            stage.setTitle("Secret Recipes - main menu");
-            stage.setScene(this.beginScene);
-        });
-
-        // Back to beginScene from createScene       
-        toStartCreate.setOnAction((event) -> {
-            infoBegin.setText("Valitse toiminto painamalla nappia");
-            stage.setTitle("Secret Recipes - main menu");
-            stage.setScene(this.beginScene);
-        });
-
-        // Back to beginScene from modifyScene       
-//        toStartModify.setOnAction((event) -> {
-//            stage.setScene(this.beginScene);
-//        });
-        // Registration in newUserScene (adds a new user), if successfull -> 
-        // beginScene ----------------------------------------------------------
+        // newUserScene -> beginScene - Registration action, adds a new user, and if successful, advances to main menu
         register.setOnAction((event) -> {
 
             String inFname = fnameField.getText().trim();
@@ -646,18 +513,16 @@ public class RecipesGUI extends Application {
             boolean valid = false;
             User newUser = new User(inFname, inLname, inEmail, inUname, inPword);
             valid = this.check.newValidate(newUser);
-            System.out.println("Täytetyt kentät ovat oikein: " + valid);
+            System.out.println("The validity of filled fields: " + valid);
             if (valid) {
                 User searchedUser = this.udbase.searchUser(inUname);
-                System.out.println("Tarkistetaan löytyykö jo lisättävä käyttäjä " + searchedUser);
                 if (searchedUser == null) {
-                    System.out.println("Lisättävää ei löytynyt vielä rekisteristä.");
+                    System.out.println("The new user is not yet found from the register");
                 }
             }
 
             if (valid && this.udbase.searchUser(inUname) == null) {
                 boolean addingSucceeded = this.udbase.addUser(newUser);
-                System.out.println("Lisäys onnistui: " + addingSucceeded);
                 if (addingSucceeded) {
                     hello.setText("Terve, " + inUname + ", herkullista päivää!");
                     stage.close();
@@ -678,7 +543,8 @@ public class RecipesGUI extends Application {
 
         });
 
-        // Advancing to recipe search: From beginScene to searchScene -----------------------
+        // Main actions --------------------------------------------------------
+        // beginScene -> searchScene - To recipe search
         searchButton.setOnAction((event) -> {
             this.infoSearch.setText("Valitse hakutapa: reseptin nimi tai raaka-aine");
             this.recipesToList(stage, this.infoSearch, recipeView);
@@ -689,23 +555,17 @@ public class RecipesGUI extends Application {
             stage.setScene(this.searchScene);
         });
 
-        // Recipe search action - by name - in searchScene
+        // searchScene: Recipe search action, search by recipe name
         searchByName.setOnAction((event) -> {
             this.recipeName = recipenameField.getText().trim().toLowerCase();
             this.setRecipeView(stage);
         });
 
-        // Recipe search action - by ingredient - in searchScene
+        // searchScene: Recipe search action, search by ingredient
         searchByStuff.setOnAction((event) -> {
             String stuffName = stuffField.getText().trim().toLowerCase();
             this.recipes = this.dbase.searchRecipebyStuff(stuffName);
 
-            for (String name : this.recipes.keySet()) {
-                System.out.println("Haettu resepti: " + name);
-                this.recipeNames.add(name);
-            }
-
-            // TODO: oma metodinsa else -haaran sisälle -> toisteisuutta
             if (this.recipes.keySet().isEmpty()) {
                 this.infoSearch.setText("RAAKA-AINETTA EI LÖYDY! Hae toisella raaka-aineella tai vaihda hakutapaa.");
                 recipeView.setVisible(false);
@@ -716,11 +576,9 @@ public class RecipesGUI extends Application {
                 pickButton.setVisible(true);
 
                 List<String> nameList = new ArrayList<>();
-                System.out.println("Listataan kaikkien reseptien nimet:");
                 for (Recipe recipe : this.recipes.values()) {
                     String row = recipe.getId() + " - " + recipe.getRecipeName();
                     nameList.add(row);
-                    System.out.println(row);
                 }
                 nameList.sort(String::compareToIgnoreCase);
 
@@ -736,7 +594,6 @@ public class RecipesGUI extends Application {
                     String id = String.valueOf(recipe.getId());
                     String name = recipe.getRecipeName();
                     idsAndNames.put(id, name);
-                    System.out.println("id: " + id + " - " + "resepti: " + name);
                 }
 
                 pickButton.setOnAction((e) -> {
@@ -758,14 +615,14 @@ public class RecipesGUI extends Application {
             }
         });
 
-        // Recipe creation: From beginScene to createScene ---------------------
-        // TODO: Reseptin lisäämisen vaiheet:
-        // 1. pyydetään nimi, annosmäärä ja kategoria -> luodaan reseptin "perustiedot"
-        // 2. pyydetään raaka-aineen nimi ja määrä -> lisätään yksi nimi+määrä kerrallaan luodulle ingredients-listalle (lisää)
-        // 3. syötetään raaka-ainelista reseptille (talleta)
-        // 4. pyydetään valmistusohjeen rivi -> lisätään rivi kerrallaan luodulle instruction-listalle (lisää)
-        // 5. syötetään ohjerivit listana reseptille (talleta)
-        // 6. vasta kun kaikki tiedot syötetty, talletetaan tiedot tietokantaan (addRecipe) luo resepti -näppäimellä (tai joku muu komento)
+        // beginScene -> createScene - Recipe creation action
+        //   phases of creating a new recipe:
+        // 1. ask for name, portions and category -> create recipe details
+        // 2. ask for an ingredient name and amount -> add a pair of ingredient name & amount to ingredient list
+        // 3. store the ingredient list to recipe
+        // 4. ask for a line of preparation instruction -> add a guideline to instruction list
+        // 5. store the instruction list to recipe
+        // 6. only when all the data has been entered, the data will be stored to the database (addRecipe) with the create recipe key ("Lisää resepti")
         createButton.setOnAction((event) -> {
             nameField.setText("            ");
             portionsField.setText("            ");
@@ -774,12 +631,11 @@ public class RecipesGUI extends Application {
             amountField.setText("            ");
             guideField.setText("            ");
             infoCreate.setText("Täytä uuden reseptin perus-, raaka-aine- ja ohjetiedot");
-//            stage.close();
             stage.setTitle("Recipe creation");
             stage.setScene(this.createScene);
-//            stage.show();
         });
 
+        // recipeScene: Adds recipe's basic details, if successful
         addRecipeDetails.setOnAction((event) -> {
             String nameInput = nameField.getText().trim().toLowerCase();
             int portionsInput = 0;
@@ -799,14 +655,7 @@ public class RecipesGUI extends Application {
             }
         });
 
-        clearRecipeDetails.setOnAction((event) -> {
-            nameField.setText("");
-            portionsField.setText("");
-            categoryField.setText("");
-            // TODO: Pitääkö samalla nollata newReceptin perustiedot vai ei?
-            this.newRecipe = null;
-        });
-
+        // recipeScene: Adds recipe’s ingredients, if successful
         addStuff.setOnAction((event) -> {
             if (this.newRecipe == null) {
                 infoCreate.setText("LISÄÄ ENSIN RESEPTIN PERUSTIEDOT");
@@ -824,11 +673,7 @@ public class RecipesGUI extends Application {
             }
         });
 
-        newStuff.setOnAction((event) -> {
-            ingredientField.setText("");
-            amountField.setText("");
-        });
-
+        // recipeScene: Adds recipe’s guideline, if successful 
         addPhase.setOnAction((event) -> {
             if (this.newRecipe == null) {
                 infoCreate.setText("LISÄÄ ENSIN RESEPTIN PERUSTIEDOT!");
@@ -845,11 +690,7 @@ public class RecipesGUI extends Application {
             }
         });
 
-        newPhase.setOnAction((event) -> {
-            guideField.setText("");
-        });
-
-        // TODO: Testaa virheellisillä syötteillä!
+        // recipeScene: Adds the whole recipe to recipe book (eventually to database), if successful
         addRecipe.setOnAction((event) -> {
             if (this.newRecipe == null) {
                 infoCreate.setText("LISÄÄ ENSIN RESEPTIN PERUSTIEDOT!");
@@ -863,18 +704,7 @@ public class RecipesGUI extends Application {
             }
         });
 
-        newRecipeButton.setOnAction((event) -> {
-            nameField.setText("            ");
-            portionsField.setText("            ");
-            categoryField.setText("            ");
-            ingredientField.setText("            ");
-            amountField.setText("            ");
-            guideField.setText("            ");
-            infoCreate.setText("Voit aloittaa uuden reseptin luomisen");
-            this.newRecipe = null;
-        });
-
-        // Kaikkien reseptien listauksen mahdollistava tapahtumakäsittelijä
+        // beginScene: Lists all recipes
         listButton.setOnAction((event) -> {
             infoBegin.setText("Listataan kaikki reseptit..");
             this.recipesToList(stage, infoBegin, recipeListView);
@@ -888,7 +718,6 @@ public class RecipesGUI extends Application {
                 String name = recipe.getRecipeName();
                 idsAndNames.put(id, name);
             }
-
             bpickButton.setOnAction((e) -> {
                 String inputID = bpickField.getText().trim().toLowerCase();
                 if (!idsAndNames.keySet().contains(inputID)) {
@@ -904,33 +733,24 @@ public class RecipesGUI extends Application {
                     infoBegin.setText("");
                 }
             });
-
         });
-
-//        // Recipe modification: From beginScene to modifyScene -----------------
-//        modifyButton.setOnAction((event) -> {
-//            //infoModify.setText("Siirrytään reseptin muokkaukseen..");
-//            stage.close();
-//            stage.setTitle("Recipe modification");
-//            stage.setScene(this.modifyScene);
-//            stage.show();
-//        });
+        
+        // recipeScene: No actual modifying function yet, merely informing the user how to proceed, if wants to modify a recipe in this version
         modify.setOnAction((event) -> {
             infoRecipe.setText("Poista ensin vanha resepti ja luo sitten uusi. Reseptin muokkaustoiminto tulossa ohjelman 2 versioon.");
         });
 
+        // recipeScene: Deleting the selected recipe, if successful
         remove.setOnAction((event) -> {
             int id = this.recipe.getId();
             infoRecipe.setText("VAROITUS: Haluatko todella poistaa reseptin " + id + " - " + this.recipe.getRecipeName() + "?");
-//            delConf.visibleProperty().setValue(true);
             removeButton.visibleProperty().setValue(true);
             noRemoveButton.visibleProperty().setValue(true);
             removeButton.setOnAction((eh) -> {
                 String name = this.recipe.getRecipeName();
                 boolean success = this.dbase.deleteRecipe(this.recipe);
                 if (success) {
-                    this.recipes.remove(this.recipe); // TODO: ei toimi -> näkyy edelleen listalla!
-                    this.recipes.keySet().forEach(r -> System.out.println(r)); // ?????
+                    this.recipes.remove(this.recipe); 
                     infoRecipe.setText("Resepti " + name + " on poistettu.");
                     removeButton.visibleProperty().setValue(false);
                     noRemoveButton.visibleProperty().setValue(false);
@@ -945,6 +765,100 @@ public class RecipesGUI extends Application {
             });
         });
 
+        // Clear fields --------------------------------------------------------
+        // recipeScene: Empties the input fields of recipe details
+        clearRecipeDetails.setOnAction((event) -> {
+            nameField.setText("");
+            portionsField.setText("");
+            categoryField.setText("");
+            this.newRecipe = null;
+        });
+
+        // recipeScene: Empties the input fields of recipe ingredients
+        newStuff.setOnAction((event) -> {
+            ingredientField.setText("");
+            amountField.setText("");
+        });
+
+        // recipeScene: Empties the input fields of recipe instruction
+        newPhase.setOnAction((event) -> {
+            guideField.setText("");
+        });
+
+        // recipeScene: Empties all the input fields of the recipe and allows to start creating a new recipe
+        newRecipeButton.setOnAction((event) -> {
+            nameField.setText("            ");
+            portionsField.setText("            ");
+            categoryField.setText("            ");
+            ingredientField.setText("            ");
+            amountField.setText("            ");
+            guideField.setText("            ");
+            infoCreate.setText("Voit aloittaa uuden reseptin luomisen");
+            this.newRecipe = null;
+        });
+
+        // Back to previous ----------------------------------------------------
+        // newUserScene -> homeScene 
+        backReg.setOnAction((event) -> {
+            stage.setScene(this.homeScene);
+        });
+
+        // recipeScene -> searchScene 
+        backRecipe.setOnAction((event) -> {
+            this.infoSearch.setText("Valitse hakutapa: reseptin nimi tai raaka-aine");
+            recipenameField.setText("                                        ");
+            stuffField.setText("                                        ");
+            pickField.setText("    ");
+            stage.setTitle("Recipe search");
+            stage.setScene(this.searchScene);
+        });
+
+        // searchScene -> beginScene 
+        toStartSearch.setOnAction((event) -> {
+            infoBegin.setText("Valitse toiminto painamalla nappia");
+            stage.setTitle("Secret Recipes - main menu");
+            stage.setScene(this.beginScene);
+        });
+
+        // recipeScene -> beginScene     
+        toStartRecipe.setOnAction((event) -> {
+            infoBegin.setText("Valitse toiminto painamalla nappia");
+            stage.setTitle("Secret Recipes - main menu");
+            stage.setScene(this.beginScene);
+        });
+
+        // createScene -> beginScene     
+        toStartCreate.setOnAction((event) -> {
+            infoBegin.setText("Valitse toiminto painamalla nappia");
+            stage.setTitle("Secret Recipes - main menu");
+            stage.setScene(this.beginScene);
+        });
+
+        // Closing application in different scenes -----------------------------
+        endHome.setOnAction((event) -> {    // in homeScene
+            stage.close();
+        });
+
+        endBegin.setOnAction((event) -> {   // in beginScene
+            stage.close();
+        });
+
+        endReg.setOnAction((event) -> {     // in newUserScene
+            stage.close();
+        });
+
+        endSearch.setOnAction((event) -> {  // in searchScene
+            stage.close();
+        });
+
+        endRecipe.setOnAction((event) -> {  // in recipeScene
+            stage.close();
+        });
+
+        endCreate.setOnAction((event) -> {  // in createScene
+            stage.close();
+        });
+
         // =====================================================================
         // homeScene - setting up the primary scene, the first window for the user
         screen.getChildren().add(setting);
@@ -955,6 +869,7 @@ public class RecipesGUI extends Application {
 
     }
 
+    // recipeView: Creates the view of all recipe's information: basic details, ingredients and preparation guidelines
     private void setRecipeView(Stage stage) {
         this.recipe = this.dbase.searchRecipebyName(this.recipeName);
         if (this.recipe == null) {
@@ -962,7 +877,6 @@ public class RecipesGUI extends Application {
         } else {
             this.infoRecipe.setText("");
             this.infoSearch.setText("");
-            System.out.println("Haettu resepti on: " + this.recipe);
             stage.close();
             stage.setTitle("Recipe - " + this.recipe.getRecipeName());
             ObservableList<String> stuffList = FXCollections.observableArrayList(this.recipe.getIngredients());
@@ -977,22 +891,17 @@ public class RecipesGUI extends Application {
         }
     }
 
+    // beginScene & searchScene: Creates the name list of all recipes to certain views
     private void recipesToList(Stage stage, Label info, ListView<String> view) {
-        this.recipes = null; // ?????
+        this.recipes = null; 
         this.recipes = this.dbase.getAllRecipes();
-        System.out.println("Tulostetaan kaikki palautuneet/haetut reseptit:");
-        for (Recipe recipe : this.recipes.values()) {
-            System.out.println(recipe);
-        }
         if (this.recipes.keySet().isEmpty()) {
             info.setText("RESEPTIKIRJA ON TYHJÄ!");
         } else {
             List<String> nameList = new ArrayList<>();
-            System.out.println("Listataan kaikkien reseptien nimet:");
             for (Recipe recipe : this.recipes.values()) {
                 String row = recipe.getId() + " - " + recipe.getRecipeName();
                 nameList.add(row);
-                System.out.println(row);
             }
             nameList.sort(String::compareToIgnoreCase);
 
