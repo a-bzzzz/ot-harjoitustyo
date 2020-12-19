@@ -36,17 +36,23 @@ public class UsersDB implements UsersInterface {
         this.path = "jdbc:sqlite:" + this.ubase + ".db";
     }
 
+    /**
+     * Gets the path of user database as String.
+     * @return String Users database path
+     */
     @Override
     public String getDBPath() {
         return this.path;
     }
 
+    /**
+     * Creates the database of users with one table: Users.
+     * @return true, if creating database is successful, otherwise false
+     */
     @Override
     public boolean createUsersDB() {
-
         try {
             // Creates table Users
-            //this.path = "jdbc:sqlite:" + this.dbase + ".db";
             db = DriverManager.getConnection(this.path);
             st = db.createStatement();
             st.execute("BEGIN TRANSACTION");
@@ -58,16 +64,19 @@ public class UsersDB implements UsersInterface {
                     + "lastname TEXT NOT NULL, "
                     + "email TEXT NOT NULL)");
             st.execute("COMMIT");
-            // System.out.println("Database " + this.ubase + ".db has been created.");
             db.close();
             return true;
         } catch (SQLException s) {
             System.out.println("Database error in createUsersDB: " + s.getMessage());
             return false;
         }
-
     }
 
+    /**
+     * Adds a new user to user database.
+     * @param newUser
+     * @return true, if adding user is successful, otherwise false
+     */
     @Override
     public boolean addUser(User newUser) {
         String uname = newUser.getUsername();
@@ -91,7 +100,6 @@ public class UsersDB implements UsersInterface {
             r = p.getGeneratedKeys();
             r.next();
             st.execute("COMMIT");
-            // System.out.println("Lisätty käyttäjä: \n" + newUser.toString());
             success = true;
             db.close();
         } catch (SQLException s) {
@@ -99,13 +107,18 @@ public class UsersDB implements UsersInterface {
             try {
                 db.close();
             } catch (SQLException ex) {
-                Logger.getLogger(UsersDB.class.getName()).log(Level.SEVERE, null, ex); // ?????
+                Logger.getLogger(UsersDB.class.getName()).log(Level.SEVERE, null, ex);
             }
             success = false;            
         }
         return success;
     }
 
+    /**
+     * Searches a user from the user database with the given username.
+     * @param userName
+     * @return User, if finding the user from database is successful, otherwise null
+     */
     @Override
     public User searchUser(String userName) {
         User user = null;
@@ -120,7 +133,7 @@ public class UsersDB implements UsersInterface {
             try {
                 db.close();
             } catch (SQLException ex) {
-                Logger.getLogger(UsersDB.class.getName()).log(Level.SEVERE, null, ex); // ????
+                Logger.getLogger(UsersDB.class.getName()).log(Level.SEVERE, null, ex); 
             }
         }       
         return user;
@@ -137,7 +150,6 @@ public class UsersDB implements UsersInterface {
                 r.getString("email"),
                 r.getString("username"),
                 r.getString("password"));
-        // System.out.println("Etsittävä käyttäjä on: " + user.toString()); 
         return user;
     }
 

@@ -17,9 +17,10 @@ import recipes.domain.RecipeBook;
 /**
  * This class/data access object offers an interface to the actual recipe
  * database. GUI calls methods of this class, and this class is in connection to
- * Recipe class.
+ * Recipe and RecipeBook classes.
  *
  * @see recipes.domain.Recipe
+ * @see recipes.domain.RecipeBook
  */
 public class RecipesDB {
 
@@ -249,7 +250,6 @@ public class RecipesDB {
         boolean success = false;
         this.getConnected(); 
         int recipeID = removableRecipe.getId();
-        System.out.println("Poistettavan reseptin tunnus on: " + recipeID);
         try {
             st.execute("BEGIN TRANSACTION");           
             p = db.prepareStatement("DELETE FROM Stuff WHERE id=?");
@@ -302,19 +302,15 @@ public class RecipesDB {
     }
 
     private Map<String, Recipe> getByIngredient(String ingredient) throws SQLException {
-        System.out.println("Haetaan reseptiä raaka-aineella " + ingredient);
         st.execute("BEGIN TRANSACTION");
         p = db.prepareStatement("SELECT * FROM Stuff S WHERE S.stuff_name=?");
         p.setString(1, ingredient);
-        System.out.println("Aloitetaan kysely..");
         r = p.executeQuery();
         List<Integer> ids = new ArrayList<>();
         while (r.next()) {
             this.recipeID = r.getInt("id");
-            System.out.println("Raaka-aineen id: " + this.recipeID);
             ids.add(this.recipeID);
         }
-        System.out.println("Reseptien id:t: " + ids);
         this.recipes = this.getSelectedRecipes(ids);
         st.execute("COMMIT");
         return this.recipes;
@@ -361,7 +357,6 @@ public class RecipesDB {
         } catch (SQLException s) {
             this.handleError(s);
         }
-        System.out.println("Resepti on: " + this.recipe);
     }
 
     private void setIngredients() {

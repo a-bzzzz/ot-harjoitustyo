@@ -6,10 +6,11 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * The class for creating and maintaining recipe objects, the main items of this
- * recipe book. Interacts with RecipesDB class.
+ * The class for creating and maintaining separate recipe objects, the main items of this recipe book. 
+ * Interacts with RecipesDB and RecipeBook classes.
  *
  * @see recipes.db.RecipesDB
+ * @see recipes.domain.RecipeBook
  */
 public class Recipe {
 
@@ -39,14 +40,13 @@ public class Recipe {
     public Recipe(String recipeName, int portionAmount, String recipeCategory) {
         this.recipeName = recipeName;
         this.portionAmount = portionAmount;
-        this.category = recipeCategory;         // TODO: Mahdollisesti muutettava jonkinlaiseksi listaksi..
+        this.category = recipeCategory;         
         this.ingredients = new HashMap<>();
         this.instructions = new ArrayList<>();
     }
 
     /**
      * Getter, returns the name of the recipe.
-     *
      * @return recipe's name
      */
     public String getRecipeName() {
@@ -55,7 +55,6 @@ public class Recipe {
 
     /**
      * Getter, returns how many portions you will make by following this recipe.
-     *
      * @return portion amount
      */
     public int getPortionAmount() {
@@ -64,7 +63,6 @@ public class Recipe {
 
     /**
      * Getter, returns the recipe category this recipe belongs to.
-     *
      * @return the recipe's category
      */
     public String getCategory() {
@@ -73,7 +71,6 @@ public class Recipe {
 
     /**
      * Getter, returns the recipe's identifying id number.
-     *
      * @return the recipe's id
      */
     public int getId() {
@@ -82,7 +79,6 @@ public class Recipe {
 
     /**
      * Getter, returns recipe's ingredients with amounts.
-     *
      * @return list of recipe's ingredients and amounts as Map object, or null
      */
     public Map getIngredientsAndAmounts() {
@@ -91,7 +87,6 @@ public class Recipe {
 
     /**
      * Getter, returns recipe's ingredients.
-     *
      * @return list of recipe's ingredients as List object, or null
      */
     public List getIngredients() {
@@ -104,7 +99,6 @@ public class Recipe {
 
     /**
      * Getter, returns recipe's ingredient amounts.
-     *
      * @return list of recipe's ingredient amounts as List object, or null
      */
     public List getAmounts() {
@@ -117,7 +111,6 @@ public class Recipe {
 
     /**
      * Getter, returns recipe's instructions.
-     *
      * @return list of recipe's guidelines as List object, or null
      */
     public List getInstructions() {
@@ -125,8 +118,7 @@ public class Recipe {
     }
 
     /**
-     * Setter, sets the recipes id received from the recipe database
-     *
+     * Setter, sets the recipes id received from the recipe database.
      * @param recipeID recipe's id number
      */
     public void setID(int recipeID) {
@@ -135,7 +127,6 @@ public class Recipe {
 
     /**
      * Setter, sets a pair of ingredient name and amount for the recipe
-     *
      * @param stuff ingredient name
      * @param amount ingredient amount
      */
@@ -145,7 +136,6 @@ public class Recipe {
     
     /**
      * Setter, sets a collection of ingredients for the recipe.
-     *
      * @param newIngredients ingredients of the recipe
      */
     public void setIngredient(Map newIngredients) {
@@ -154,7 +144,6 @@ public class Recipe {
 
     /**
      * Setter, sets a row of instruction to the recipe adding it on the list.
-     *
      * @param text one line of the recipe instructions, how to make the portion
      */
     public void setInstruction(String text) {
@@ -163,7 +152,6 @@ public class Recipe {
     
     /**
      * Setter, sets a collection of instructions for the recipe.
-     *
      * @param instructions instructions of the recipe
      */
     public void setInstruction(List instructions) {
@@ -171,35 +159,12 @@ public class Recipe {
     }
 
     /**
-     * The textual formatting of the Recipe object including its category, name
-     * and portion amount.
-     *
+     * The textual formatting of the Recipe object including its category, name and portion amount.
      * @return short recipe information as String
      */
     @Override
     public String toString() {
         return this.category + ": " + this.recipeName + " - " + this.portionAmount + " annosta";
     }
-
-//    public String listIngredients() {
-//        String output = "";
-//        for (String stuff : this.ingredients.keySet()) {
-//            output += ("\n" + stuff);
-//        }
-//        return output;
-//    }
-//    public String listAmounts() {
-//        String output = "";
-//        for (String amount : this.ingredients.values()) {
-//            output += ("\n   " + amount);
-//        }
-//        return output;
-//    }
-//    public String listInstructions() {
-//        String output = "";
-//        for (int i = 0; i < this.instructions.size(); i++) {
-//            output += ("\n   " + (i + 1) + "  " + this.instructions.get(i));
-//        }
-//        return output;
-//    }    
+  
 }

@@ -1,8 +1,6 @@
 package recipes.domain;
 
 import java.sql.SQLException;
-import java.util.HashMap;
-import java.util.Map;
 import recipes.db.UsersInterface;
 
 /**
@@ -41,7 +39,6 @@ public class Validation {
         Info info = new Info(null, "");
         User loginUser = udbase.searchUser(username);
         String infotext = "";
-        // System.out.println("kirjautuva käyttäjä on: " + loginUser); 
         if (loginUser == null) {
             infotext = "KÄYTTÄJÄÄ EI TUNNISTETTU! Yritä uudelleen tai rekisteröidy.";
         } else if (!loginUser.getPassword().equals(password)) {

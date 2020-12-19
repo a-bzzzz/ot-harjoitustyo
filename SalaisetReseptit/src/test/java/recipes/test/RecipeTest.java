@@ -7,18 +7,11 @@ import java.util.Map;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.not;
 import static org.hamcrest.core.IsEqual.equalTo;
-import org.junit.After;
-import org.junit.AfterClass;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import recipes.domain.Recipe;
 
-/**
- *
- * @author aebjork
- */
 public class RecipeTest {
     
     Recipe testRecipe;
@@ -106,8 +99,6 @@ public class RecipeTest {
     @Test
     public void setsIngredientsCorrectly() {
         Recipe tikka = new Recipe("tikka masala", 6, "pääruoat");
-//        tikka.setIngredient("broilerin leikkeleitä", "350 g");
-//        tikka.setIngredient("turkkilaista jogurttia", "4 dl");
         Map<String, String> stuff = new HashMap<>();
         stuff.put("broilerin leikkeleitä", "350 g");
         stuff.put("turkkilaista jogurttia", "4 dl");
@@ -119,8 +110,6 @@ public class RecipeTest {
     @Test
     public void setsIstructionsCorrectly() {
         Recipe tikka = new Recipe("tikka masala", 6, "pääruoat");
-//        tikka.setInstruction("Sekoita mausteseos ja puolet siitä jogurtin joukkoon.");
-//        tikka.setInstruction("Kääntele broilerit jogurtissa ja anna maustua noin puoli tuntia huoneenlämmössä.");
         List<String> guide = new ArrayList<>();
         guide.add("Sekoita mausteseos ja puolet siitä jogurtin joukkoon.");
         guide.add("Kääntele broilerit jogurtissa ja anna maustua noin puoli tuntia huoneenlämmössä.");

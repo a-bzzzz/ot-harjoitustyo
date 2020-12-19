@@ -11,10 +11,6 @@ import recipes.domain.User;
 import recipes.domain.Validation;
 import test.db.FakeUsersDB;
 
-/**
- *
- * @author aebjork
- */
 public class ValidationTest {
 
     FakeUsersDB testUBase;

@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package recipes.test;
 
 import java.util.ArrayList;
@@ -11,19 +6,12 @@ import java.util.List;
 import java.util.Map;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.is;
-import org.junit.After;
-import org.junit.AfterClass;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import recipes.domain.Recipe;
 import recipes.domain.RecipeBook;
 
-/**
- *
- * @author aebjork
- */
 public class RecipeBookTest {
 
     RecipeBook testBook;
@@ -31,18 +19,7 @@ public class RecipeBookTest {
     Recipe anotherRecipe;
     Map<String, String> testIngredients;   // ingredient's name and amount
     List<String> testInstructions;
-
-//    public RecipeBookTest() {
-//        this.testBook = new RecipeBook();
-//    }
-//    @BeforeClass
-//    public static void setUpClass() {
-//    }
-//    
-//    @AfterClass
-//    public static void tearDownClass() {
-//    }
-//    
+  
     @Before
     public void setUp() {
         this.testBook = new RecipeBook();
@@ -62,9 +39,6 @@ public class RecipeBookTest {
         testRecipe.setInstruction("Tarjoa lisänä esim. kermavaahtoa, marjoja, sokeria, hilloa, sokeroitua marjasurvosta tai jäätelöä.");
     }
 
-//    @After
-//    public void tearDown() {
-//    }
     @Test
     public void addsRecipeToBookWhenNameisNew() {
         assertTrue(testBook.addRecipe(testRecipe.getRecipeName(), testRecipe));
@@ -76,17 +50,6 @@ public class RecipeBookTest {
         assertFalse(testBook.addRecipe(testRecipe.getRecipeName(), testRecipe));
     }
     
-//    @Test
-//    public void addsSelectedRecipeToBookWhenNameisNew() {
-//        assertTrue(testBook.addSelectedRecipe(testRecipe.getRecipeName(), testRecipe));
-//    }
-    
-//    @Test
-//    public void doesNOTaddSelectedRecipeToBookWhenNameisUsed() {
-//        assertTrue(testBook.addSelectedRecipe(testRecipe.getRecipeName(), testRecipe));
-//        assertFalse(testBook.addSelectedRecipe(testRecipe.getRecipeName(), testRecipe));
-//    }
-    
     @Test
     public void getsAllRecipes() {
         assertThat("[]", is(equalTo(testBook.getAllRecipes().values().toString())));
@@ -94,28 +57,6 @@ public class RecipeBookTest {
         testBook.addRecipe(anotherRecipe.getRecipeName(), anotherRecipe);
         assertThat("[jälkiruoat: isolettu - 2 annosta, jälkiruoat: testilettu - 4 annosta]", is(equalTo(testBook.getAllRecipes().values().toString())));
     }
-    
-//    @Test
-//    public void getsSelectedRecipes() {
-//        assertThat("[]", is(equalTo(testBook.getSelectedRecipes().values().toString())));
-//        testBook.addSelectedRecipe(anotherRecipe.getRecipeName(), anotherRecipe);
-//        assertThat("[jälkiruoat: isolettu - 2 annosta]", is(equalTo(testBook.getSelectedRecipes().values().toString())));
-//    }
-    
-    @Test
-    public void listsAllNames() {
-        assertThat("[]", is(equalTo(testBook.listAllNames().toString())));
-        testBook.addRecipe(testRecipe.getRecipeName(), testRecipe);
-        testBook.addRecipe(anotherRecipe.getRecipeName(), anotherRecipe);
-        assertThat("[0 - isolettu, 100 - testilettu]", is(equalTo(testBook.listAllNames().toString())));
-    }
-    
-//    @Test
-//    public void listsSelectedNames() {
-//        assertThat("[]", is(equalTo(testBook.listSelectedNames().toString())));
-//        testBook.addSelectedRecipe(anotherRecipe.getRecipeName(), anotherRecipe);
-//        assertThat("[1 - isolettu]", is(equalTo(testBook.listSelectedNames().toString())));
-//    }
     
     @Test
     public void getsCateories() {

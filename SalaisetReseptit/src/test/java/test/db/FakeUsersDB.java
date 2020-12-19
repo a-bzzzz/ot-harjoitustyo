@@ -9,10 +9,6 @@ import java.sql.Statement;
 import recipes.db.UsersInterface;
 import recipes.domain.User;
 
-/**
- *
- * @author aebjork
- */
 public class FakeUsersDB implements UsersInterface {
 
     private String testUbase;
@@ -38,7 +34,6 @@ public class FakeUsersDB implements UsersInterface {
 
         try {
             // Creates table TestUsers
-            //this.path = "jdbc:sqlite:" + this.dbase + ".db";
             db = DriverManager.getConnection(this.path);
             st = db.createStatement();
             st.execute("BEGIN TRANSACTION");
@@ -61,7 +56,6 @@ public class FakeUsersDB implements UsersInterface {
     }
 
     @Override
-    // public void addUser(String uname, String pword, String fname, String lname, String email) throws SQLException {
     public boolean addUser(User testUser) throws SQLException {
         
         String uname = testUser.getUsername();
@@ -73,9 +67,6 @@ public class FakeUsersDB implements UsersInterface {
         try {
             db = DriverManager.getConnection(path);
             st = db.createStatement();
-
-//            User user = this.getUser(uname);
-//            if (user == null) {
             st.execute("BEGIN TRANSACTION");
 
             p = db.prepareStatement("INSERT INTO TestUsers(username,password,firstname,lastname,email) VALUES (?,?,?,?,?)",
@@ -90,9 +81,6 @@ public class FakeUsersDB implements UsersInterface {
             r = p.getGeneratedKeys();
             r.next();
             st.execute("COMMIT");
-//            } else {
-//                throw new SQLException("User details have already been added to database.");
-//            }
             db.close();
             return true;
         } catch (SQLException s) {
