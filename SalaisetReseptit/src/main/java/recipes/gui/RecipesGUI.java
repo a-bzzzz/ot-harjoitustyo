@@ -1,9 +1,9 @@
 package recipes.gui;
 
-import java.io.FileInputStream;
+//import java.io.FileInputStream;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Collections;
+//import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -18,8 +18,8 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
+//import javafx.scene.image.Image;
+//import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
@@ -68,7 +68,7 @@ public class RecipesGUI extends Application {
     private String userName = "XXX";
     private boolean udbCreated = false; // checks the existance of Users database
     private boolean rdbCreated = false; // // checks the existance of Recipes database
-    private User admin = new User("a", "b", "admin@email.fi", "admin", "secret");
+    private final User admin = new User("a", "b", "admin@email.fi", "admin", "secret");
     private Recipe recipe = new Recipe("kaakao", 1, "juomat");
     private boolean adminUserCreated;
     private boolean recipeCreated;
@@ -144,14 +144,16 @@ public class RecipesGUI extends Application {
         Button loginButton = new Button("Kirjaudu");
         Button registerButton = new Button("Rekisteröidy");
         Button endHome = new Button("Lopeta");
-        Image food = new Image("file:food.jpg");
-        ImageView imageView = new ImageView(food);
-        imageView.setX(100);
-        imageView.setY(50);
-        imageView.setFitHeight(100);
-        imageView.setFitWidth(150);
-        Pane imagePane = new Pane();
-        imagePane.getChildren().add(imageView);
+        // TODO: Ota kuva pois, jos ei toimi!
+//        Image food = new Image("file:food.jpg");
+//        ImageView imageView = new ImageView(food);
+//        imageView.setX(100);
+//        imageView.setY(50);
+//        imageView.setFitHeight(100);
+//        imageView.setFitWidth(150);
+//        imageView.setVisible(true);
+//        Pane imagePane = new Pane();
+//        imagePane.getChildren().add(imageView);
 
         Label infoHome = new Label("Kirjaudu tai rekisteröidy");
 
@@ -173,11 +175,9 @@ public class RecipesGUI extends Application {
 //        titlebarHome.setPadding(new Insets(10, 10, 10, 10));
 //        titlebarHome.setSpacing(10);
 //        titlebarHome.setAlignment(Pos.BASELINE_CENTER);
-        
         GridPane titleHomeGrid = new GridPane();
         titleHomeGrid.add(titleHome, 2, 1);
-        titleHomeGrid.add(imagePane, 3, 1);
-        
+//        titleHomeGrid.add(imagePane, 3, 1);
 
         HBox infobarHome = new HBox();
         infobarHome.getChildren().add(infoHome);
@@ -439,11 +439,11 @@ public class RecipesGUI extends Application {
         createRecipe.add(addRecipe, 1, 9);
         createRecipe.add(newRecipeButton, 3, 9);
         createRecipe.add(blancoCreate2, 1, 10);
-        createRecipe.add(categoriesTitle, 5, 0); 
+        createRecipe.add(categoriesTitle, 5, 0);
 
         createRecipeView.getChildren().addAll(createRecipe, categories);
 
-        Label infoCreate = new Label("Täällä luodaan uusia reseptejä");
+        Label infoCreate = new Label("Täytä uuden reseptin perus-, raaka-aine- ja ohjetiedot");
 
         BorderPane setCreate = new BorderPane();
         // TODO: Korjaa alla olevat:
@@ -464,7 +464,6 @@ public class RecipesGUI extends Application {
 ////        setModify.setBottom(info2);
 //
 //        this.modifyScene = new Scene(setModify, this.WIDTH, this.HEIGHT);
-
         // recipeScene ---------------------------------------------------------
         HBox recipeMenu = new HBox();
         Label recipename = new Label(this.recipeName);
@@ -584,12 +583,12 @@ public class RecipesGUI extends Application {
 //            stage.setTitle("Secret Recipes - main menu");
 //            stage.setScene(this.beginScene);
 //        });
-
         // Back to searchScene from recipeScene 
         backRecipe.setOnAction((event) -> {
             this.infoSearch.setText("Valitse hakutapa: reseptin nimi tai raaka-aine");
             recipenameField.setText("                                        ");
-            pickField.setText("");
+            stuffField.setText("                                        ");
+            pickField.setText("    ");
             stage.setTitle("Recipe search");
             stage.setScene(this.searchScene);
         });
@@ -600,7 +599,6 @@ public class RecipesGUI extends Application {
 //            stage.setTitle("Secret Recipes - main menu");
 //            stage.setScene(this.beginScene);
 //        });
-
         // Back to searchScene from modifyScene -> VRS 2
 //        backModify.setOnAction((event) -> {
 //        this.infoSearch.setText("");
@@ -609,7 +607,6 @@ public class RecipesGUI extends Application {
 //        stage.setTitle("Recipe search");
 //        stage.setScene(this.searchScene);
 //        }); 
-
         // Back to beginScene from searchScene       
         toStartSearch.setOnAction((event) -> {
             infoBegin.setText("Valitse toiminto painamalla nappia");
@@ -626,7 +623,7 @@ public class RecipesGUI extends Application {
 
         // Back to beginScene from createScene       
         toStartCreate.setOnAction((event) -> {
-            infoCreate.setText("Valitse toiminto painamalla nappia");
+            infoBegin.setText("Valitse toiminto painamalla nappia");
             stage.setTitle("Secret Recipes - main menu");
             stage.setScene(this.beginScene);
         });
@@ -686,6 +683,8 @@ public class RecipesGUI extends Application {
             this.infoSearch.setText("Valitse hakutapa: reseptin nimi tai raaka-aine");
             this.recipesToList(stage, this.infoSearch, recipeView);
             recipenameField.setText("                                        ");
+            stuffField.setText("                                        ");
+            pickField.setText("    ");
             stage.setTitle("Recipe search");
             stage.setScene(this.searchScene);
         });
@@ -768,11 +767,17 @@ public class RecipesGUI extends Application {
         // 5. syötetään ohjerivit listana reseptille (talleta)
         // 6. vasta kun kaikki tiedot syötetty, talletetaan tiedot tietokantaan (addRecipe) luo resepti -näppäimellä (tai joku muu komento)
         createButton.setOnAction((event) -> {
-            infoCreate.setText("Siirrytään reseptin luomiseen..");
-            stage.close();
+            nameField.setText("            ");
+            portionsField.setText("            ");
+            categoryField.setText("            ");
+            ingredientField.setText("            ");
+            amountField.setText("            ");
+            guideField.setText("            ");
+            infoCreate.setText("Täytä uuden reseptin perus-, raaka-aine- ja ohjetiedot");
+//            stage.close();
             stage.setTitle("Recipe creation");
             stage.setScene(this.createScene);
-            stage.show();
+//            stage.show();
         });
 
         addRecipeDetails.setOnAction((event) -> {
@@ -865,6 +870,7 @@ public class RecipesGUI extends Application {
             ingredientField.setText("            ");
             amountField.setText("            ");
             guideField.setText("            ");
+            infoCreate.setText("Voit aloittaa uuden reseptin luomisen");
             this.newRecipe = null;
         });
 
@@ -909,7 +915,6 @@ public class RecipesGUI extends Application {
 //            stage.setScene(this.modifyScene);
 //            stage.show();
 //        });
-
         modify.setOnAction((event) -> {
             infoRecipe.setText("Poista ensin vanha resepti ja luo sitten uusi. Reseptin muokkaustoiminto tulossa ohjelman 2 versioon.");
         });
