@@ -118,7 +118,7 @@ public class RecipesDB {
      * Enters the recipe details to recipe database, as well as ingredients with
      * measures and guidelines to recipe object.
      *
-     * @param recipe Recipe object
+     * @param newRecipe Recipe object
      * @param ingredients stuff and amount as Map object
      * @param instructions guidelines as a list
      * @see recipes.domain.Recipe
