@@ -37,8 +37,7 @@ public class RecipesDB {
     private RecipeBook book;
 
     /**
-     * Constructor, creates a RecipeDB object, which is responsible for
-     * connection to the actual recipe database
+     * Constructor, creates a RecipeDB object, which is responsible for connection to the actual recipe database.
      *
      * @param dbase name of the recipe database
      */
@@ -50,7 +49,7 @@ public class RecipesDB {
     }
 
     /**
-     * Returns the name of the path of the database in use
+     * Returns the name of the path of the database in use.
      *
      * @return path name of the database as String
      */
@@ -59,9 +58,10 @@ public class RecipesDB {
     }
 
     /**
-     * Creates the database for recipes with the following tables: Recipes,
-     * Stuff, Guidance Recipes: id, name, portions, category, idx_recipe_id
-     * Stuff: id, stuff_name, amount Guidance: id, row, text
+     * Creates the database for recipes with the following tables: Recipes, Stuff, Guidance. 
+     * Recipes: id, name, portions, category, idx_recipe_id
+     * Stuff: id, stuff_name, amount 
+     * Guidance: id, row, text
      *
      * @return true, if the recipe database is created successfully; otherwise
      * false
@@ -222,6 +222,7 @@ public class RecipesDB {
     }
 
     /**
+     * Gets the recipe from the database, when searching by the ingredient of the recipe.
      * @param stuff name of an ingredient
      * @see recipes.domain.Recipe
      * @return recipe the searched recipe, if exists, otherwise null
@@ -239,6 +240,11 @@ public class RecipesDB {
         return this.recipes;
     }
 
+    /**
+     * Deletes a selected recipe from the database, as well the related ingredients and instructions.
+     * @param removableRecipe
+     * @return true, if deletion succeeds, otherwise false
+     */
     public boolean deleteRecipe(Recipe removableRecipe) {
         boolean success = false;
         this.getConnected(); 
