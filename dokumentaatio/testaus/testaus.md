@@ -61,5 +61,5 @@ Mikäli kuitenkin huomaat sovellusta käyttäessäsi korjaustarpeita (ja todenn�
 
 ## Sovellukseen jääneet laatuongelmat
 
-Pyydän virkeämmillä silmillä varustettuja henkilöitä "ilmiantamaan" sovellukseen jääneet laatuongelmat, epäloogisuudet, virhetilanteet - tai muut kehitystoiveet:
+Pyydän virkeämmillä silmillä varustettuja henkilöitä "ilmiantamaan" sovellukseen jääneet laatuongelmat, epäloogisuudet, virhetilanteet - tai muut olennaiset kehitystarpeet:
 [issues](https://github.com/a-bzzzz/ot-harjoitustyo/issues). Kiitos!
