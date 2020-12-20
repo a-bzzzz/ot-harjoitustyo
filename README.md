@@ -79,7 +79,7 @@ Ohjelman voi suorittaa komennolla
 java -jar jartiedoston_nimi.jar
 ```
 
-"Viikko 7" -releasen (1.0) kautta haetun pakkauksen nimi on _recipes.jar_, joten sen voi suorittaa komennolla
+"loppupalautus" -releasen (1.0) kautta haetun pakkauksen nimi on _recipes.jar_, joten sen voi suorittaa komennolla
 
 ```
 java -jar recipes.jar
