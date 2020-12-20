@@ -66,23 +66,23 @@ Uuden käyttäjän tulee täyttää kaikki seuraavat kentät ja painaa lopuksi _
 
 Jos käyttäjän luominen onnistuu, tapahtuu samalla järjestelmään sisäänkirjautuminen ja siirrytään alkuvalinnat-näkymään.
 
-<img src="https://github.com/a-bzzzz/ot-harjoitustyo/blob/master/dokumentaatio/kuvat/0_alkuvalikko.png" width="400">
+<img src="https://github.com/a-bzzzz/ot-harjoitustyo/blob/master/dokumentaatio/kuvat/0_alkuvalikko.png" width="600">
 
 ## Reseptien hakeminen 
 
-<img src="https://github.com/a-bzzzz/ot-harjoitustyo/blob/master/dokumentaatio/kuvat/1_reseptihaku.png" width="400">
+<img src="https://github.com/a-bzzzz/ot-harjoitustyo/blob/master/dokumentaatio/kuvat/1_reseptihaku.png" width="600">
 
 ## Reseptien luominen 
 
-<img src="https://github.com/a-bzzzz/ot-harjoitustyo/blob/master/dokumentaatio/kuvat/2_uusiresepti.png" width="400">
+<img src="https://github.com/a-bzzzz/ot-harjoitustyo/blob/master/dokumentaatio/kuvat/2_uusiresepti.png" width="600">
 
 ## Reseptien listaaminen 
 
-<img src="https://github.com/a-bzzzz/ot-harjoitustyo/blob/master/dokumentaatio/kuvat/1.1_reseptilistaus.png" width="400">
+<img src="https://github.com/a-bzzzz/ot-harjoitustyo/blob/master/dokumentaatio/kuvat/1.1_reseptilistaus.png" width="600">
 
 ## Reseptinäkymä ja reseptien poisto 
 
-<img src="https://github.com/a-bzzzz/ot-harjoitustyo/blob/master/dokumentaatio/kuvat/3_reseptinakyma.png" width="400">
+<img src="https://github.com/a-bzzzz/ot-harjoitustyo/blob/master/dokumentaatio/kuvat/3_reseptinakyma.png" width="600">
 
 
 
