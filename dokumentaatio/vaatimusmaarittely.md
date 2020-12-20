@@ -21,7 +21,7 @@ Reseptin nimi: kaakao
 
 ### Käyttäjäroolit
 
-1. Pääkäyttäjä: 1. käyttökerralla sovellus luo _admin_-tunnukset lähinnä koekäyttöä varten, mutta varsinaisen ylläpitäjäroolin toimintojen parempi toteutus jää jatkokehitykselle
+1. Pääkäyttäjä: 1. käyttökerralla sovellus luo _admin_-tunnukset lähinnä koekäyttöä varten, mutta varsinaisen ylläpitäjäroolin toimintojen toteutus jää jatkokehitykselle
 1. Loppukäyttäjä: käyttäjä voi rekisteröityä eli luoda itselleen käyttäjätunnukset sovellukseen, jolloin hän voi tehdä yleiskuvauksessa määriteltyjä perustoimintoja
 
 Toistaiseksi molemmilla käyttäjärooleilla on yhtäläiset käyttöoikeudet, mutta sovellukselle on mahdollista jatkossa lisätä varsinaiset pääkäyttäjä- tai ylläpitäjärooli, joka oikeuttaa laajempiin käyttömahdollisuuksiin, joita voivat jatkokehitysversioissa olla mm.
