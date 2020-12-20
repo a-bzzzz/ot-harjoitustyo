@@ -173,7 +173,7 @@ Ylävalikosta löytyvät painikkeet, joilla voit palata hakunäkymään, _Takais
 
 Alavalikosta löytyvät seuraavat painikkeet
 
-* _Muokkaa_: Ei ole varsinaisesti käytössä tässä ohjelmaversiossa, vain ilmoittaa käyttäjälle, että muokkaus on tehtävä kaksivaiheisesti: 1. poistettava resepti ja 2. lisättävä uudelleen korjattuna.
+* _Muokkaa_: Ei ole varsinaisesti käytössä tässä ohjelmaversiossa, vaan käyttäjä saa ilmoituksen, että muokkaus on tehtävä kaksivaiheisesti: 1. poistettava resepti ja 2. lisättävä uudelleen korjattuna.
 
 * _Poista_: Varmistaa ensin käyttäjältä haluaako todella poistaa reseptin reseptikirjasta (käytännössä myös tietokannasta).
 
