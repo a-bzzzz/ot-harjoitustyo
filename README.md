@@ -16,7 +16,7 @@ Reseptin nimi:    kaakao
 
 Myös oman käyttäjätunnuksen voi luoda ja kirjautua sillä sovellukseen. Rekisteröitymistä varten paina ensin ensimmäisessä näkymässä _Rekisteröidy_-painiketta ja täytä tarvittavat tiedot avautuvassa ikkunassa.
 
-Käyttäjän kirjautumisen tai rekisteröitymisen (ja kirjautumisen) jälkeen käyttäjä pääsee ohjelman aloitusvalikkoon, jossa toiminnon voi valita painamalla näkymässä olevia painikkeita. Useimmista näkymistä voi navigoida takaisin päin joko _Alkuun_ tai _Takaisin_ -painikkeilla, tai ohjelman voi lopettaa kokonaan _Lopeta_-painikkeella. Katso tarkemmat ohjeet käyttöohjeesta.
+Käyttäjän kirjautumisen tai rekisteröitymisen (ja kirjautumisen) jälkeen käyttäjä pääsee ohjelman aloitusvalikkoon, jossa toiminnon voi valita painamalla näkymässä olevia painikkeita. Useimmista näkymistä voi navigoida takaisin päin joko _Alkuun_ tai _Takaisin_ -painikkeilla, tai ohjelman voi lopettaa kokonaan _Lopeta_-painikkeella. Katso tarkemmin [käyttöohjeesta](https://github.com/a-bzzzz/ot-harjoitustyo/blob/master/dokumentaatio/kayttoohje.md).
 
 Ohjelman nykyisestä versiosta puuttuu reseptin muokkausmahdollisuus (paitsi poiston ja lisäyksen kautta) sekä muita mahdollisia reseptin hakutapoja, kuten esim. haku reseptin nimen osalla tai reseptin kategorialla. Ohjelma kuitenkin listaa kaikki saatavilla olevat reseptit käyttäjän näkyville, mikä helpottaa huomattavasti reseptien hakua.
 
