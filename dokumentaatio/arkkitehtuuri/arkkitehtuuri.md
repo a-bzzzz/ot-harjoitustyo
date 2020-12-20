@@ -35,7 +35,7 @@ Käyttöliittymäikkunat on toteutettu JavaFX:n Scene-olioina. Käyttöliittymä
 
 _RecipesGUI_-luokka puolestaan kutsuu muiden pakkausten luokkia ja käyttää yleensä apuna kutsuissa käyttäjän syöttämiä parametreja.
 
-Katso tarkemmin erillisistä käyttöliittymädokumenteista:
+Katso yllä olevasta pakkaus- ja luokkakaaviosta pakkaus _gui_ sekä tarkemmin erillisistä käyttöliittymädokumenteista:
 * [GUI: ikkunat ja yhteyskaavio](https://github.com/a-bzzzz/ot-harjoitustyo/blob/master/dokumentaatio/GUI/GUI-ikkunat.pdf)
 * [GUI: rakenne](https://github.com/a-bzzzz/ot-harjoitustyo/blob/master/dokumentaatio/GUI/GUI-rakenne.md)
 * [GUI: kaavio](https://github.com/a-bzzzz/ot-harjoitustyo/blob/master/dokumentaatio/GUI/GUI_SR_kaavio.png)
