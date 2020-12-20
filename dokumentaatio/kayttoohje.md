@@ -36,7 +36,7 @@ Jar-tiedosto on mahdollista suorittaa millä tahansa koneella, olettaen että ko
 
 Sovellus käynnistyy aloitusnäkymään:
 
-<img src="https://github.com/a-bzzzz/ot-harjoitustyo/blob/master/dokumentaatio/kuvat/A_aloitussivu.png" width="400">
+<img src="https://github.com/a-bzzzz/ot-harjoitustyo/blob/master/dokumentaatio/kuvat/A_aloitussivu.png" width="600">
 
 Sovellukseen kirjaudutaan kirjoittamalla syötekenttiin käyttäjätunnus ja salasana, jotka on jo luotu, ja painamalla _Kirjaudu_.
 
