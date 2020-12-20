@@ -143,7 +143,7 @@ Ylävalikosta löytyvät painikkeet, joilla voit joko palata alkuvalikkoon, _Alk
 
 ## Reseptien listaaminen 
 
-Alkuvalikko näkymässä saat esille kaikkien reseptikirjaan talletettujen reseptien nimet painamalla kolmatta painiketta _Listaa kaikki reseptit_.
+Alkuvalikkonäkymässä (_Secret Recipes - main menu_) saat esille kaikkien reseptikirjaan talletettujen reseptien nimet painamalla kolmatta painiketta _Listaa kaikki reseptit_.
 Listalla on reseptin nimen edessä sen numero. Jos haluat hakea jonkun näistä resepteistä, kirjoita reseptin numero kenttään _Valitse listalta reseptin numero_
 ja paina _Hae_-painiketta.
 
