@@ -51,6 +51,8 @@ Sovelluksen looginen toteutus on seuraavissa luokissa:
 * *Validation*  - käyttäjän kirjautumistiedot sekä uuden käyttäjän rekisteröitymistiedot tarkistava luokka
 * *Info*        - pieni apuluokka käyttäjätietojen tarkistuksessa (Validation-luokan "apuri")
 
+Katso myös yllä olevasta kuvasta pakkaus _domain_, sekä tarkempi listaus [ohjelman luokista ja niiden metodeista]() (pl. testiluokat ja niiden metodit).
+
 
 ## Tietojen pysyväistallennus
 
