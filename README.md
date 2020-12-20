@@ -29,7 +29,7 @@ Ohjelman nykyisestä versiosta puuttuu reseptin muokkausmahdollisuus (paitsi poi
 
 [Arkkitehtuurikuvaus](https://github.com/a-bzzzz/ot-harjoitustyo/blob/master/dokumentaatio/arkkitehtuuri/arkkitehtuuri.md)
 
-[Testausdokumentaatio](https://github.com/a-bzzzz/ot-harjoitustyo/blob/master/dokumentaatio/testaus/testikattavuus_Recipes.pdf)
+[Testausdokumentaatio](https://github.com/a-bzzzz/ot-harjoitustyo/blob/master/dokumentaatio/testaus/testaus.md)
 
 [Laatudokumentaatio](https://github.com/a-bzzzz/ot-harjoitustyo/blob/master/dokumentaatio/laatu/CheckstyleResults.png)
 
