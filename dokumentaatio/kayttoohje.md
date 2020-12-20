@@ -40,6 +40,16 @@ Sovellus käynnistyy aloitusnäkymään:
 
 Sovellukseen kirjaudutaan kirjoittamalla syötekenttiin käyttäjätunnus ja salasana, jotka on jo luotu, ja painamalla _Kirjaudu_.
 
+### Koekäyttö
+
+Sovellusta voi kokeilla ilman rekisteröitymistä seuraavilla valmiiksi järjestelmään luoduilla tunnuksilla ja reseptillä:
+
+Käyttäjätunnus: admin
+
+Salasana: secret
+
+Reseptin nimi: kaakao
+
 ## Uuden käyttäjän luominen
 
 Aloitusnäkymän kautta ohjelman uusi käyttäjä voi siirtyä rekisteröitymisnäkymään panikkeella _Rekisteröidy_ ja luoda siellä itselleen käyttäjätunnukset.
