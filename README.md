@@ -42,7 +42,7 @@ Ohjelman nykyisestä versiosta puuttuu reseptin muokkausmahdollisuus (paitsi poi
 
 [Viikko 6](https://github.com/a-bzzzz/ot-harjoitustyo/releases/tag/viikko6)
 
-[Loppupalautus](https://github.com/a-bzzzz/ot-harjoitustyo/releases/tag/viikko7)
+[Loppupalautus](https://github.com/a-bzzzz/ot-harjoitustyo/releases/tag/loppupalautus)
 
 
 ## Komentorivitoiminnot
