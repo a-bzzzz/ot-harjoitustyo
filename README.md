@@ -42,6 +42,8 @@ Ohjelman nykyisestä versiosta puuttuu reseptin muokkausmahdollisuus (paitsi poi
 
 [Viikko 6](https://github.com/a-bzzzz/ot-harjoitustyo/releases/tag/viikko6)
 
+[Loppupalautus](https://github.com/a-bzzzz/ot-harjoitustyo/releases/tag/loppupalautus)
+
 
 ## Komentorivitoiminnot
 
@@ -77,7 +79,7 @@ Ohjelman voi suorittaa komennolla
 java -jar jartiedoston_nimi.jar
 ```
 
-"Viikko 5" -releasen kautta haetun pakkauksen nimi on _recipes.jar_, joten sen voi suorittaa komennolla
+"Viikko 7" -releasen (1.0) kautta haetun pakkauksen nimi on _recipes.jar_, joten sen voi suorittaa komennolla
 
 ```
 java -jar recipes.jar

@@ -5,34 +5,45 @@
 
 ### Yleiskuvaus
 
-Sovelluksen avulla loppukäyttäjä voi lisätä, ylläpitää, hakea ja listata ja poistaa ruokaohjeita eli ruokareseptejään käyttäjätunnuksilla suojatussa ympäristössä. Aluksi loppukäyttäjä voi luoda itselleen käyttäjätunnukset järjestelmään.
+Sovelluksen avulla loppukäyttäjä voi lisätä, hakea (reseptin nimellä ja raaka-aineella), listata ja poistaa ruokaohjeita eli ruokareseptejään käyttäjätunnuksilla suojatussa ympäristössä. Aluksi loppukäyttäjä voi luoda itselleen käyttäjätunnukset järjestelmään.
+
+
+### Koekäyttö
+
+Sovellusta voi kokeilla ilman rekisteröitymistä seuraavilla valmiiksi järjestelmään luoduilla tunnuksilla ja reseptillä:
+
+Käyttäjätunnus: admin
+
+Salasana: secret
+
+Reseptin nimi: kaakao
 
 
 ### Käyttäjäroolit
 
-1. Loppukäyttäjä
-1. Ylläpitäjä (1. käyttökerralla sovellus luo admin-tunnukset, mutta ylläpitäjäroolin toimintojen parempi toteutus jää jatkokehitykselle)
+1. Pääkäyttäjä: 1. käyttökerralla sovellus luo _admin_-tunnukset lähinnä koekäyttöä varten, mutta varsinaisen ylläpitäjäroolin toimintojen parempi toteutus jää jatkokehitykselle
+1. Loppukäyttäjä: käyttäjä voi rekisteröityä eli luoda itselleen käyttäjätunnukset sovellukseen, jolloin hän voi tehdä yleiskuvauksessa määriteltyjä perustoimintoja
+
+Toistaiseksi molemmilla käyttäjärooleilla on yhtäläiset käyttöoikeudet, mutta sovellukselle on mahdollista jatkossa lisätä varsinaiset pääkäyttäjä- tai ylläpitäjärooli, joka oikeuttaa laajempiin käyttömahdollisuuksiin, joita voivat jatkokehitysversioissa olla mm.
+* kaikkien käyttäjätietojen lisäys, poisto ja muokkaus
+* mahdollisuus listata reseptitietoja laajemmin
+* mahdollisuus listata käyttäjätietoja
+* mahdollisuus ottaa raportteja sovelluksen käytöstä, tehdyistä muutoksista ja/tai muusta käyttäjästatistiikasta
 
 
 ### Toiminnallisuudet
 
-Perusversio: Tavalliset loppukäyttäjät voivat sovelluksella
-* luoda käyttäjätunnuksen -> tehty
-* kirjautua järjestelmään omilla käyttäjätunnuksillaan (järjestelmä ilmoittaa, jos käyttäjällä ei ole vielä tunnuksia eli oikeuksia järjetelmään pääsyyn) -> tehty 
-* luoda reseptin tai reseptejä -> tehty
-* hakea reseptiä tietyillä hakukriteereillä tai tietyn reseptikategorian kautta -> tehty: haku reseptin nimellä, muut hakutavat - TULOSSA
-* listata tietyn kategorian reseptinimiä ja/tai reseptien perustietoja - TULOSSA
-* muokata luomiaan reseptejä - TULOSSA
-* poistaa haetun reseptin - TULOSSA
-* kirjautua ulos järjestelmästä -> tehty
+Perusversio: Käyttäjät voivat sovelluksella (ts. seuraavat ominaisuudet on tehty sovellukseen toimiviksi)
+* rekisteröityä käyttäjäksi eli luoda käyttäjätunnuksen ja salasanan kirjautumista varten
+* kirjautua järjestelmään omilla käyttäjätunnuksillaan (järjestelmä ilmoittaa, jos käyttäjällä ei ole vielä tunnuksia eli oikeuksia järjetelmään pääsyyn) 
+* kirjautua järjestelmään myös em. _admin_-tunnuksilla, jollei halua rekisteröityä (ks. _Koekäyttö_) 
+* luoda reseptin tai reseptejä 
+* hakea reseptiä reseptin kokonaisella nimellä (isot tai pienet kirjaimet eivät ole määrääviä, mutta sanan on oltava muuten oikein kirjoitettu)
+* hakea reseptiä reseptiin kuuluvalla raaka-aineella (isot tai pienet kirjaimet eivät ole määrääviä, mutta sanan on oltava muuten oikein kirjoitettu)
+* listata kaikkien reseptikirjaan tallennettujen reseptien nimet (NB: tämä ominaisuus auttaa merkittävästi nimihaussa)
+* poistaa näkymään haetun reseptin
+* kirjautua ulos järjestelmästä
 
-Jatkokehitys: Ylläpitäjät voivat sovelluksessa edellä mainitun lisäksi
-* kirjautua järjestelmään admin-tunnuksilla -> tehty (alustavasti automaattisesti luodaan admin-tunnukset)
-* muokata ja listata käyttäjätietoja (loppukäyttäjien käyttäjätunnuksia)
-* poistaa käyttäjätietoja (loppukäyttäjien tunnuksia)
-* listata reseptejä ja niiden perustietoja hieman monipuolisemmin
-* ottaa raportteja järjestelmään tehdyistä muutoksista ja/tai muusta käyttäjästatistiikasta
-    
     
 ### Toimintaympäristön rajoitteet
 
@@ -48,12 +59,19 @@ Katso erillisistä käyttöliittymädokumenteista:
 * [GUI-kaavio](https://github.com/a-bzzzz/ot-harjoitustyo/blob/master/dokumentaatio/GUI/GUI-kaavio.pdf)
     
     
-### Jatkokehitysideoita
+### Jatkokehitystarpeita ja -ideoita
 
-* ylläpitäjän toiminnallisuudet (ks. edellä kohdasta “Toiminnallisuudet”)
-* loppukäyttäjä voi lähettää ylläpitäjälle tukipyynnön, jos unohtaa salasanansa
-* info-painikkeesta lisätietoja ko. Ikkunan käytöstä, opastekenttä/-ikkuna
-* lisää, parempia virheilmoituskenttiä/-ikkunoita, myös toiminnon peruuttamisia varten
-* reseptin hakutekijöihin erikoisruokavaliot / vältettävät raaka-aineet
-* resepteihin voisi lisätä mm. arviointeja, kuvia ym. lisätietoja
-* mahdollisuus raaka-ainevarastojen seurantaan
+* kohdassa _Käyttäjäroolit_ mainitut lisätoiminnot pääkäyttäjälle
+* loppukäyttäjä voisi lähettää ylläpitäjälle tukipyynnön, jos unohtaa salasanansa
+* reseptien haku reseptin nimen osalla
+* reseptin haku raaka-aineen nimen osalla
+* reseptien haku ja listaus tietyn reseptikategorian perusteella
+* reseptin tietojen muokkaus ja päivitys (muutenkin kuin poistamalla ja lisäämällä)
+* muita mahdollisia reseptien haku- ja listaustapoja
+* lisäkenttiä reseptin tietoihin, esim. erikoisruokavaliot/vältettävät raaka-aineet, valmistusaika, arvioinnit, kuvia, linkkejä
+* em. lisätietojen perusteella lisää hakutekijöitä, kuten esim. laktoosittomat, hyviksi arvostellut tai nopeasti valmistettavat ruoat
+* info-painike, jonka kautta lisätietoja ko. ikkunan käytöstä, tai muu ohje
+* parannuksia käyttöliittymään näkymien ulkoasuun, visuaalisuuteen ja käytettävyyteen
+* mahdollisuus raaka-ainevarastojen seuraantaan eli voi kuitata reseptin aineet käytetyiksi ja sovellus ylläpitää varastokirjanpitoa
+* muuta, missä vain mielikuvitus rajana?
+
