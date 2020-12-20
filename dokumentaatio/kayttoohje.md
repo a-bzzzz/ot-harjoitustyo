@@ -176,8 +176,7 @@ Alavalikosta löytyvät seuraavat painikkeet
 * _Muokkaa_: Ei ole varsinaisesti käytössä tässä ohjelmaversiossa, vaan käyttäjä saa ilmoituksen, että muokkaus on tehtävä kaksivaiheisesti: 1. poistettava resepti ja 2. lisättävä uudelleen korjattuna.
 
 * _Poista_: Varmistaa ensin käyttäjältä haluaako todella poistaa reseptin reseptikirjasta (käytännössä myös tietokannasta).
-
-** Käyttäjä voi joko peruuttaa poistamisen painamalla _PERUUTA_-painiketta tai vahvistaa reseptin poiston painamalla _POISTA_-painiketta.
+Käyttäjä voi joko peruuttaa poistamisen painamalla _PERUUTA_-painiketta tai vahvistaa reseptin poiston painamalla _POISTA_-painiketta.
 Näkymän alaosassa olevasta infokentästä näet onko poistaminen onnistunut vai ei.
 
 
