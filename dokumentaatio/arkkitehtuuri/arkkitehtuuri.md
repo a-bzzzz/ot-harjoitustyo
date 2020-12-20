@@ -15,23 +15,30 @@ Pakkausten sisällöt ovat seuraavat:
 
 ## Käyttöliittymä
 
-Käyttöliittymä sisältää useita näkymiä:
-* A   - ohjelman aloitussivu eli ikkuna, joka avautuu sovelluksen käynnistyessä
-* 0   - alkuvalinnat eli ensimmäinen valikkotaso
-* 1   - reseptihaku eli ikkuna, jossa käyttäjä hakee reseptiä tietyillä hakutekijöillä
-* 1.1 - reseptinäkymä, esittelee reseptin sisällön
-* 1.2 - reseptilistaus eli ikkuna, johon listataan useamman reseptin nimi, esim. kun hakutekijöillä löytyy useampi resepti -> TULOSSA
-* 2   - reseptin lisäys eli ikkuna, jossa käyttäjä syöttää reseptin tietoja ja luo uuden reseptin
-* 3   - reseptin muokkaus eli ikkuna, jossa käyttäjä voi muokata reseptin tietoja, tai poistaa reseptin -> TULOSSA
-* A.1 - rekisteröityminen eli popup-ikkuna, jossa uusi käyttäjä voi luoda itselleen käyttäjätunnukset ja tietonsa järjestelmään eli rekisteröityä
+Käyttöliittymä sisältää 6 erillistä näkymää, lisänä reseptilistanäkymä alkuvalikossa ja reseptihaussa:
+* A   - ohjelman aloitussivu: ikkuna, joka avautuu sovelluksen käynnistyessä, ja josta voi joko kirjautua sisään ohjelmaan tai siirtyä rekisteröitymisnäkymään
+* A.1 - rekisteröityminen: _popup_-ikkuna, jossa uusi käyttäjä voi luoda itselleen käyttäjätunnukset ja tietonsa järjestelmään
+* 0   - alkuvalikko: sisältää päätason valikon
+* 1   - reseptihaku: ikkuna, jossa käyttäjä hakee reseptiä tietyillä hakutekijöillä (tässä ohjelmaversiossa joko reseptin nimellä tai raaka-aineella)
+* 1.1 - reseptilistaus: apunäkymä, johon listataan kaikkien reseptikirjaan tallennettujen reseptien nimet (mahd. tulevissa versioissa myös esim. kun hakutekijöillä löytyy useampi resepti, ts. tietty valinta kaikista resepteistä)
+* 2   - uusi resepti: ikkuna, jossa käyttäjä syöttää reseptin tietoja ja luo uuden reseptin
+* 3   - reseptinäkymä, esittelee reseptin sisällön, NB: reseptin voi poistaa tässä näkymässä
 
-Lisäksi jatkossa ohjelmaan on mahdollista lisätä vaikkapa muita popup-ikkunoita, kuten:
-* A.2 - kirjautuminen eli oma pikkuikkunansa pelkästään kirjautumista varten (jos on tarpeen)
-* A.3 - salasana-tukipyyntö eli pikkuikkuna, jonka kautta loppukäyttäjä voi pyytää apua pääkäyttäjältä (admin) käyttäjätunnusten palauttamisen kanssa
+Jatkokehityksessä on tuleviin ohjelmaversioihin mahdollista lisätä muita näkymiä, "popup-ikkunoita" tai lisänäkymiä, kuten:
+* reseptin muokkaus: ikkuna, jossa käyttäjä voi muokata reseptin tietoja, tai poistaa reseptin
+* kategoriahaku: reseptin haku kategorian perusteella
+* kirjautuminen: oma pikkuikkunansa pelkästään kirjautumista varten (jos on tarpeen)
+* salasana-tukipyyntö: pikkuikkuna, jonka kautta loppukäyttäjä voi pyytää apua pääkäyttäjältä (_admin_) käyttäjätunnusten palauttamisen kanssa
+* muita mahdollisia näkymiä riippuen tulevista lisätoiminnoista
 
 Käyttöliittymäikkunat on toteutettu JavaFX:n Scene-olioina. Käyttöliittymän koodi löytyy _gui_-pakkauksen _RecipesGUI_-luokasta.
 
 _RecipesGUI_-luokka puolestaan kutsuu muiden pakkausten luokkia ja käyttää yleensä apuna kutsuissa käyttäjän syöttämiä parametreja.
+
+Katso tarkemmin erillisistä käyttöliittymädokumenteista:
+* [GUI: ikkunat ja yhteyskaavio](https://github.com/a-bzzzz/ot-harjoitustyo/blob/master/dokumentaatio/GUI/GUI-ikkunat.pdf)
+* [GUI: rakenne](https://github.com/a-bzzzz/ot-harjoitustyo/blob/master/dokumentaatio/GUI/GUI-rakenne.md)
+* [GUI: kaavio](https://github.com/a-bzzzz/ot-harjoitustyo/blob/master/dokumentaatio/GUI/GUI_SR_kaavio.png)
 
 
 ## Sovelluslogiikka
