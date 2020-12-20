@@ -117,7 +117,7 @@ olisi hyvä, että kirjoitat kategorian nimen muuten oikein.
 
 * Jos tiedot ovat väärin ja haluat tyhjentää kentät ennen uusien tietojen syöttämistä, paina _Tyhjennä_-painiketta.
 
-1. Syöte seuraavaksi reseptin raaka-aineet ja niiden määrät yksi aine kerrallaan määrineen kenttiin _Raaka-aine_ ja _Määrä_.
+2. Syöte seuraavaksi reseptin raaka-aineet ja niiden määrät yksi aine kerrallaan määrineen kenttiin _Raaka-aine_ ja _Määrä_.
 
 * Raaka-aineen määrän voi kirjoittaa esim. seuraavissa muodoissa: 2 dl, 4 kpl, 1 lusikallinen jne.
 
@@ -125,13 +125,13 @@ olisi hyvä, että kirjoitat kategorian nimen muuten oikein.
 
 * Ennen seuraavan aineen tietojen lisäämistä paina _Uusi aine_ -painiketta.
 
-1. Viimeisinä tietoina syötetään valmistusohjeet rivi kerrallaan.
+3. Viimeisinä tietoina syötetään valmistusohjeet rivi kerrallaan.
 
 * Kirjoita ohjerivi _Valmistusvaihe_-kenttään ja paina _Lisää vaihe_ -painiketta.
 
 * Ennen seuraavan vaiheen lisäämistä paina _Uusi vaihe_ -painiketta.
 
-1. Kun edellä mainitut vaiheet on käyty läpi ja kaikki tarvittavat tiedot on syötetty, paina lopussa olevaa _Lisää resepti_ -painiketta.
+4. Kun edellä mainitut vaiheet on käyty läpi ja kaikki tarvittavat tiedot on syötetty, paina lopussa olevaa _Lisää resepti_ -painiketta.
 
 * Mikäli haluat jatkaa lisäämällä seuraavan uuden reseptin, paina alaosassa olevaa _Uusi resepti_ -painiketta.
 
