@@ -6,7 +6,7 @@ pienempiin osiin ei olisi ollut tarkoituksen mukaista, vaan olisi vain lisännyt
 
 Nämä "ylipitkät" metodit näkyvät seuraavasta Checkstyle-raportista:
 
-<img src="https://github.com/a-bzzzz/ot-harjoitustyo/blob/master/dokumentaatio/laatu/CheckstyleResults.png" width="400">
+<img src="https://github.com/a-bzzzz/ot-harjoitustyo/blob/master/dokumentaatio/laatu/CheckstyleResults.png" width="600">
 
 
 
