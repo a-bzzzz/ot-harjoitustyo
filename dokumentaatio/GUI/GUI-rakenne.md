@@ -1,161 +1,75 @@
 **IKKUNAT**
 
 
-A-aloitussivu
+A-Aloitussivu
 
-0-alkuvalinnat
+A.1-Rekisteröityminen
 
-1-reseptihaku
+0-Alkuvalikko
 
-1.1-reseptinäkymä
+1-Reseptihaku
 
-1.2-reseptilistaus
+1.1-Reseptilistaus
 
-2-reseptilisäys
+2-Uusi resepti
 
-3-reseptimuokkaus
+3-Reseptinäkymä
 
-A.1-tunnukset
-
-A.2-login
-
-A.3-salasana
-
-2.1-resepti lisätty
-
-2.2-resepti päivitetty
-
-3.1-poistetaanko?
-
-3.2-resepti poistettu
-
-
-
-MAHD. JATKOSSA LISÄTTÄVIÄ
-
-
-erilaisia virheilmoituksia, esim. kun hakutekijöillä ei löydy
-
-info -> ko. ikkunaan oma opasteikkuna/-kenttä
-
-peruuttamisen/lopettamisen vahvistava ikkuna
 
 -------------------------------------------------------
 
 **IKKUNAT JA YHTEYDET**
 
 
-A-aloitussivu
+A-Aloitussivu
 
--> login
+-> Rekisteröityminen
 
--> tunnukset
-
-
-0-alkuvalinnat
-
--> 1-reseptihaku (1. painikkeesta: Hae reseptejä)
-
--> 2-reseptilisäys (2. painikkeesta: Luo uusi resepti)
-
--> 3-reseptimuokkaus (3. painikkeesta: Muokkaa reseptejä)
+-> Alkuvalikko
 
 
-1-reseptihaku
+A.1-Rekisteröityminen
 
--> 0-alkuvalinnat
+-> A-Aloitussivu
 
--> 1.1-reseptinäkymä
-
--> 1.2-reseptilistaus
-
--> 3-reseptimuokkaus
+-> 0-Alkuvalikko
 
 
-1.1-reseptinäkymä
+0-Alkuvalikko
 
--> 0-alkuvalinnat
+-> 1-Reseptihaku (1. painikkeesta: Hae reseptejä)
 
--> 1-reseptihaku
+-> 2-Uusi resepti (2. painikkeesta: Luo uusi resepti)
 
--> 3-reseptimuokkaus
-
--> 3.1-poistetaanko?
+-> 3-Reseptilistaus (3. painikkeesta: Listaa kaikki reseptit)
 
 
-1.2-reseptilistaus
+1-Reseptihaku
 
--> 0-alkuvalinnat
+-> 0-Alkuvalikko
 
--> 1-reseptihaku
+-> 1.1-Reseptilistaus
 
--> 1.1-reseptinäkymä
-
-
-2-reseptilisäys
-
--> 0-alkuvalinnat
-
--> 2.1-resepti lisätty
+-> 3-Reseptinäkymä (Reseptihaun kautta)
 
 
-3-reseptimuokkaus
+1.1-Reseptilistaus
 
--> 0-alkuvalinnat
+-> 0-Alkuvalikko
 
--> 1-reseptihaku
+-> 1-Reseptihaku
 
--> 2.2.-resepti päivitetty
-
--> 3.1-poistetaanko?
+-> 3-Reseptinäkymä
 
 
-A.1-tunnukset
+2-Uusi resepti
 
--> 0-alkuvalinnat
-
--> A-aloitussivu
+-> 0-Alkuvalikko
 
 
-A.2-login
+3-Reseptinäkymä
 
--> 0-alkuvalinnat
+-> 0-Alkuvalikko
 
--> A.3-salasana
-
--> A.1-tunnukset
-
--> A-aloitussivu
-
-
-A.3-salasana
-
-* sähköpostipyyntö salasanasta
-
--> A-aloitussivu
-
-
-2.1-resepti lisätty
-
-* ikkunan sulkeminen
-
-
-2.2-resepti päivitetty
-
-* ikkunan sulkeminen
-
-
-3.1-poistetaanko?
-
--> 3-reseptimuokkaus
-
--> 3.2-resepti poistettu
-
-* ikkunan sulkeminen
-
-
-3.2-resepti poistettu
-
-* ikkunan sulkeminen
-
+-> 1-Reseptihaku
 
