@@ -59,13 +59,18 @@ Tarkimman tiedon löydät sovelluksen [JavaDoc-dokumentaatiosta](https://github.
 
 Sovelluksen pysyviksi tarkoitetut tiedot, reseptit ja niiden raaka-aineet ja ohjerivit sekä käyttäjätiedot, talletetaan SQLite-tietokantoihin ja niiden tauluihin.
 
-### Tietokannat ja niiden taulukot
+### Tietokannat, niiden taulukot ja taulukoiden sarakkeet
 
-| UsersDatabase | RecipesDatabase |
-| :-------------| :---------------|
-| Users         | Recipes         |
-|               | Stuff           |
-|               | Guidance        |
+| UsersDatabase   | columns                                         |
+| :-------------  | :-----------------------------------------------|
+| Users           | username, password, firstname, lastname, email  | 
+                       
+
+| RecipesDatabase | columns                       |
+| :---------------| :-----------------------------|
+| RecipesDatabase | id, name, portions, category  |
+| Stuff           | id, stuff_name, amount        |
+| Guidance        | id, row, text                 |
 
 
 Pakkauksen _recipes.db_ luokat _RecipesDB_, _UsersDB_ ja _UsersInterface_ huolehtivat tietojen tallettamisesta edellä näkyviin tietokantoihin, sekä tietojen hakemisesta näistä tietokannoista. 
