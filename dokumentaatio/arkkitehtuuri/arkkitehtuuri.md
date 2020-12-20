@@ -61,12 +61,12 @@ Sovelluksen pysyviksi tarkoitetut tiedot, reseptit ja niiden raaka-aineet ja ohj
 
 ### Tietokannat, niiden taulukot ja taulukoiden sarakkeet
 
-| UsersDatabase   | columns                                         |
+| UsersDatabase   | sarakkeet                                       |
 | :-------------  | :-----------------------------------------------|
 | Users           | username, password, firstname, lastname, email  | 
                        
 
-| RecipesDatabase | columns                       |
+| RecipesDatabase | sarakkeet                     |
 | :---------------| :-----------------------------|
 | RecipesDatabase | id, name, portions, category  |
 | Stuff           | id, stuff_name, amount        |
