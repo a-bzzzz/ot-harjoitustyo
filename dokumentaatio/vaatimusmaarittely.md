@@ -36,10 +36,10 @@ Toistaiseksi molemmilla käyttäjärooleilla on yhtäläiset käyttöoikeudet, m
 Perusversio: Käyttäjät voivat sovelluksella (ts. seuraavat ominaisuudet on tehty sovellukseen toimiviksi)
 * rekisteröityä käyttäjäksi eli luoda käyttäjätunnuksen ja salasanan kirjautumista varten
 * kirjautua järjestelmään omilla käyttäjätunnuksillaan (järjestelmä ilmoittaa, jos käyttäjällä ei ole vielä tunnuksia eli oikeuksia järjetelmään pääsyyn) 
-* kirjautua järjestelmään myös em. admin-tunnuksilla, jollei halua rekisteröityä (ks. _Koekäyttö_) 
+* kirjautua järjestelmään myös em. _admin_-tunnuksilla, jollei halua rekisteröityä (ks. _Koekäyttö_) 
 * luoda reseptin tai reseptejä 
-* hakea reseptiä reseptin kokonaisella nimellä (isot tai pienet kirjaimet eivät ole määrääviä, mutta sanan oltava muuten oikein kirjoitettu)
-* hakea reseptiä reseptiin kuuluvalla raaka-aineella (isot tai pienet kirjaimet eivät ole määrääviä, mutta sanan oltava muuten oikein kirjoitettu)
+* hakea reseptiä reseptin kokonaisella nimellä (isot tai pienet kirjaimet eivät ole määrääviä, mutta sanan on oltava muuten oikein kirjoitettu)
+* hakea reseptiä reseptiin kuuluvalla raaka-aineella (isot tai pienet kirjaimet eivät ole määrääviä, mutta sanan on oltava muuten oikein kirjoitettu)
 * listata kaikkien reseptikirjaan tallennettujen reseptien nimet (NB: tämä ominaisuus auttaa merkittävästi nimihaussa)
 * poistaa näkymään haetun reseptin
 * kirjautua ulos järjestelmästä
@@ -61,7 +61,7 @@ Katso erillisistä käyttöliittymädokumenteista:
     
 ### Jatkokehitystarpeita ja -ideoita
 
-* Kohdassa _Käyttäjäroolit_ mainitut lisätoiminnot pääkäyttäjälle
+* kohdassa _Käyttäjäroolit_ mainitut lisätoiminnot pääkäyttäjälle
 * loppukäyttäjä voisi lähettää ylläpitäjälle tukipyynnön, jos unohtaa salasanansa
 * reseptien haku reseptin nimen osalla
 * reseptin haku raaka-aineen nimen osalla
