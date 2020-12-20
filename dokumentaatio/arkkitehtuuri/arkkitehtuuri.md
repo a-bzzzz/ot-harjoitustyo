@@ -73,7 +73,7 @@ Sovelluksen pysyviksi tarkoitetut tiedot, reseptit ja niiden raaka-aineet ja ohj
 | Guidance        | id, row, text                 |
 
 
-Pakkauksen _recipes.db_ luokat _RecipesDB_, _UsersDB_ ja _UsersInterface_ huolehtivat tietojen tallettamisesta edellä näkyviin tietokantoihin, sekä tietojen hakemisesta näistä tietokannoista. 
+Pakkauksen _recipes.db_ luokat _RecipesDB_, _UsersDB_ ja _UsersInterface_ huolehtivat tietojen tallettamisesta edellä näkyviin tietokantoihin, sekä tietojen hakemisesta näistä tietokannoista. Katso myös yllä olevasta pakkaus- ja luokkakaaviosta pakkaus _db_.
 
 
 ## Päätoiminnallisuudet
