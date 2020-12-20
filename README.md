@@ -31,7 +31,7 @@ Ohjelman nykyisestä versiosta puuttuu reseptin muokkausmahdollisuus (paitsi poi
 
 [Testausdokumentaatio](https://github.com/a-bzzzz/ot-harjoitustyo/blob/master/dokumentaatio/testaus/testaus.md)
 
-[Laatudokumentaatio](https://github.com/a-bzzzz/ot-harjoitustyo/blob/master/dokumentaatio/laatu/CheckstyleResults.png)
+[Laatudokumentaatio](https://github.com/a-bzzzz/ot-harjoitustyo/blob/master/dokumentaatio/laatu/laatu.md)
 
 [Työaikakirjanpito](https://github.com/a-bzzzz/ot-harjoitustyo/blob/master/dokumentaatio/tunnit/tyoaikakirjanpito.pdf)
 
