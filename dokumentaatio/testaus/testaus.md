@@ -45,9 +45,11 @@ Sovelluksen järjestelmätestaus on suoritettu manuaalisesti (ks. tämän dokume
 
 Sovellus on ladattu jar-pakettina Linux Fedora 32 -työpöytäympäristöön, joka toimii MacBook pro -tietokoneella. 
 Kehitysympäristön (Chubbli/Ubuntu 20.04.1 LTS) lisäksi sovellusta on testattu manuaalisesti em. ulkoisessa ympäristössä. 
+
 Erityisesti käyttöliittymän ikkunat ovat näkyneet paremmin juuri Fedoralla kuin Ubuntulla. 
+
 Koska sovellus luo ohjelman käynnistyessa tarvittavat tietokannat (sekä alustavat käyttäjätiedot ja ensimmäisen reseptin) jar-pakkauksen sisältävään kansioon,
-ei testauksessa ole havaittu ongelmia loppuversiossa ongelmia tietokantayhteyksien kanssa. Tietokantojen toimintaa on testattu sekä käynnistämällä ohjelma siten,
+ei testauksessa ole havaittu loppuversiossa ongelmia tietokantayhteyksien kanssa. Tietokantojen toimintaa on testattu sekä käynnistämällä ohjelma siten,
 että tietokantoja ei ole vielä luotu, että siten, että tietokannat on jo luotu valmiiksi. 
 Lopullisessa versiossa ei ole ilmennyt poikkeavuuksia tietokantojen käytössä näissä tapauksissa.
 
