@@ -54,9 +54,9 @@ Perusversio: Käyttäjät voivat sovelluksella (ts. seuraavat ominaisuudet on te
 ### Käyttöliittymäkuvaus
 
 Katso erillisistä käyttöliittymädokumenteista:
-* [GUI-ikkunat](https://github.com/a-bzzzz/ot-harjoitustyo/blob/master/dokumentaatio/GUI/GUI-ikkunat.pdf)
-* [GUI-rakenne](https://github.com/a-bzzzz/ot-harjoitustyo/blob/master/dokumentaatio/GUI/GUI-rakenne.md)
-* [GUI-kaavio](https://github.com/a-bzzzz/ot-harjoitustyo/blob/master/dokumentaatio/GUI/GUI-kaavio.pdf)
+* [GUI: ikkunat ja yhteyskaavio](https://github.com/a-bzzzz/ot-harjoitustyo/blob/master/dokumentaatio/GUI/GUI-ikkunat.pdf)
+* [GUI: rakenne](https://github.com/a-bzzzz/ot-harjoitustyo/blob/master/dokumentaatio/GUI/GUI-rakenne.md)
+* [GUI: kaavio](https://github.com/a-bzzzz/ot-harjoitustyo/blob/master/dokumentaatio/GUI/GUI_SR_kaavio.png)
     
     
 ### Jatkokehitystarpeita ja -ideoita
